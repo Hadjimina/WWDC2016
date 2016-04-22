@@ -10,14 +10,17 @@ import UIKit
 
 class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
-    var pageViewController: UIPageViewController?
+    var pageViewController: PHPageViewController?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
-        self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
+        self.pageViewController = PHPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
 
         let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!

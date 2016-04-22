@@ -21,13 +21,13 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     var pageData: [String] = []
-
+    
 
     override init() {
         super.init()
         // Create the data model.
-        let dateFormatter = NSDateFormatter()
-        pageData = dateFormatter.monthSymbols
+
+        pageData = ["Albert Einstein","Pablo Picasso"]
     }
 
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController? {
@@ -72,6 +72,15 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
+    
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return pageData.count
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return 0
+    }
+
 
 }
 

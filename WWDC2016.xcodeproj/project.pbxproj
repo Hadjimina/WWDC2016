@@ -16,6 +16,13 @@
 		FC664AE41CCA98C8003AC3D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC664AE21CCA98C8003AC3D5 /* LaunchScreen.storyboard */; };
 		FC664AEF1CCA98C8003AC3D5 /* WWDC2016Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664AEE1CCA98C8003AC3D5 /* WWDC2016Tests.swift */; };
 		FC664AFA1CCA98C8003AC3D5 /* WWDC2016UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664AF91CCA98C8003AC3D5 /* WWDC2016UITests.swift */; };
+		FC664B081CCA9A59003AC3D5 /* Albert Einstein.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FC664B071CCA9A59003AC3D5 /* Albert Einstein.jpg */; };
+		FC664B0A1CCA9AB9003AC3D5 /* Pablo Picasso.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FC664B091CCA9AB9003AC3D5 /* Pablo Picasso.jpg */; };
+		FC664B0C1CCAAA3D003AC3D5 /* PHPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */; };
+		FC664B101CCAB478003AC3D5 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */; };
+		FC664B121CCABAAB003AC3D5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC664B111CCABAAA003AC3D5 /* MapKit.framework */; };
+		FC664B141CCAC344003AC3D5 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664B131CCAC344003AC3D5 /* CustomCell.swift */; };
+		FC664B161CCAC506003AC3D5 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = FC664B151CCAC506003AC3D5 /* dot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +58,13 @@
 		FC664AF51CCA98C8003AC3D5 /* WWDC2016UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WWDC2016UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC664AF91CCA98C8003AC3D5 /* WWDC2016UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC2016UITests.swift; sourceTree = "<group>"; };
 		FC664AFB1CCA98C8003AC3D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC664B071CCA9A59003AC3D5 /* Albert Einstein.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Albert Einstein.jpg"; sourceTree = "<group>"; };
+		FC664B091CCA9AB9003AC3D5 /* Pablo Picasso.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Pablo Picasso.jpg"; sourceTree = "<group>"; };
+		FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHPageViewController.swift; sourceTree = "<group>"; };
+		FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationViewController.swift; path = ../LocationViewController.swift; sourceTree = "<group>"; };
+		FC664B111CCABAAA003AC3D5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FC664B131CCAC344003AC3D5 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		FC664B151CCAC506003AC3D5 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot.png; path = ../../../dot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC664B121CCABAAB003AC3D5 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +96,7 @@
 		FC664AC91CCA98C7003AC3D5 = {
 			isa = PBXGroup;
 			children = (
+				FC664B111CCABAAA003AC3D5 /* MapKit.framework */,
 				FC664AD41CCA98C8003AC3D5 /* WWDC2016 */,
 				FC664AED1CCA98C8003AC3D5 /* WWDC2016Tests */,
 				FC664AF81CCA98C8003AC3D5 /* WWDC2016UITests */,
@@ -101,14 +117,20 @@
 		FC664AD41CCA98C8003AC3D5 /* WWDC2016 */ = {
 			isa = PBXGroup;
 			children = (
+				FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */,
+				FC664B131CCAC344003AC3D5 /* CustomCell.swift */,
 				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
 				FC664AD71CCA98C8003AC3D5 /* RootViewController.swift */,
 				FC664AD91CCA98C8003AC3D5 /* DataViewController.swift */,
 				FC664ADB1CCA98C8003AC3D5 /* ModelController.swift */,
+				FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */,
 				FC664ADD1CCA98C8003AC3D5 /* Main.storyboard */,
 				FC664AE01CCA98C8003AC3D5 /* Assets.xcassets */,
 				FC664AE21CCA98C8003AC3D5 /* LaunchScreen.storyboard */,
 				FC664AE51CCA98C8003AC3D5 /* Info.plist */,
+				FC664B071CCA9A59003AC3D5 /* Albert Einstein.jpg */,
+				FC664B091CCA9AB9003AC3D5 /* Pablo Picasso.jpg */,
+				FC664B151CCAC506003AC3D5 /* dot.png */,
 			);
 			path = WWDC2016;
 			sourceTree = "<group>";
@@ -235,8 +257,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC664B0A1CCA9AB9003AC3D5 /* Pablo Picasso.jpg in Resources */,
 				FC664AE41CCA98C8003AC3D5 /* LaunchScreen.storyboard in Resources */,
 				FC664AE11CCA98C8003AC3D5 /* Assets.xcassets in Resources */,
+				FC664B161CCAC506003AC3D5 /* dot.png in Resources */,
+				FC664B081CCA9A59003AC3D5 /* Albert Einstein.jpg in Resources */,
 				FC664ADF1CCA98C8003AC3D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,8 +288,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC664AD81CCA98C8003AC3D5 /* RootViewController.swift in Sources */,
+				FC664B0C1CCAAA3D003AC3D5 /* PHPageViewController.swift in Sources */,
 				FC664ADC1CCA98C8003AC3D5 /* ModelController.swift in Sources */,
+				FC664B101CCAB478003AC3D5 /* LocationViewController.swift in Sources */,
 				FC664ADA1CCA98C8003AC3D5 /* DataViewController.swift in Sources */,
+				FC664B141CCAC344003AC3D5 /* CustomCell.swift in Sources */,
 				FC664AD61CCA98C8003AC3D5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
