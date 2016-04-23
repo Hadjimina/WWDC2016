@@ -11,7 +11,8 @@ import UIKit
 class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     var pageViewController: PHPageViewController?
-
+    var currentIndex:Int!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         self.pageViewController = PHPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
 
-        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
+        if (currentIndex == nil) {
+            currentIndex = 0
+        }
+        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(currentIndex, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
 
@@ -40,6 +44,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         self.pageViewController!.view.frame = pageViewRect
 
         self.pageViewController!.didMoveToParentViewController(self)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,7 +93,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         return .Mid
     }
+    
 
-
+   
 }
 

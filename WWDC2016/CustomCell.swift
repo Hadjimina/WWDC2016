@@ -62,7 +62,7 @@ class CustomCell: UITableViewCell {
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[date(14)]", options: [], metrics: nil, views: viewsDict))
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[line]|", options: [], metrics: nil, views: viewsDict))
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-16-[dot(5)]", options: [], metrics: nil, views: viewsDict))
-                                    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[text]-|", options: [], metrics: nil, views: viewsDict))
+                                    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[text(>=175)]-|", options: [], metrics: nil, views: viewsDict))
 
             
         

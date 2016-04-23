@@ -19,13 +19,12 @@ class DataViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.clipsToBounds = true
         
         transparentBtn.opaque = true
         transparentBtn.setTitle("", forState: UIControlState.Normal)
         
-        //3D touch
-
+        backgroundImage.clipsToBounds = true;
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,9 +36,13 @@ class DataViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        //NavBar
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
         var descriptiondic: [String:String] = [
             "Albert Einstein" : "Theory of Relativity",
-            "Pablo Picasso" : "Painted stuff"
+            "Mahatma Gandhi" : "Fighting without weapons",
+            "Martin Luther King":"Civil Rights dude"
         ]
         
         nameLabel.text = dataObject
@@ -49,9 +52,16 @@ class DataViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
         if (segue.identifier == "gotolocation") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
+            destinationVC.statusStyle = UIStatusBarStyle.Default
+        }
+        else if (segue.identifier == "gotolocationpeek") {
+            let destinationVC = segue.destinationViewController as! LocationViewController
+            destinationVC.data = dataObject
+            destinationVC.statusStyle = UIStatusBarStyle.LightContent
         }
     }
     
@@ -66,6 +76,5 @@ class DataViewController: UIViewController {
         self.performSegueWithIdentifier("gotolocation", sender: nil)
     }
     
-    
-}
+  }
 

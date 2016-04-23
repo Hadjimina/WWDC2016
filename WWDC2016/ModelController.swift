@@ -21,17 +21,18 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     var pageData: [String] = []
-    
+    var currentIndex = 0
 
     override init() {
         super.init()
+        
         // Create the data model.
-
-        pageData = ["Albert Einstein","Pablo Picasso"]
+        pageData = ["Albert Einstein","Mahatma Gandhi","Martin Luther King"]
     }
 
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController? {
         // Return the data view controller for the given index.
+        currentIndex = index
         if (self.pageData.count == 0) || (index >= self.pageData.count) {
             return nil
         }
@@ -53,7 +54,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController as! DataViewController)
         if (index == 0) || (index == NSNotFound) {
-            return nil
+            index = self.pageData.count;
         }
         
         index--
@@ -68,7 +69,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         
         index++
         if index == self.pageData.count {
-            return nil
+            index = 0
         }
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
@@ -78,7 +79,13 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+        if currentIndex != 0 {
+            return currentIndex
+        }
+        else{
+            return 0
+        }
+        
     }
 
 
