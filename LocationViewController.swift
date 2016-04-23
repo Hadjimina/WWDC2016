@@ -28,6 +28,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     var currentLocations:[CLLocation]!
     var currentEvents:[String]!
     var currentYears:[String]!
+    var currentDescriptions:[String]!
     
 
     
@@ -54,6 +55,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         currentLocations = getLocationForPersonWithIndex(currentIndex)
         currentYears = getYearsForPersonWithIndex(currentIndex)
         currentEvents = getEventsForPersonWithIndex(currentIndex)
+        currentDescriptions = getAnnotationDescForPersonWithIndex(currentIndex)
         
         //Status Bar
         UIApplication.sharedApplication().statusBarStyle = statusStyle
@@ -77,15 +79,10 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 250
         
-      /*  self.edgesForExtendedLayout=UIRectEdge.None;
-        self.extendedLayoutIncludesOpaqueBars=false;
-        self.automaticallyAdjustsScrollViewInsets=false;*/
-        
-        
         //Add touchevent to map
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LocationViewController.mapTapped))
+        /*let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(LocationViewController.mapTapped))
         mapView.userInteractionEnabled = true
-        mapView.addGestureRecognizer(tapGestureRecognizer)
+        mapView.addGestureRecognizer(tapGestureRecognizer)*/
         
         //Setup Orientation
         let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
@@ -94,7 +91,17 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
         
         
+        //Setup Annotations
+        for i in 0..<currentDescriptions.count {
+            let artwork = Artwork(title: currentYears[i],
+                                  locationName: currentDescriptions[i],
+                                  location: currentLocations[i] )
+            mapView.addAnnotation(artwork)
+        }
 
+        
+        
+        
     }
     
     func centerMapOnLocation(location: CLLocation, radius: CLLocationDistance) {
@@ -107,6 +114,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             }
 
         }
+
     }
     
 
@@ -241,9 +249,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     
     //Data Setup
     func getLocationForPersonWithIndex(index: Int) -> [CLLocation] {
-        var returnArray = []
         
-        print("person index"+String(index))
         switch index {
 //        case 0:
             
@@ -256,8 +262,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 CLLocation(latitude: -26.2031134, longitude: 28.0270712),
                 CLLocation(latitude: 31.6206437, longitude: 74.8801088),
                 CLLocation(latitude: 37.5334698, longitude:-121.9984011),
-                CLLocation(latitude: 21.3350822, longitude:72.6225087),
-                CLLocation(latitude: 19.0759837, longitude:72.8776559),
+                CLLocation(latitude: 19.0759837, longitude:72.8776559),//switch 2
+                CLLocation(latitude: 21.33111458, longitude:72.62580872),//1
                 CLLocation(latitude: 28.7040592, longitude:77.1024902),
                 CLLocation(latitude: 18.5523254, longitude:73.9015002),
                 CLLocation(latitude: 20.593684, longitude:78.96288),
@@ -265,19 +271,17 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 CLLocation(latitude: 33.778175, longitude:76.5761714),
                 CLLocation(latitude: 28.7040592, longitude:77.1024902),
                 CLLocation(latitude: 28.60177, longitude:77.2143393)]
+    
         //case 2:
             
         default:
             return []
         }
         
-        return returnArray as! [CLLocation]
     }
     func getEventsForPersonWithIndex(index: Int) -> [String] {
-        var returnArray = []
-        
-        print("event index"+String(index))
-        
+
+
         switch index {
         /*case 0:
             */
@@ -289,12 +293,10 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         default:
             return []
         }
-        return returnArray as! [String]
+
     }
     
     func getYearsForPersonWithIndex(index: Int) -> [String]{
-        
-                print("year index"+String(index))
         
         switch index {
         /*case 0:
@@ -308,4 +310,33 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
     }
     
+    func getAnnotationDescForPersonWithIndex(index: Int) -> [String] {
+        switch index {
+        case 1:
+            return ["Gandhis Brithplace","Graduation from Inner Temple Law School","Thrown off of train due to discrimination","Natal Indian Congress is founded","Attack by angry mob","Mass meetings outside the Hamidia Mosque","Burning of registration cards as protest","Jallianwala Bagh massacre","Boycott of british goods","Gandhi arrested for producing salt","Gandhis Quit India speech","Beginning 21 day hunger strike in Delhi","Release of prisoners","First steps to Indian Indepen independence","War over Kashmir and Jammu","Start of another hunger strike (probably in Delhi) in order to achieve peace","Assassination at Birla House (now Gandhi Smriti)"]
+        default:
+            return []
+        }
+    }
+    
+    //Map Pins with Annotatios
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as? Artwork {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView { // 2
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                // 3
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.rightCalloutAccessoryView = UIButton(type:.System) as UIView
+            }
+            return view
+        }
+        return nil
+    }
 }

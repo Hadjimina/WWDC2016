@@ -24,6 +24,7 @@
 		FCA02EE21CCBAD0200615DBE /* Martin Luther King.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */; };
 		FCA02EE41CCBAD0600615DBE /* Mahatma Gandhi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */; };
 		FCA02EE61CCBAD0900615DBE /* Albert Einstein.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */; };
+		FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EE91CCC1E9400615DBE /* Artwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Martin Luther King.jpg"; path = "../../../../Desktop/Martin Luther King.jpg"; sourceTree = "<group>"; };
 		FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Mahatma Gandhi.jpg"; path = "../../../../Desktop/Mahatma Gandhi.jpg"; sourceTree = "<group>"; };
 		FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Albert Einstein.jpg"; path = "../../../../Desktop/Albert Einstein.jpg"; sourceTree = "<group>"; };
+		FCA02EE91CCC1E9400615DBE /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */,
+				FCA02EE91CCC1E9400615DBE /* Artwork.swift */,
 				FC664B131CCAC344003AC3D5 /* CustomCell.swift */,
 				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
 				FC664AD71CCA98C8003AC3D5 /* RootViewController.swift */,
@@ -294,6 +297,7 @@
 			files = (
 				FC664AD81CCA98C8003AC3D5 /* RootViewController.swift in Sources */,
 				FC664B0C1CCAAA3D003AC3D5 /* PHPageViewController.swift in Sources */,
+				FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */,
 				FC664ADC1CCA98C8003AC3D5 /* ModelController.swift in Sources */,
 				FC664B101CCAB478003AC3D5 /* LocationViewController.swift in Sources */,
 				FC664ADA1CCA98C8003AC3D5 /* DataViewController.swift in Sources */,
