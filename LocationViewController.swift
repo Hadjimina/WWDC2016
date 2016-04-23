@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate {
+class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate {
 
     //Constraints
     @IBOutlet weak var navBarHeight: NSLayoutConstraint!
@@ -31,7 +32,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     var currentDescriptions:[String]!
     
 
-    
+    //Geo
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +92,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             changeMapView(true)
         }
         
-        
         //Setup Annotations
         for i in 0..<currentDescriptions.count {
             let artwork = Artwork(title: currentYears[i],
@@ -99,9 +100,9 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             mapView.addAnnotation(artwork)
         }
 
-        
-        
-        
+        //Geo
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
     }
     
     func centerMapOnLocation(location: CLLocation, radius: CLLocationDistance) {
@@ -339,4 +340,57 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
         return nil
     }
+    
+    
+    //Geo
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        mapView.showsUserLocation = (status == .AuthorizedAlways)
+    }
+    
+    func regionFromCLLocation(location: CLLocation,year : String) -> CLCircularRegion {
+        
+        let region = CLCircularRegion(center: location.coordinate, radius: 6000, identifier: year)
+        region.notifyOnEntry = true
+        return region
+    }
+    
+    func startMonitoringLocation(location: CLLocation,year : String) {
+        
+        if !CLLocationManager.isMonitoringAvailableForClass(CLCircularRegion) {
+            showSimpleAlertWithTitle("Error", message: "Geofencing is not supported on this device!", viewController: self)
+            return
+        }
+        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+            showSimpleAlertWithTitle("Warning", message: "Your geotification is saved but will only be activated once you grant Geotify permission to access the device location.", viewController: self)
+        }
+        let region = regionFromCLLocation(location, year: year)
+        locationManager.startMonitoringForRegion(region)
+    }
+    
+    func stopMonitoringLocations(binaryValue:Bool) {
+        for region in locationManager.monitoredRegions {
+            if let circularRegion = region as? CLCircularRegion {
+                if binaryValue {
+                    locationManager.stopMonitoringForRegion(circularRegion)
+                }
+            }
+        }
+    }
+    @IBAction func didClickWatch(sender: AnyObject) {
+        
+        //Stop to be implemented => NSUserdefaults
+        for i in 0..<currentLocations.count {
+            startMonitoringLocation(currentLocations[i], year: currentYears[i])
+        }
+    }
+    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+        print("Monitoring failed for region with identifier: \(region!.identifier)")
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location Manager failed with the following error: \(error)")
+    }
+    
+
+    
 }

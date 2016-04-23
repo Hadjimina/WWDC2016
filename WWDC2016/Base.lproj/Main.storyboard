@@ -127,7 +127,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="de1-dI-vAj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="de1-dI-vAj">
                                 <rect key="frame" x="0.0" y="156" width="600" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -153,6 +153,12 @@
                                             <connections>
                                                 <action selector="onBackClick:" destination="DVe-DZ-Gsx" id="RTr-g1-r0v"/>
                                                 <segue destination="703-4V-yAM" kind="presentation" identifier="goback" modalTransitionStyle="partialCurl" id="b9t-lh-9TY"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="o8V-0C-mf7">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="didClickWatch:" destination="DVe-DZ-Gsx" id="erq-6J-Sps"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
