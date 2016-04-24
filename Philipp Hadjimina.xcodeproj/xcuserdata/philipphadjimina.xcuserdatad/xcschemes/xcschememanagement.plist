@@ -4,6 +4,21 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Copy of Philipp Hadjimina WatchKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Philipp Hadjimina WatchKit (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Philipp Hadjimina WatchKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>WWDC2016.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>FC664AF41CCA98C8003AC3D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCD161F31CCD3B5400574793</key>
 		<dict>
 			<key>primary</key>
 			<true/>

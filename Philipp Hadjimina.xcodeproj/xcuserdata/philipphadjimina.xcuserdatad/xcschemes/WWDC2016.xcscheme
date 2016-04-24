@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC664AD11CCA98C7003AC3D5"
-               BuildableName = "WWDC2016.app"
-               BlueprintName = "WWDC2016"
-               ReferencedContainer = "container:WWDC2016.xcodeproj">
+               BuildableName = "Philipp Hadjimina.app"
+               BlueprintName = "Philipp Hadjimina"
+               ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC664AE91CCA98C8003AC3D5"
-               BuildableName = "WWDC2016Tests.xctest"
-               BlueprintName = "WWDC2016Tests"
-               ReferencedContainer = "container:WWDC2016.xcodeproj">
+               BuildableName = "Philipp Hadjimina.xctest"
+               BlueprintName = "Philipp HadjiminaTests"
+               ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC664AF41CCA98C8003AC3D5"
-               BuildableName = "WWDC2016UITests.xctest"
-               BlueprintName = "WWDC2016UITests"
-               ReferencedContainer = "container:WWDC2016.xcodeproj">
+               BuildableName = "Philipp Hadjimina.xctest"
+               BlueprintName = "Philipp HadjiminaUITests"
+               ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC664AD11CCA98C7003AC3D5"
-            BuildableName = "WWDC2016.app"
-            BlueprintName = "WWDC2016"
-            ReferencedContainer = "container:WWDC2016.xcodeproj">
+            BuildableName = "Philipp Hadjimina.app"
+            BlueprintName = "Philipp Hadjimina"
+            ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC664AD11CCA98C7003AC3D5"
-            BuildableName = "WWDC2016.app"
-            BlueprintName = "WWDC2016"
-            ReferencedContainer = "container:WWDC2016.xcodeproj">
+            BuildableName = "Philipp Hadjimina.app"
+            BlueprintName = "Philipp Hadjimina"
+            ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC664AD11CCA98C7003AC3D5"
-            BuildableName = "WWDC2016.app"
-            BlueprintName = "WWDC2016"
-            ReferencedContainer = "container:WWDC2016.xcodeproj">
+            BuildableName = "Philipp Hadjimina.app"
+            BlueprintName = "Philipp Hadjimina"
+            ReferencedContainer = "container:Philipp Hadjimina.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

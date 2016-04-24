@@ -27,6 +27,15 @@
 		FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EE91CCC1E9400615DBE /* Artwork.swift */; };
 		FCA02EEC1CCC399D00615DBE /* TestLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */; };
 		FCA02EEE1CCC3D7C00615DBE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EED1CCC3D7C00615DBE /* Helper.swift */; };
+		FCD161F01CCD06D400574793 /* Garamond Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCD161EF1CCD06D100574793 /* Garamond Light.ttf */; };
+		FCD161F81CCD3B5500574793 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD161F61CCD3B5500574793 /* Interface.storyboard */; };
+		FCD161FA1CCD3B5500574793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD161F91CCD3B5500574793 /* Assets.xcassets */; };
+		FCD162011CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FCD162001CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FCD162081CCD3B5500574793 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD162071CCD3B5500574793 /* InterfaceController.swift */; };
+		FCD1620A1CCD3B5500574793 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD162091CCD3B5500574793 /* ExtensionDelegate.swift */; };
+		FCD1620C1CCD3B5500574793 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD1620B1CCD3B5500574793 /* NotificationController.swift */; };
+		FCD1620E1CCD3B5500574793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD1620D1CCD3B5500574793 /* Assets.xcassets */; };
+		FCD162131CCD3B5500574793 /* Philipp Hadjimina WatchKit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,10 +53,49 @@
 			remoteGlobalIDString = FC664AD11CCA98C7003AC3D5;
 			remoteInfo = WWDC2016;
 		};
+		FCD162021CCD3B5500574793 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC664ACA1CCA98C7003AC3D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCD161FF1CCD3B5500574793;
+			remoteInfo = "Philipp Hadjimina WatchKit Extension";
+		};
+		FCD162101CCD3B5500574793 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC664ACA1CCA98C7003AC3D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCD161F31CCD3B5400574793;
+			remoteInfo = "Philipp Hadjimina WatchKit";
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FCD162121CCD3B5500574793 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				FCD162131CCD3B5500574793 /* Philipp Hadjimina WatchKit.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD162171CCD3B5500574793 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FCD162011CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		FC664AD21CCA98C7003AC3D5 /* WWDC2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWDC2016.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC664AD21CCA98C7003AC3D5 /* Philipp Hadjimina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Philipp Hadjimina.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC664AD71CCA98C8003AC3D5 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FC664AD91CCA98C8003AC3D5 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
@@ -56,10 +104,10 @@
 		FC664AE01CCA98C8003AC3D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC664AE31CCA98C8003AC3D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC664AE51CCA98C8003AC3D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FC664AEA1CCA98C8003AC3D5 /* WWDC2016Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WWDC2016Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC664AEA1CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Philipp Hadjimina.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC664AEE1CCA98C8003AC3D5 /* WWDC2016Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC2016Tests.swift; sourceTree = "<group>"; };
 		FC664AF01CCA98C8003AC3D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FC664AF51CCA98C8003AC3D5 /* WWDC2016UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WWDC2016UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC664AF51CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Philipp Hadjimina.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC664AF91CCA98C8003AC3D5 /* WWDC2016UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDC2016UITests.swift; sourceTree = "<group>"; };
 		FC664AFB1CCA98C8003AC3D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHPageViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +121,19 @@
 		FCA02EE91CCC1E9400615DBE /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLocations.gpx; sourceTree = "<group>"; };
 		FCA02EED1CCC3D7C00615DBE /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		FCD161EF1CCD06D100574793 /* Garamond Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Garamond Light.ttf"; sourceTree = "<group>"; };
+		FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Philipp Hadjimina WatchKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCD161F71CCD3B5500574793 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		FCD161F91CCD3B5500574793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCD161FB1CCD3B5500574793 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCD162001CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Philipp Hadjimina WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCD162061CCD3B5500574793 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		FCD162071CCD3B5500574793 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		FCD162091CCD3B5500574793 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		FCD1620B1CCD3B5500574793 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		FCD1620D1CCD3B5500574793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCD1620F1CCD3B5500574793 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCD1621F1CCD5E9900574793 /* Philipp Hadjimina.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Philipp Hadjimina.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,16 +159,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCD161FD1CCD3B5500574793 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		FC664AC91CCA98C7003AC3D5 = {
 			isa = PBXGroup;
 			children = (
+				FCD1621F1CCD5E9900574793 /* Philipp Hadjimina.entitlements */,
 				FC664B111CCABAAA003AC3D5 /* MapKit.framework */,
 				FC664AD41CCA98C8003AC3D5 /* WWDC2016 */,
 				FC664AED1CCA98C8003AC3D5 /* WWDC2016Tests */,
 				FC664AF81CCA98C8003AC3D5 /* WWDC2016UITests */,
+				FCD161F51CCD3B5500574793 /* Philipp Hadjimina WatchKit */,
+				FCD162041CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension */,
 				FC664AD31CCA98C7003AC3D5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,9 +186,11 @@
 		FC664AD31CCA98C7003AC3D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC664AD21CCA98C7003AC3D5 /* WWDC2016.app */,
-				FC664AEA1CCA98C8003AC3D5 /* WWDC2016Tests.xctest */,
-				FC664AF51CCA98C8003AC3D5 /* WWDC2016UITests.xctest */,
+				FC664AD21CCA98C7003AC3D5 /* Philipp Hadjimina.app */,
+				FC664AEA1CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */,
+				FC664AF51CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */,
+				FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */,
+				FCD162001CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,22 +199,19 @@
 			isa = PBXGroup;
 			children = (
 				FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */,
-				FCA02EE91CCC1E9400615DBE /* Artwork.swift */,
 				FC664B131CCAC344003AC3D5 /* CustomCell.swift */,
-				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
+				FCA02EE91CCC1E9400615DBE /* Artwork.swift */,
 				FCA02EED1CCC3D7C00615DBE /* Helper.swift */,
 				FC664AD71CCA98C8003AC3D5 /* RootViewController.swift */,
 				FC664AD91CCA98C8003AC3D5 /* DataViewController.swift */,
 				FC664ADB1CCA98C8003AC3D5 /* ModelController.swift */,
 				FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */,
+				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
 				FC664ADD1CCA98C8003AC3D5 /* Main.storyboard */,
 				FC664AE01CCA98C8003AC3D5 /* Assets.xcassets */,
 				FC664AE21CCA98C8003AC3D5 /* LaunchScreen.storyboard */,
 				FC664AE51CCA98C8003AC3D5 /* Info.plist */,
-				FC664B151CCAC506003AC3D5 /* dot.png */,
-				FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */,
-				FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */,
-				FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */,
+				FCD161E71CCD02C400574793 /* Images&Fonts */,
 				FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */,
 			);
 			path = WWDC2016;
@@ -165,29 +235,74 @@
 			path = WWDC2016UITests;
 			sourceTree = "<group>";
 		};
+		FCD161E71CCD02C400574793 /* Images&Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FCD161EF1CCD06D100574793 /* Garamond Light.ttf */,
+				FC664B151CCAC506003AC3D5 /* dot.png */,
+				FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */,
+				FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */,
+				FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */,
+			);
+			name = "Images&Fonts";
+			sourceTree = "<group>";
+		};
+		FCD161F51CCD3B5500574793 /* Philipp Hadjimina WatchKit */ = {
+			isa = PBXGroup;
+			children = (
+				FCD161F61CCD3B5500574793 /* Interface.storyboard */,
+				FCD161F91CCD3B5500574793 /* Assets.xcassets */,
+				FCD161FB1CCD3B5500574793 /* Info.plist */,
+			);
+			path = "Philipp Hadjimina WatchKit";
+			sourceTree = "<group>";
+		};
+		FCD162041CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FCD162071CCD3B5500574793 /* InterfaceController.swift */,
+				FCD162091CCD3B5500574793 /* ExtensionDelegate.swift */,
+				FCD1620B1CCD3B5500574793 /* NotificationController.swift */,
+				FCD1620D1CCD3B5500574793 /* Assets.xcassets */,
+				FCD1620F1CCD3B5500574793 /* Info.plist */,
+				FCD162051CCD3B5500574793 /* Supporting Files */,
+			);
+			path = "Philipp Hadjimina WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		FCD162051CCD3B5500574793 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FCD162061CCD3B5500574793 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC664AD11CCA98C7003AC3D5 /* WWDC2016 */ = {
+		FC664AD11CCA98C7003AC3D5 /* Philipp Hadjimina */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC664AFE1CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016" */;
+			buildConfigurationList = FC664AFE1CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina" */;
 			buildPhases = (
 				FC664ACE1CCA98C7003AC3D5 /* Sources */,
 				FC664ACF1CCA98C7003AC3D5 /* Frameworks */,
 				FC664AD01CCA98C7003AC3D5 /* Resources */,
+				FCD162121CCD3B5500574793 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FCD162111CCD3B5500574793 /* PBXTargetDependency */,
 			);
-			name = WWDC2016;
+			name = "Philipp Hadjimina";
 			productName = WWDC2016;
-			productReference = FC664AD21CCA98C7003AC3D5 /* WWDC2016.app */;
+			productReference = FC664AD21CCA98C7003AC3D5 /* Philipp Hadjimina.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FC664AE91CCA98C8003AC3D5 /* WWDC2016Tests */ = {
+		FC664AE91CCA98C8003AC3D5 /* Philipp HadjiminaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC664B011CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016Tests" */;
+			buildConfigurationList = FC664B011CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp HadjiminaTests" */;
 			buildPhases = (
 				FC664AE61CCA98C8003AC3D5 /* Sources */,
 				FC664AE71CCA98C8003AC3D5 /* Frameworks */,
@@ -198,14 +313,14 @@
 			dependencies = (
 				FC664AEC1CCA98C8003AC3D5 /* PBXTargetDependency */,
 			);
-			name = WWDC2016Tests;
+			name = "Philipp HadjiminaTests";
 			productName = WWDC2016Tests;
-			productReference = FC664AEA1CCA98C8003AC3D5 /* WWDC2016Tests.xctest */;
+			productReference = FC664AEA1CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FC664AF41CCA98C8003AC3D5 /* WWDC2016UITests */ = {
+		FC664AF41CCA98C8003AC3D5 /* Philipp HadjiminaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC664B041CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016UITests" */;
+			buildConfigurationList = FC664B041CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp HadjiminaUITests" */;
 			buildPhases = (
 				FC664AF11CCA98C8003AC3D5 /* Sources */,
 				FC664AF21CCA98C8003AC3D5 /* Frameworks */,
@@ -216,10 +331,44 @@
 			dependencies = (
 				FC664AF71CCA98C8003AC3D5 /* PBXTargetDependency */,
 			);
-			name = WWDC2016UITests;
+			name = "Philipp HadjiminaUITests";
 			productName = WWDC2016UITests;
-			productReference = FC664AF51CCA98C8003AC3D5 /* WWDC2016UITests.xctest */;
+			productReference = FC664AF51CCA98C8003AC3D5 /* Philipp Hadjimina.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		FCD161F31CCD3B5400574793 /* Philipp Hadjimina WatchKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCD162181CCD3B5500574793 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina WatchKit" */;
+			buildPhases = (
+				FCD161F21CCD3B5400574793 /* Resources */,
+				FCD162171CCD3B5500574793 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCD162031CCD3B5500574793 /* PBXTargetDependency */,
+			);
+			name = "Philipp Hadjimina WatchKit";
+			productName = "Philipp Hadjimina WatchKit";
+			productReference = FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		FCD161FF1CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCD162141CCD3B5500574793 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina WatchKit Extension" */;
+			buildPhases = (
+				FCD161FC1CCD3B5500574793 /* Sources */,
+				FCD161FD1CCD3B5500574793 /* Frameworks */,
+				FCD161FE1CCD3B5500574793 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Philipp Hadjimina WatchKit Extension";
+			productName = "Philipp Hadjimina WatchKit Extension";
+			productReference = FCD162001CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -234,6 +383,11 @@
 					FC664AD11CCA98C7003AC3D5 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 6TGD9S6PZN;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					FC664AE91CCA98C8003AC3D5 = {
 						CreatedOnToolsVersion = 7.3;
@@ -243,9 +397,16 @@
 						CreatedOnToolsVersion = 7.3;
 						TestTargetID = FC664AD11CCA98C7003AC3D5;
 					};
+					FCD161F31CCD3B5400574793 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 6TGD9S6PZN;
+					};
+					FCD161FF1CCD3B5500574793 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
-			buildConfigurationList = FC664ACD1CCA98C7003AC3D5 /* Build configuration list for PBXProject "WWDC2016" */;
+			buildConfigurationList = FC664ACD1CCA98C7003AC3D5 /* Build configuration list for PBXProject "Philipp Hadjimina" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -258,9 +419,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC664AD11CCA98C7003AC3D5 /* WWDC2016 */,
-				FC664AE91CCA98C8003AC3D5 /* WWDC2016Tests */,
-				FC664AF41CCA98C8003AC3D5 /* WWDC2016UITests */,
+				FC664AD11CCA98C7003AC3D5 /* Philipp Hadjimina */,
+				FC664AE91CCA98C8003AC3D5 /* Philipp HadjiminaTests */,
+				FC664AF41CCA98C8003AC3D5 /* Philipp HadjiminaUITests */,
+				FCD161F31CCD3B5400574793 /* Philipp Hadjimina WatchKit */,
+				FCD161FF1CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -270,6 +433,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCD161F01CCD06D400574793 /* Garamond Light.ttf in Resources */,
 				FC664AE41CCA98C8003AC3D5 /* LaunchScreen.storyboard in Resources */,
 				FCA02EE61CCBAD0900615DBE /* Albert Einstein.jpg in Resources */,
 				FCA02EEC1CCC399D00615DBE /* TestLocations.gpx in Resources */,
@@ -292,6 +456,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD161F21CCD3B5400574793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD161FA1CCD3B5500574793 /* Assets.xcassets in Resources */,
+				FCD161F81CCD3B5500574793 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD161FE1CCD3B5500574793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD1620E1CCD3B5500574793 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,18 +511,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCD161FC1CCD3B5500574793 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCD1620C1CCD3B5500574793 /* NotificationController.swift in Sources */,
+				FCD1620A1CCD3B5500574793 /* ExtensionDelegate.swift in Sources */,
+				FCD162081CCD3B5500574793 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		FC664AEC1CCA98C8003AC3D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC664AD11CCA98C7003AC3D5 /* WWDC2016 */;
+			target = FC664AD11CCA98C7003AC3D5 /* Philipp Hadjimina */;
 			targetProxy = FC664AEB1CCA98C8003AC3D5 /* PBXContainerItemProxy */;
 		};
 		FC664AF71CCA98C8003AC3D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC664AD11CCA98C7003AC3D5 /* WWDC2016 */;
+			target = FC664AD11CCA98C7003AC3D5 /* Philipp Hadjimina */;
 			targetProxy = FC664AF61CCA98C8003AC3D5 /* PBXContainerItemProxy */;
+		};
+		FCD162031CCD3B5500574793 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCD161FF1CCD3B5500574793 /* Philipp Hadjimina WatchKit Extension */;
+			targetProxy = FCD162021CCD3B5500574793 /* PBXContainerItemProxy */;
+		};
+		FCD162111CCD3B5500574793 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCD161F31CCD3B5400574793 /* Philipp Hadjimina WatchKit */;
+			targetProxy = FCD162101CCD3B5500574793 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -360,6 +561,14 @@
 				FC664AE31CCA98C8003AC3D5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FCD161F61CCD3B5500574793 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCD161F71CCD3B5500574793 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -454,12 +663,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Philipp Hadjimina.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WWDC2016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Philipp Hadjimina";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -468,12 +678,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Philipp Hadjimina.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WWDC2016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Philipp Hadjimina";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -485,8 +696,8 @@
 				INFOPLIST_FILE = WWDC2016Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WWDC2016.app/WWDC2016";
+				PRODUCT_NAME = "Philipp Hadjimina";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Philipp Hadjimina.app/Philipp Hadjimina";
 			};
 			name = Debug;
 		};
@@ -497,8 +708,8 @@
 				INFOPLIST_FILE = WWDC2016Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WWDC2016.app/WWDC2016";
+				PRODUCT_NAME = "Philipp Hadjimina";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Philipp Hadjimina.app/Philipp Hadjimina";
 			};
 			name = Release;
 		};
@@ -508,7 +719,7 @@
 				INFOPLIST_FILE = WWDC2016UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Philipp Hadjimina";
 				TEST_TARGET_NAME = WWDC2016;
 			};
 			name = Debug;
@@ -519,15 +730,79 @@
 				INFOPLIST_FILE = WWDC2016UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Philipp Hadjimina";
 				TEST_TARGET_NAME = WWDC2016;
+			};
+			name = Release;
+		};
+		FCD162151CCD3B5500574793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Philipp Hadjimina WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		FCD162161CCD3B5500574793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Philipp Hadjimina WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		FCD162191CCD3B5500574793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Philipp_Hadjimina_WatchKit_Extension;
+				INFOPLIST_FILE = "Philipp Hadjimina WatchKit/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		FCD1621A1CCD3B5500574793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Philipp_Hadjimina_WatchKit_Extension;
+				INFOPLIST_FILE = "Philipp Hadjimina WatchKit/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FC664ACD1CCA98C7003AC3D5 /* Build configuration list for PBXProject "WWDC2016" */ = {
+		FC664ACD1CCA98C7003AC3D5 /* Build configuration list for PBXProject "Philipp Hadjimina" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC664AFC1CCA98C8003AC3D5 /* Debug */,
@@ -536,7 +811,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC664AFE1CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016" */ = {
+		FC664AFE1CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC664AFF1CCA98C8003AC3D5 /* Debug */,
@@ -545,7 +820,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC664B011CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016Tests" */ = {
+		FC664B011CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp HadjiminaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC664B021CCA98C8003AC3D5 /* Debug */,
@@ -554,7 +829,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC664B041CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "WWDC2016UITests" */ = {
+		FC664B041CCA98C8003AC3D5 /* Build configuration list for PBXNativeTarget "Philipp HadjiminaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC664B051CCA98C8003AC3D5 /* Debug */,
@@ -562,6 +837,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FCD162141CCD3B5500574793 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCD162151CCD3B5500574793 /* Debug */,
+				FCD162161CCD3B5500574793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FCD162181CCD3B5500574793 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina WatchKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCD162191CCD3B5500574793 /* Debug */,
+				FCD1621A1CCD3B5500574793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

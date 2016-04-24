@@ -3,9 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>APP NAME requires access to your phone’s location to notify you when you are near a historical event.</string>
+	<string>Philipp Hadjiminas app requires access to your phone’s location to notify you when you are near a historical event.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Garamond Light.ttf</string>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

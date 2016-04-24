@@ -11,7 +11,6 @@ import UIKit
 class DataViewController: UIViewController {
     
     @IBOutlet weak var transparentBtn: UIButton!
-    @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     var dataObject: String = ""
@@ -24,7 +23,18 @@ class DataViewController: UIViewController {
         transparentBtn.setTitle("", forState: UIControlState.Normal)
         
         backgroundImage.clipsToBounds = true;
+
+        if dataObject=="Martin Luther King" {
+            nameLabel.font = UIFont(name: "Garamond", size: 40)
+        }else if dataObject=="Mahatma Gandhi"{
+            nameLabel.font = UIFont(name: "Garamond", size: 45)
+        }
+        else{
+            nameLabel.font = UIFont(name: "Garamond", size: 50)
+        }
         
+
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,15 +49,11 @@ class DataViewController: UIViewController {
         //NavBar
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
-        var descriptiondic: [String:String] = [
-            "Albert Einstein" : "Theory of Relativity",
-            "Mahatma Gandhi" : "Fighting without weapons",
-            "Martin Luther King":"Civil Rights dude"
-        ]
+        var People: [String] = ["Albert Einstein","Mahatma Gandhi","Martin Luther King"]
         
         nameLabel.text = dataObject
         backgroundImage.image = UIImage(named: dataObject+".jpg")
-        descLabel.text = descriptiondic[dataObject]
+
         
     }
     
@@ -73,8 +79,12 @@ class DataViewController: UIViewController {
     }
     
     @IBAction func onButtonClick(sender: AnyObject) {
+        print("asdf")
         self.performSegueWithIdentifier("gotolocation", sender: nil)
     }
     
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]){
+    
+    }
   }
 

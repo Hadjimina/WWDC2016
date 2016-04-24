@@ -11,10 +11,12 @@ import UIKit
 class CustomCell: UITableViewCell {
     
     let dateLabel = UILabel()
+    
     var verticalLine = UIImageView()
     var dot = UIImageView()
     var yearLabelLeft = Bool()
     let eventDescription = UILabel()
+    let dummySpacer = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,16 +33,18 @@ class CustomCell: UITableViewCell {
         //Setup
         dot = UIImageView(image: UIImage(named:"dot.png"))
         verticalLine = UIImageView(image: UIImage(named:"dot.png"))
-        eventDescription.numberOfLines = 10
+        eventDescription.numberOfLines = 0
         
         dot.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         verticalLine.translatesAutoresizingMaskIntoConstraints = false
         eventDescription.translatesAutoresizingMaskIntoConstraints = false
         
-        dateLabel.font = UIFont(name: "GillSans", size: 17)
-        eventDescription.font = UIFont(name: "GillSans-Light", size: 17)
         
+        dateLabel.font =  UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+        eventDescription.font = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
+        
+        contentView.addSubview(dummySpacer)
         contentView.addSubview(dot)
         contentView.addSubview(dateLabel)
         contentView.addSubview(verticalLine)
@@ -51,27 +55,46 @@ class CustomCell: UITableViewCell {
             "line" : verticalLine,
             "text" : eventDescription,
             "date" : dateLabel,
-            ]
-
+            "spacer": dummySpacer
+        ]
+        eventDescription.sizeToFit()
         
-
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[date(40)]-80-[text]-|", options: [], metrics: nil, views: viewsDict))
-          contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-68-[dot(5)]", options: [], metrics: nil, views: viewsDict))
-                    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-70-[line(1)]", options: [], metrics: nil, views: viewsDict))
         
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[date(14)]", options: [], metrics: nil, views: viewsDict))
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[line]|", options: [], metrics: nil, views: viewsDict))
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-16-[dot(5)]", options: [], metrics: nil, views: viewsDict))
-                                    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[text(>=175)]-|", options: [], metrics: nil, views: viewsDict))
-
-            
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[date(40)]-60-[text]-|", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-68-[dot(5)]", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-70-[line(1)]", options: [], metrics: nil, views: viewsDict))
+        
+        
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[date(14)]", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[line]|", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-16-[dot(5)]", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[text]-|", options: [], metrics: nil, views: viewsDict))
+        
+        
+        
+        
         
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
     }
+    /*
+     - (void)alignTop{
+     CGSize fontSize = [self.text sizeWithAttributes:@{NSFontAttributeName:self.font}];
+     double finalHeight = fontSize.height * self.numberOfLines;
+     double finalWidth = self.frame.size.width;    //expected width of label
+     CGRect rect = [self.text boundingRectWithSize:CGSizeMake(finalWidth, finalHeight) options:NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.font} context:nil];
+     CGSize theStringSize = rect.size;
+     int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
+     for(int i=0; i< newLinesToPad; i++)
+     self.text = [self.text stringByAppendingString:@" \n"];
+     }*/
+    
+    func alignTop() {
+        
+    }
+    
     
 }

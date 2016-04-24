@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreLocation
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate, WCSessionDelegate {
 
     var window: UIWindow?
     let locationManager = CLLocationManager()
+    var session: WCSession!
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -28,6 +30,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
                 forTypes: [.Alert, .Badge, .Sound],
                 categories: nil))
         
+        
+        //Watch communication
+        session = WCSession.defaultSession()
+        session.delegate = self
+        
+        if WCSession.isSupported() {
+            session.activateSession()
+        }
+        
+        
+        //notification
+        print(launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey])
+        
+        if let payload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary, identifier = payload["identifier"] as? String {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier(identifier)
+            window?.rootViewController = vc
+        }
         return true
     }
 
@@ -66,20 +86,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
         }
     }
     
-    func notefromRegionIdentifier(identifier: String) -> String? {
-        /*if let savedItems = NSUserDefaults.standardUserDefaults().arrayForKey(kSavedItemsKey) {
-            for savedItem in savedItems {
-                if let geotification = NSKeyedUnarchiver.unarchiveObjectWithData(savedItem as! NSData) as? Geotification {
-                    if geotification.identifier == identifier {
-                        return geotification.note
-                    }
-                }
-            }
-        }
-        return nil*/
+    func notefromRegionIdentifier(identifier: String) -> String? {        
+        var message1 = "You are near an important location in "
+        let message2 = "s life"
         
-        print(identifier)
-        return identifier
+        if identifier.rangeOfString("Alber Einstein") != nil{
+            message1 = message1 + "Alber Einstein"
+        }
+        else if identifier.rangeOfString("Mahatma Gandhi") != nil{
+            message1 = message1 + "Mahatma Gandhi"
+        }else{
+            message1 = message1 + "Martin Luther King"
+        }
+        
+        return message1+message2
     }
     
     func handleRegionEvent(region: CLRegion!) {
@@ -92,13 +112,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate 
             }
         } else {
             // Otherwise present a local notification
-            var notification = UILocalNotification()
+            let notification = UILocalNotification()
             notification.alertBody = notefromRegionIdentifier(region.identifier)
             notification.soundName = "Default";
+            let asdf = "Potao"
+            //notification.userInfo = asdf
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
     }
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: ([NSObject : AnyObject]?) -> Void) {
+        // retrieved parameters from Apple Watch
+        print(userInfo!["value1"])
+        print(userInfo!["value2"])
+        
+        // pass back values to Apple Watch
+        var retValues = Dictionary<String,String>()
+        
+        retValues["retVal1"] = "return Test 1"
+        retValues["retVal2"] = "return Test 2"
+        
+        reply(retValues)
 
+    }
 
 }
 
