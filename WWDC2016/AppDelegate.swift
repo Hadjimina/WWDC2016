@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-      //  UIApplication.sharedApplication().statusBarStyle = .LightContent
         // Override point for customization after application launch.
         
         //Geo
@@ -115,8 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             let notification = UILocalNotification()
             notification.alertBody = notefromRegionIdentifier(region.identifier)
             notification.soundName = "Default";
-            let asdf = "Potao"
-            //notification.userInfo = asdf
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
     }
@@ -134,6 +131,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
         reply(retValues)
 
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        
+       /* let defaults = NSUserDefaults.standardUserDefaults()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
+        let locationVC = storyboard.instantiateViewControllerWithIdentifier("location") as! LocationViewController
+        
+        locationVC.data = defaults.stringForKey("toBeWatched")
+        rootVC.visibleViewController.navigationController?.pushViewController(locationVC, animated: true)
+        
+ 
+        
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var viewController: LocationViewController = storyboard.instantiateViewControllerWithIdentifier("location") as! LocationViewController
+        
+        // Then push that view controller onto the navigation stack
+        var rootViewController = self.window!.rootViewController as! RootViewController
+        rootViewController.pushViewController(viewController, animated: true)
+        */
+        let state = application.applicationState
+        
+        if (state ==  UIApplicationState.Inactive || state ==  UIApplicationState.Background) {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
+            let locationVC = storyboard.instantiateViewControllerWithIdentifier("location") as! LocationViewController
+            self.window?.rootViewController = rootVC
+            locationVC.data = defaults.stringForKey("toBeWatched")
+            
+            //Hack notification solution
+            defaults.setObject("true", forKey: "fromNotification")
+            
+            rootVC.performSegueWithIdentifier("notificationLoad", sender: nil)
+
+        } else {
+
+        }
+    }
+    
 
 }
 

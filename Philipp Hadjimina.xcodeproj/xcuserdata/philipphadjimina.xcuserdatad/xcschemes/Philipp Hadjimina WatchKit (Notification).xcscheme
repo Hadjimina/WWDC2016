@@ -105,8 +105,8 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../../WWDC2016/TestLocations.gpx"
-         referenceType = "0">
+         identifier = "London, England"
+         referenceType = "1">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
@@ -115,7 +115,8 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
-      launchAutomaticallySubstyle = "8">
+      launchAutomaticallySubstyle = "8"
+      notificationPayloadFile = "Philipp Hadjimina WatchKit Extension/PushNotificationPayload.apns">
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.carousel"

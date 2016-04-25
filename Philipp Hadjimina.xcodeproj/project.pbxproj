@@ -36,6 +36,7 @@
 		FCD1620C1CCD3B5500574793 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD1620B1CCD3B5500574793 /* NotificationController.swift */; };
 		FCD1620E1CCD3B5500574793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD1620D1CCD3B5500574793 /* Assets.xcassets */; };
 		FCD162131CCD3B5500574793 /* Philipp Hadjimina WatchKit.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */; };
+		FCEFE3B41CCED3D4000A3CF6 /* customSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEFE3B31CCED3D4000A3CF6 /* customSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +134,7 @@
 		FCD1620B1CCD3B5500574793 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		FCD1620D1CCD3B5500574793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCD1620F1CCD3B5500574793 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCD1621F1CCD5E9900574793 /* Philipp Hadjimina.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Philipp Hadjimina.entitlements"; sourceTree = "<group>"; };
+		FCEFE3B31CCED3D4000A3CF6 /* customSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +173,6 @@
 		FC664AC91CCA98C7003AC3D5 = {
 			isa = PBXGroup;
 			children = (
-				FCD1621F1CCD5E9900574793 /* Philipp Hadjimina.entitlements */,
 				FC664B111CCABAAA003AC3D5 /* MapKit.framework */,
 				FC664AD41CCA98C8003AC3D5 /* WWDC2016 */,
 				FC664AED1CCA98C8003AC3D5 /* WWDC2016Tests */,
@@ -208,6 +208,7 @@
 				FC664B0B1CCAAA3D003AC3D5 /* PHPageViewController.swift */,
 				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
 				FC664ADD1CCA98C8003AC3D5 /* Main.storyboard */,
+				FCEFE3B31CCED3D4000A3CF6 /* customSegue.swift */,
 				FC664AE01CCA98C8003AC3D5 /* Assets.xcassets */,
 				FC664AE21CCA98C8003AC3D5 /* LaunchScreen.storyboard */,
 				FC664AE51CCA98C8003AC3D5 /* Info.plist */,
@@ -385,7 +386,7 @@
 						DevelopmentTeam = 6TGD9S6PZN;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -484,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC664AD81CCA98C8003AC3D5 /* RootViewController.swift in Sources */,
+				FCEFE3B41CCED3D4000A3CF6 /* customSegue.swift in Sources */,
 				FC664B0C1CCAAA3D003AC3D5 /* PHPageViewController.swift in Sources */,
 				FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */,
 				FC664ADC1CCA98C8003AC3D5 /* ModelController.swift in Sources */,
@@ -663,7 +665,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Philipp Hadjimina.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WWDC2016/Info.plist;
@@ -678,7 +679,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Philipp Hadjimina.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WWDC2016/Info.plist;
@@ -845,6 +845,7 @@
 				FCD162161CCD3B5500574793 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FCD162181CCD3B5500574793 /* Build configuration list for PBXNativeTarget "Philipp Hadjimina WatchKit" */ = {
 			isa = XCConfigurationList;
@@ -853,6 +854,7 @@
 				FCD1621A1CCD3B5500574793 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

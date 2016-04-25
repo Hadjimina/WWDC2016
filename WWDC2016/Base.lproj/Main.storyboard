@@ -22,6 +22,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="jSY-2e-H9l"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <segue destination="DVe-DZ-Gsx" kind="show" identifier="notificationLoad" id="SAR-Lo-UWR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,7 +50,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onButtonClick:" destination="S4R-Ja-viH" eventType="touchUpInside" id="6nb-0N-ZfV"/>
-                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" id="DGT-N2-ihh">
+                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh">
                                         <segue key="commit" inheritsFrom="parent" id="rDs-l2-WMh"/>
                                         <segue key="preview" destination="DVe-DZ-Gsx" identifier="gotolocationpeek" id="wYX-jl-oDX"/>
                                     </segue>
@@ -69,25 +72,27 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="Gyj-Qu-5lo" secondAttribute="bottom" id="0fP-9I-Zhh"/>
+                            <constraint firstItem="Gyj-Qu-5lo" firstAttribute="top" secondItem="fXf-Jd-eTc" secondAttribute="bottom" constant="-20" id="0ap-hn-Cje"/>
                             <constraint firstItem="tCW-CN-ngb" firstAttribute="top" secondItem="fXf-Jd-eTc" secondAttribute="bottom" id="1Pf-c6-gZm"/>
-                            <constraint firstItem="Gyj-Qu-5lo" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="topMargin" id="2cq-pk-EKm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gyj-Qu-5lo" secondAttribute="trailing" constant="-20" id="Afw-tL-NBz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tCW-CN-ngb" secondAttribute="trailing" constant="-20" id="Bet-GO-YXF"/>
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="tCW-CN-ngb" secondAttribute="bottom" id="Czq-mb-m2L"/>
+                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="Gyj-Qu-5lo" secondAttribute="bottom" id="Fyp-2a-08R"/>
+                            <constraint firstItem="Gyj-Qu-5lo" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="-20" id="KIg-KT-P5R"/>
                             <constraint firstItem="DWv-Lx-4DR" firstAttribute="centerX" secondItem="ZwX-cT-FIQ" secondAttribute="centerX" id="RQI-qi-QUJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DWv-Lx-4DR" secondAttribute="trailing" id="W9I-wS-2Wq"/>
                             <constraint firstItem="tCW-CN-ngb" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="-20" id="X66-qP-F5U"/>
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="DWv-Lx-4DR" secondAttribute="bottom" constant="80" id="cYt-yk-njb"/>
-                            <constraint firstItem="Gyj-Qu-5lo" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="topMargin" id="fuI-9A-7OA"/>
-                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="Gyj-Qu-5lo" secondAttribute="bottom" id="ibO-Ff-SYH"/>
                             <constraint firstItem="DWv-Lx-4DR" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" id="jiT-Tz-ChG"/>
-                            <constraint firstItem="Gyj-Qu-5lo" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="-20" id="mML-ca-CXq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gyj-Qu-5lo" secondAttribute="trailing" constant="-20" id="vjE-EC-nO9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t6u-Q8-Baj"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="backImgBottom" destination="Fyp-2a-08R" id="Ju0-wL-bbC"/>
+                        <outlet property="backImgLeft" destination="KIg-KT-P5R" id="bmK-lN-K7Q"/>
+                        <outlet property="backImgRight" destination="vjE-EC-nO9" id="PL1-rl-Uqc"/>
+                        <outlet property="backImgTop" destination="0ap-hn-Cje" id="bm5-0N-f06"/>
                         <outlet property="backgroundImage" destination="Gyj-Qu-5lo" id="EwC-9t-pjK"/>
                         <outlet property="nameLabel" destination="DWv-Lx-4DR" id="na1-QV-CYH"/>
                         <outlet property="transparentBtn" destination="tCW-CN-ngb" id="wh9-FL-QJq"/>
@@ -120,64 +125,58 @@
                                     <rect key="frame" x="0.0" y="520" width="400" height="236"/>
                                 </variation>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdi-SP-jBL">
-                                <rect key="frame" x="0.0" y="-90" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="y8O-Ir-FSf">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="56"/>
-                                    </constraint>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Title" id="Fs3-mJ-8vN">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="Hda-cl-Dd4">
-                                            <inset key="imageInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="onBackClick:" destination="DVe-DZ-Gsx" id="RTr-g1-r0v"/>
-                                                <segue destination="703-4V-yAM" kind="presentation" identifier="goback" modalTransitionStyle="partialCurl" id="b9t-lh-9TY"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="o8V-0C-mf7">
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="didClickWatch:" destination="DVe-DZ-Gsx" id="UaF-6w-OSc"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZG0-6U-Dqp">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="0.0" y="56" width="400" height="464"/>
                                 </variation>
                             </mapView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1T-fy-gOR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="2sk-vW-eNC"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="Gel-fi-zvB">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="UWT-YQ-iQy">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="onBackClick:" destination="DVe-DZ-Gsx" id="aJA-LR-NGY"/>
+                                                <segue destination="703-4V-yAM" kind="show" identifier="goback" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="Uog-S8-30Y"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Track" id="ihs-wB-LbH">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pdi-SP-jBL" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="89p-96-NZ9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Pdi-SP-jBL" secondAttribute="trailing" constant="-20" id="Bxg-Xo-ZDl"/>
-                            <constraint firstItem="Pdi-SP-jBL" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="Jcn-Fo-HRc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="i1T-fy-gOR" secondAttribute="trailing" constant="-20" id="Ch9-oS-7hv"/>
+                            <constraint firstItem="i1T-fy-gOR" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="H0a-rT-tUd"/>
+                            <constraint firstItem="ZG0-6U-Dqp" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="MFz-jA-nq2"/>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="QjS-dp-fLI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="de1-dI-vAj" secondAttribute="trailing" constant="-20" id="V2k-G6-Wlh"/>
+                            <constraint firstItem="i1T-fy-gOR" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="a9j-bR-qox"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZG0-6U-Dqp" secondAttribute="trailing" constant="-20" id="f1P-43-e2B"/>
                             <constraint firstItem="de1-dI-vAj" firstAttribute="top" secondItem="ZG0-6U-Dqp" secondAttribute="bottom" id="lSU-TO-Fb6"/>
                             <constraint firstItem="de1-dI-vAj" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="lih-ru-n6j"/>
-                            <constraint firstItem="ZG0-6U-Dqp" firstAttribute="top" secondItem="Pdi-SP-jBL" secondAttribute="bottom" id="yfg-gX-vhc"/>
                             <constraint firstItem="fwr-Ng-Pd0" firstAttribute="top" secondItem="de1-dI-vAj" secondAttribute="bottom" id="zIo-2Y-8rZ"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="backBtn" destination="Hda-cl-Dd4" id="DQh-Jy-u1V"/>
+                        <outlet property="backBtn" destination="UWT-YQ-iQy" id="OOg-l1-m7A"/>
                         <outlet property="backgroundView" destination="tGI-jk-xMx" id="vaq-a4-Poo"/>
                         <outlet property="mapView" destination="ZG0-6U-Dqp" id="Ild-tb-WBg"/>
-                        <outlet property="navBar" destination="Pdi-SP-jBL" id="Mzi-Am-sNk"/>
-                        <outlet property="navBarHeight" destination="y8O-Ir-FSf" id="nPt-6R-pTQ"/>
+                        <outlet property="navBar" destination="i1T-fy-gOR" id="dyQ-Rw-FSz"/>
+                        <outlet property="navBarHeight" destination="2sk-vW-eNC" id="jmX-qH-e6M"/>
                         <outlet property="tableView" destination="de1-dI-vAj" id="7s1-at-TYp"/>
                         <outlet property="tableViewHeight" destination="f3Z-gB-nGE" id="Bmh-Ri-f8g"/>
-                        <outlet property="watchButton" destination="o8V-0C-mf7" id="uHP-0c-ex5"/>
+                        <outlet property="watchButton" destination="ihs-wB-LbH" id="eMq-SD-S3V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HfU-S9-iO5" userLabel="First Responder" sceneMemberID="firstResponder"/>

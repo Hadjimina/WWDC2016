@@ -11,24 +11,48 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Philipp_Hadjimina_WatchKit" customModuleProvider="target">
                     <items>
                         <map height="100" alignment="left" id="XKd-XO-K0b"/>
-                        <label width="100" alignment="left" text="Label" numberOfLines="0" id="aDf-q7-XwR">
-                            <variation key="device=watch42mm" width="156"/>
+                        <table alignment="left" id="vgX-Ye-mpk"/>
+                        <group width="1" alignment="left" id="X6t-q8-O8z">
+                            <items>
+                                <label alignment="left" text="Label" numberOfLines="0" id="bMZ-oJ-7Re">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                    <variation key="device=watch42mm" text="Loading"/>
+                                </label>
+                            </items>
+                            <variation key="default">
+                                <mask key="items">
+                                    <exclude reference="bMZ-oJ-7Re"/>
+                                </mask>
+                            </variation>
+                            <variation key="device=watch42mm">
+                                <mask key="items">
+                                    <include reference="bMZ-oJ-7Re"/>
+                                </mask>
+                            </variation>
+                        </group>
+                        <label alignment="left" text="..." numberOfLines="0" id="fMo-tG-u0A">
+                            <variation key="device=watch42mm" text="Current location is being loaded. "/>
                         </label>
                     </items>
                     <variation key="default">
                         <mask key="items">
                             <exclude reference="XKd-XO-K0b"/>
-                            <exclude reference="aDf-q7-XwR"/>
+                            <exclude reference="vgX-Ye-mpk"/>
+                            <exclude reference="X6t-q8-O8z"/>
+                            <exclude reference="fMo-tG-u0A"/>
                         </mask>
                     </variation>
                     <variation key="device=watch42mm">
                         <mask key="items">
                             <include reference="XKd-XO-K0b"/>
-                            <include reference="aDf-q7-XwR"/>
+                            <include reference="vgX-Ye-mpk"/>
+                            <include reference="X6t-q8-O8z"/>
+                            <include reference="fMo-tG-u0A"/>
                         </mask>
                     </variation>
                     <connections>
-                        <outlet property="descLabel" destination="aDf-q7-XwR" id="1M8-y9-fMT"/>
+                        <outlet property="descLabel" destination="fMo-tG-u0A" id="rDu-NU-DsA"/>
+                        <outlet property="heading" destination="bMZ-oJ-7Re" id="zA4-yy-nCX"/>
                         <outlet property="mapView" destination="XKd-XO-K0b" id="Bfj-JI-zfH"/>
                     </connections>
                 </controller>

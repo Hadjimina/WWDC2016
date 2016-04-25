@@ -16,8 +16,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
+        //UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
@@ -45,7 +45,15 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         self.pageViewController!.didMoveToParentViewController(self)
         
-        
+    }
+    override func viewDidDisappear(animated: Bool) {
+        //StausBar
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+    }
+    
+    
+override func viewWillAppear(animated: Bool) {
+      UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +102,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         return .Mid
     }
     
+    
+
 
    
 }
