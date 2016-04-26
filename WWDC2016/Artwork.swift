@@ -14,10 +14,12 @@ class Artwork: NSObject, MKAnnotation {
     let locationName: String
     let coordinate: CLLocationCoordinate2D
     
+    
     init(title: String, locationName: String, location: CLLocation) {
         self.title = title
         self.locationName = locationName
         self.coordinate = location.coordinate
+
         super.init()
     }
 

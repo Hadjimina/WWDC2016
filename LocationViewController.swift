@@ -35,9 +35,19 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     let defaults = NSUserDefaults.standardUserDefaults()
     var screenWidth:CGFloat!
     let locationManager = CLLocationManager()
+    var locationShouldUpdate = false
+    var index = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Geo
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
+        
+        setNeedsStatusBarAppearanceUpdate()
         
         var fromNotification = false
         //Screen size
@@ -48,6 +58,9 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         if !userAlreadyExist(){
             defaults.setObject("NoOne", forKey: "toBeWatched")
         }
+        if !dummynotifcationValueAlreadyExist(){
+            defaults.setObject("false", forKey: "dummyNotification")
+        }
         
         //Table setup
         tableView.decelerationRate = UIScrollViewDecelerationRateFast
@@ -55,52 +68,47 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        //Geo
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
         
         
         //Setup for presentation with notification
         if notifcationValueAlreadyExist() && defaults.objectForKey("fromNotification") as! String == "true" {
             data = defaults.objectForKey("toBeWatched") as! String
-            
             setupDataForCorrectPerson()
-            locationManager.requestLocation()
             
             fromNotification = true
-            
             defaults.setObject("false", forKey: "fromNotification")
+            
+            if defaults.objectForKey("dummyNotification") as! String == "true" {
+                let dummyEntry =  Int(arc4random_uniform(UInt32(currentLocations.count) + 1))
+                index = dummyEntry
+                centerMapOnLocation(currentLocations[dummyEntry], radius: 1000)
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:dummyEntry , inSection: 0), atScrollPosition: .Top, animated: true)
+                defaults.setObject("false", forKey: "dummyNotification")
+            }
+            else{
+                locationManager.requestLocation()
+            }
+            
+            
+        }else{
+            setupDataForCorrectPerson()
         }
         
-
         
-        //NavBarStyling
-       /* self.navBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navBar.shadowImage = UIImage()*/
-       // self.navBar.translucent = true
-        
-        setupDataForCorrectPerson()
-        
-
         
         //Set title
         navigationItem.title = data
         
-        print(currentLocations.count)
-        print(currentEvents.count)
-        print(currentYears.count)
-        print(currentDescriptions.count)
-        
         //Map setup
         let regionRadius: CLLocationDistance = 1000
         
-        if !fromNotification {
-                centerMapOnLocation(currentLocations[0],radius: regionRadius)
-            
-            //Status Bar
-           // UIApplication.sharedApplication().statusBarStyle = statusStyle
+        if !fromNotification && defaults.objectForKey("dummyNotification") as! String != "true"{
+            index = 0
+            centerMapOnLocation(currentLocations[0],radius: regionRadius)
+        }else{
+            locationShouldUpdate = true
         }
-
+        
         self.mapView.delegate = self
         
         //Setup Orientation
@@ -110,16 +118,36 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
         
         //Setup Annotations
-        for i in 0..<currentDescriptions.count {
-            let artwork = Artwork(title: currentYears[i],
+        /*for i in 0..<currentDescriptions.count {
+            let artwork = Artwork(title: (navBar.topItem?.title)!+": "+currentYears[i],
                                   locationName: currentDescriptions[i],
                                   location: currentLocations[i] )
             mapView.addAnnotation(artwork)
+        }*/
+        
+        var dudeNames = ["Einstein","Gandhi","King"]
+        
+        for i in 1..<3{
+            print("upper "+String(i))
+            var tempYear = getYearsForPersonWithIndex(i)
+            var tempShort = getAnnotationDescForPersonWithIndex(i)
+            var tempLocs = getLocationForPersonWithIndex(i)
+            var tempName = dudeNames[i]
+            
+            for a in 0..<tempLocs.count  {
+                print(tempName)
+                                print(i)
+                let artwork = Artwork(title: tempName+": "+tempYear[a],
+                                      locationName: tempShort[a],
+                                      location: tempLocs[a])
+                mapView.addAnnotation(artwork)
+            }
+        
         }
         
-
+        
         //Set Correct watchTitle
-        if userAlreadyExist()&&defaults.stringForKey("toBeWatched") == data
+        if userAlreadyExist() && defaults.stringForKey("toBeWatched") == data
         {
             watchButton.title = "Untrack"
         }
@@ -133,7 +161,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             // do some task
             dispatch_async(dispatch_get_main_queue()) {
-                let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,radius * 2.0, radius * 2.0)
+                let modifiedLocation = CLLocation(latitude: location.coordinate.latitude+0.001, longitude: location.coordinate.longitude).coordinate
+                let coordinateRegion = MKCoordinateRegionMakeWithDistance(modifiedLocation,radius * 2.0, radius * 2.0)
                 self.mapView.setRegion(coordinateRegion, animated: true)
             }
             
@@ -156,10 +185,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return false
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -202,16 +227,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         centerTable()
     }
+    
     func centerTable() {
         let center = CGPoint(x: CGRectGetMidX(self.tableView.bounds), y: CGRectGetMidY(self.tableView.bounds))
         let indexPath = tableView.indexPathForRowAtPoint(center)!
         
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
         centerMapOnLocation(currentLocations[indexPath.row], radius: 1000)
-    }
-    
-    @IBAction func onBackClick(sender: AnyObject) {
-        self.performSegueWithIdentifier("goback", sender: nil)
+        index = indexPath.row
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -244,7 +267,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         case .LandscapeRight:
             
             changeMapView(true)
-
+            
         default:
             break
         }
@@ -274,18 +297,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         })
     }
     
-    func mapTapped()
-    {
-        let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
-        if !orientation.isLandscape {
-            if mapFullscreen {
-                changeMapView(false)
-            }
-            else{
-                changeMapView(true)
-            }
-        }
-    }
     
     //Data Setup
     func getLocationForPersonWithIndex(index: Int) -> [CLLocation] {
@@ -313,7 +324,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 CLLocation(latitude: 28.60177, longitude:77.2143393)]
             
         case 2:
-           return [CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 38.664512, longitude: -90.333027),CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 39.849557, longitude: -75.355746),CLLocation(latitude: 42.360082, longitude: -71.058880),CLLocation(latitude: 32.634580, longitude: -87.319511),CLLocation(latitude: 36.016829, longitude: -78.901486),CLLocation(latitude: 36.057757, longitude: -78.905451),CLLocation(latitude: 33.756318, longitude: -84.373451),CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 40.712784, longitude: -74.005941),CLLocation(latitude: 20.593684, longitude: 78.962880),CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 38.907192, longitude: -77.036871),CLLocation(latitude: 31.870242, longitude: -116.638977),CLLocation(latitude: 32.407359, longitude: -87.021101),CLLocation(latitude: 41.878114, longitude: -87.629798),CLLocation(latitude: 38.907191, longitude: -77.036870),CLLocation(latitude: 35.149534, longitude: -90.048980)]
+            return [CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 38.664512, longitude: -90.333027),CLLocation(latitude: 33.9462125, longitude: -84.3346473),CLLocation(latitude: 39.849557, longitude: -75.355746),CLLocation(latitude: 42.360082, longitude: -71.058880),CLLocation(latitude: 32.634580, longitude: -87.319511),CLLocation(latitude: 36.016829, longitude: -78.901486),CLLocation(latitude: 36.057757, longitude: -78.905451),CLLocation(latitude: 33.756318, longitude: -84.373451),CLLocation(latitude: 33.7556795, longitude: -84.3771254),CLLocation(latitude: 40.712784, longitude: -74.005941),CLLocation(latitude: 20.593684, longitude: 79.1),CLLocation(latitude: 33.7563179, longitude: -84.3734515),CLLocation(latitude: 38.907192, longitude: -77.036871),CLLocation(latitude: 31.870242, longitude: -116.638977),CLLocation(latitude: 32.407359, longitude: -87.021101),CLLocation(latitude: 41.878114, longitude: -87.629798),CLLocation(latitude: 38.907191, longitude: -77.036870),CLLocation(latitude: 35.149534, longitude: -90.048980)]
             
         default:
             return []
@@ -359,28 +370,42 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         case 1:
             return ["Gandhis Brithplace","Graduation from Inner Temple Law School","Thrown off of train due to discrimination","Natal Indian Congress is founded","Attack by angry mob","Mass meetings outside the Hamidia Mosque","Burning of registration cards as protest","Jallianwala Bagh massacre","Boycott of british goods","Gandhi arrested for producing salt","Gandhis Quit India speech","Beginning 21 day hunger strike in Delhi","Release of prisoners","First steps to Indian Indepen independence","War over Kashmir and Jammu","Start of another hunger strike (probably in Delhi) in order to achieve peace","Assassination at Birla House (now Gandhi Smriti)"]
         case 2:
-            return ["Martin Luther King is born","Beginning of Studies at Morehouse","Publication of Kings letter","Becomes Pastor and receivs bechelors degree","Beginning of Studies in Boston","Marriage","Beginning of Pastorate","Becomes President of the MIA","Bombing of Kings home","Foundation of SCLC","Stride Toward Freedom","Visit to India","Co-pastor in Ebenzer","March on Washington","Receives Nobel Peace Prize","Voting-rights march","Opens chicago office","Planing of Poor People's Campaign","Assassination"]
+            return ["Martin Luther King is born","Beginning of Studies at Morehouse","HQ of The Atlanta Journal-Constitution","Becomes Pastor and receivs bechelors degree","Beginning of Studies in Boston","Marriage","Beginning of Pastorate","Becomes President of the MIA","Bombing of Kings home","Nationonal Office of the SCLC","Stride Toward Freedom","Visit to India","Co-pastor in Ebenzer","March on Washington","Receives Nobel Peace Prize","Voting-rights march","Opens chicago office","Planing of Poor People's Campaign","Assassination"]
         default:
             return []
         }
     }
     
+    
     //Map Pins with Annotatios
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? Artwork {
             let identifier = "pin"
+            
             var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            /*if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
                 as? MKPinAnnotationView { // 2
                 dequeuedView.annotation = annotation
                 view = dequeuedView
-            } else {
+            } else {*/
                 // 3
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type:.System) as UIView
-            }
+                view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
+                
+                //Tint color workaround
+                let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
+                print("full "+String(fullNameArr))
+                if fullNameArr[0] == "Gandhi"{
+                    view.pinTintColor = UIColor.blueColor()
+                }else if fullNameArr[0] == "King"{
+                    view.pinTintColor = UIColor.greenColor()
+                }
+                else{
+                    view.pinTintColor = UIColor.redColor()
+                }
+           // }
             return view
         }
         return nil
@@ -400,7 +425,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     }
     
     func startMonitoringLocation() {
-        stopMonitoringLocations()
+        stopMonitoringLocations(locationManager,defaults: defaults)
         for i in 0..<currentLocations.count {
             if !CLLocationManager.isMonitoringAvailableForClass(CLCircularRegion) {
                 showSimpleAlertWithTitle("Error", message: "Geofencing is not supported on this device!", viewController: self)
@@ -414,35 +439,75 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
     }
     
-    func stopMonitoringLocations() {
-        for region in locationManager.monitoredRegions {
-            if let circularRegion = region as? CLCircularRegion {
-                locationManager.stopMonitoringForRegion(circularRegion)
-            }
-        }
+    @IBAction func didClickWatch(sender: AnyObject) {
+        trackerHandler()
+        
     }
     
-    @IBAction func didClickWatch(sender: AnyObject) {
-
-        
+    func trackerHandler()  {
         if defaults.stringForKey("toBeWatched") == data {
             watchButton.title = "Track"
-            stopMonitoringLocations()
-            
+            stopMonitoringLocations(locationManager,defaults: defaults)
             
             defaults.setObject("NoOne", forKey: "toBeWatched")
-            
         }
         else{
-            watchButton.title = "Untrack"
             startMonitoringLocation()
             
             defaults.setObject(data, forKey: "toBeWatched")
-
+            alertLogic()
+            
         }
         let dummy = ["toBeWatched" : defaults.objectForKey("toBeWatched") as AnyObject!]
         
         WCSession.defaultSession().transferUserInfo(dummy)
+    }
+    
+    //Show alert
+    func alertLogic()  {
+        let alertController = UIAlertController(title: "Location Trigger", message: "In order for you to be able to test the location service you can now choose if the app should simply trigger a  dummy notification (in 10 seconds) or if you want to enable the actual geofenceing", preferredStyle: .Alert)
+        
+        alertController.view.tintColor = UIColor.blackColor()
+        // Create the actions
+        let okAction = UIAlertAction(title: "Geofencing", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            
+            self.startMonitoringLocation()
+            self.watchButton.title = "Untrack"
+            self.defaults.setObject(self.data, forKey: "toBeWatched")
+        }
+        
+        let dummy = UIAlertAction(title: "Dummy", style: UIAlertActionStyle.Default) {
+            
+            UIAlertAction in
+            //Schedule dummy notification
+            let notification = UILocalNotification()
+            notification.fireDate = NSDate(timeIntervalSinceNow: 10)
+            notification.alertTitle = "Encounter"
+            notification.alertBody = notefromRegionIdentifier(self.defaults.stringForKey("toBeWatched")!)
+            notification.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+            
+            self.defaults.setObject("true", forKey: "dummyNotification")
+            self.defaults.setObject(self.data, forKey: "toBeWatched")
+            
+            self.watchButton.title = "Untrack"
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+        }
+        
+        // Add the actions
+        alertController.addAction(dummy)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
     }
     
     
@@ -468,16 +533,31 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         return false
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locationManager.location!.coordinate
-        let row = getNearestLocationIndex()
-        
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:row , inSection: 0), atScrollPosition: .Top, animated: true)
-        let regionRadius: CLLocationDistance = 1000
-        centerMapOnLocation(currentLocations[row],radius: regionRadius)
-
+    func dummynotifcationValueAlreadyExist() -> Bool {
+        if (defaults.stringForKey("dummyNotification") != nil) {
+            return true
+        }
+        return false
     }
     
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if locationShouldUpdate {
+            currentLocation = locationManager.location!.coordinate
+            let row = getNearestLocationIndex()
+            
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:row , inSection: 0), atScrollPosition: .Top, animated: true)
+            let regionRadius: CLLocationDistance = 1000
+            centerMapOnLocation(currentLocations[row],radius: regionRadius)
+            index = row
+            
+        }
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        print("change")
+        return UIStatusBarStyle.Default
+    }
     
     func getNearestLocationIndex() -> Int {
         
@@ -498,15 +578,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                     minDistanceIndex = i
                 }
             }
-            print("Min distance"+String(minDistanceIndex))
             
         }
         
-        print("location called")
         return minDistanceIndex
     }
     
     func setupDataForCorrectPerson()  {
+        
         //Setup NavBar Text
         let fullNameArr = data.characters.split{$0 == " "}.map(String.init)
         navBar.topItem?.title = fullNameArr[fullNameArr.count-1]+"'s Journey"
@@ -522,6 +601,19 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         currentEvents = getEventsForPersonWithIndex(currentIndex)
         currentDescriptions = getAnnotationDescForPersonWithIndex(currentIndex)
     }
+    
+    
+    
+    
+    //preview Actions
+    override func previewActionItems() -> [UIPreviewActionItem] {
+        let likeAction = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
+            self.trackerHandler()
+        }
+        return [likeAction]
+    }
+    
+    
     
 }
 

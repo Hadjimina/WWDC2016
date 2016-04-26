@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -23,7 +22,7 @@
                     <navigationItem key="navigationItem" id="jSY-2e-H9l"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <segue destination="DVe-DZ-Gsx" kind="show" identifier="notificationLoad" id="SAR-Lo-UWR"/>
+                        <segue destination="DVe-DZ-Gsx" kind="show" identifier="notificationLoad" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="SAR-Lo-UWR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
@@ -50,10 +49,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onButtonClick:" destination="S4R-Ja-viH" eventType="touchUpInside" id="6nb-0N-ZfV"/>
-                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh">
-                                        <segue key="commit" inheritsFrom="parent" id="rDs-l2-WMh"/>
-                                        <segue key="preview" destination="DVe-DZ-Gsx" identifier="gotolocationpeek" id="wYX-jl-oDX"/>
-                                    </segue>
+                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWv-Lx-4DR">
@@ -141,12 +137,15 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="UWT-YQ-iQy">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
-                                                <action selector="onBackClick:" destination="DVe-DZ-Gsx" id="aJA-LR-NGY"/>
-                                                <segue destination="703-4V-yAM" kind="show" identifier="goback" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="Uog-S8-30Y"/>
+                                                <action selector="backPressed:" destination="DVe-DZ-Gsx" id="s1M-RQ-skE"/>
+                                                <segue destination="703-4V-yAM" kind="show" identifier="goback" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="aTV-Lf-aod"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Track" id="ihs-wB-LbH">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="didClickWatch:" destination="DVe-DZ-Gsx" id="u5b-HR-4bR"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -167,9 +166,9 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="backBtn" destination="UWT-YQ-iQy" id="OOg-l1-m7A"/>
                         <outlet property="backgroundView" destination="tGI-jk-xMx" id="vaq-a4-Poo"/>
                         <outlet property="mapView" destination="ZG0-6U-Dqp" id="Ild-tb-WBg"/>
                         <outlet property="navBar" destination="i1T-fy-gOR" id="dyQ-Rw-FSz"/>

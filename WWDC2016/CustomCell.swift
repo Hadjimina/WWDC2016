@@ -15,7 +15,7 @@ class CustomCell: UITableViewCell {
     var verticalLine = UIImageView()
     var dot = UIImageView()
     var yearLabelLeft = Bool()
-    let eventDescription = UILabel()
+    let eventDescription = TopAlignedLabel()
     let dummySpacer = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -65,10 +65,10 @@ class CustomCell: UITableViewCell {
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-70-[line(1)]", options: [], metrics: nil, views: viewsDict))
         
         
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[date(14)]", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-36-[date(14)]", options: [], metrics: nil, views: viewsDict))
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[line]|", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-16-[dot(5)]", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[text]-|", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-40-[dot(5)]", options: [], metrics: nil, views: viewsDict))
+        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-36-[text]-|", options: [], metrics: nil, views: viewsDict))
         
         
         

@@ -16,14 +16,18 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setNeedsStatusBarAppearanceUpdate()
         //UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
+        
         self.pageViewController = PHPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
 
+        
+        
         if (currentIndex == nil) {
             currentIndex = 0
         }
@@ -46,14 +50,14 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         self.pageViewController!.didMoveToParentViewController(self)
         
     }
-    override func viewDidDisappear(animated: Bool) {
-        //StausBar
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+
+
+    override func viewDidAppear(animated: Bool) {
+    
     }
     
-    
-override func viewWillAppear(animated: Bool) {
-      UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    override func viewWillAppear(animated: Bool) {
+            setNeedsStatusBarAppearanceUpdate()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,7 +106,9 @@ override func viewWillAppear(animated: Bool) {
         return .Mid
     }
     
-    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
 
 
    

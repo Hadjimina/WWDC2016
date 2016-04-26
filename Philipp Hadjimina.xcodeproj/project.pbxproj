@@ -27,6 +27,8 @@
 		FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EE91CCC1E9400615DBE /* Artwork.swift */; };
 		FCA02EEC1CCC399D00615DBE /* TestLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */; };
 		FCA02EEE1CCC3D7C00615DBE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EED1CCC3D7C00615DBE /* Helper.swift */; };
+		FCBE2F1F1CCFEC5E00738E95 /* customSegueUnwind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBE2F1E1CCFEC5E00738E95 /* customSegueUnwind.swift */; };
+		FCBF60F01CD0334500CA70B2 /* topLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBF60EF1CD0334500CA70B2 /* topLabel.swift */; };
 		FCD161F01CCD06D400574793 /* Garamond Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCD161EF1CCD06D100574793 /* Garamond Light.ttf */; };
 		FCD161F81CCD3B5500574793 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCD161F61CCD3B5500574793 /* Interface.storyboard */; };
 		FCD161FA1CCD3B5500574793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCD161F91CCD3B5500574793 /* Assets.xcassets */; };
@@ -122,6 +124,8 @@
 		FCA02EE91CCC1E9400615DBE /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLocations.gpx; sourceTree = "<group>"; };
 		FCA02EED1CCC3D7C00615DBE /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		FCBE2F1E1CCFEC5E00738E95 /* customSegueUnwind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customSegueUnwind.swift; sourceTree = "<group>"; };
+		FCBF60EF1CD0334500CA70B2 /* topLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = topLabel.swift; path = ../topLabel.swift; sourceTree = "<group>"; };
 		FCD161EF1CCD06D100574793 /* Garamond Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Garamond Light.ttf"; sourceTree = "<group>"; };
 		FCD161F41CCD3B5400574793 /* Philipp Hadjimina WatchKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Philipp Hadjimina WatchKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCD161F71CCD3B5500574793 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 		FC664AD41CCA98C8003AC3D5 /* WWDC2016 */ = {
 			isa = PBXGroup;
 			children = (
+				FCBF60EF1CD0334500CA70B2 /* topLabel.swift */,
 				FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */,
 				FC664B131CCAC344003AC3D5 /* CustomCell.swift */,
 				FCA02EE91CCC1E9400615DBE /* Artwork.swift */,
@@ -209,6 +214,7 @@
 				FC664AD51CCA98C8003AC3D5 /* AppDelegate.swift */,
 				FC664ADD1CCA98C8003AC3D5 /* Main.storyboard */,
 				FCEFE3B31CCED3D4000A3CF6 /* customSegue.swift */,
+				FCBE2F1E1CCFEC5E00738E95 /* customSegueUnwind.swift */,
 				FC664AE01CCA98C8003AC3D5 /* Assets.xcassets */,
 				FC664AE21CCA98C8003AC3D5 /* LaunchScreen.storyboard */,
 				FC664AE51CCA98C8003AC3D5 /* Info.plist */,
@@ -484,12 +490,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBF60F01CD0334500CA70B2 /* topLabel.swift in Sources */,
 				FC664AD81CCA98C8003AC3D5 /* RootViewController.swift in Sources */,
 				FCEFE3B41CCED3D4000A3CF6 /* customSegue.swift in Sources */,
 				FC664B0C1CCAAA3D003AC3D5 /* PHPageViewController.swift in Sources */,
 				FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */,
 				FC664ADC1CCA98C8003AC3D5 /* ModelController.swift in Sources */,
 				FC664B101CCAB478003AC3D5 /* LocationViewController.swift in Sources */,
+				FCBE2F1F1CCFEC5E00738E95 /* customSegueUnwind.swift in Sources */,
 				FCA02EEE1CCC3D7C00615DBE /* Helper.swift in Sources */,
 				FC664ADA1CCA98C8003AC3D5 /* DataViewController.swift in Sources */,
 				FC664B141CCAC344003AC3D5 /* CustomCell.swift in Sources */,
@@ -616,6 +624,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "Philipp Hadjimina";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -655,6 +664,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "Philipp Hadjimina";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

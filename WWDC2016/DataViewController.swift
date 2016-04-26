@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DataViewController: UIViewController {
+class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     
     @IBOutlet weak var backImgBottom: NSLayoutConstraint!
     @IBOutlet weak var backImgRight: NSLayoutConstraint!
@@ -42,25 +42,24 @@ class DataViewController: UIViewController {
         self.addParallaxToView(self.backgroundImage)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        print("appeared")
-        
-      
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+
+    override func viewDidAppear(animated: Bool) {
+        setNeedsStatusBarAppearanceUpdate()
+        if traitCollection.forceTouchCapability == .Available {
+            self.registerForPreviewingWithDelegate(self, sourceView: transparentBtn)
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         self.backgroundImage.hidden = false
-        //NavBar
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        
-        var People: [String] = ["Albert Einstein","Mahatma Gandhi","Martin Luther King"]
         
         nameLabel.text = dataObject
         backgroundImage.image = UIImage(named: dataObject+".jpg")
@@ -82,31 +81,29 @@ class DataViewController: UIViewController {
         })
         
         UIView.animateWithDuration(1, animations: {
-            self.backImgBottom.constant = -30
+            self.backImgBottom.constant = -50
             self.view.layoutIfNeeded()
         })
 
+        
+
     }
     
-    override func viewDidDisappear(animated: Bool) {
 
-
-        
-                print("did dis "+dataObject)
-        //self.backgroundImage.hidden = true
-    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         if (segue.identifier == "gotolocation") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
-            UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+
+            //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
         
         }
         else if (segue.identifier == "gotolocationpeek") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
+            //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         }
     }
     
@@ -139,13 +136,18 @@ class DataViewController: UIViewController {
 
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        
+        return UIStatusBarStyle.LightContent
+    }
+    
     @IBAction func onButtonClick(sender: AnyObject) {
-        print("asdf")
+ 
         self.performSegueWithIdentifier("gotolocation", sender: nil)
     }
     
     func addParallaxToView(vw: UIView) {
-        let amount = 25
+        let amount = 15
         
         let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
         horizontal.minimumRelativeValue = -amount
@@ -161,4 +163,25 @@ class DataViewController: UIViewController {
         
 
     }
+    
+    //Preview Actions
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let detailVC = storyboard?.instantiateViewControllerWithIdentifier("location") as? LocationViewController else { return nil }
+        
+        detailVC.data = dataObject
+        
+        
+        return detailVC
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        
+        showViewController(viewControllerToCommit, sender: self)
+        
+    }
+    
+
+    
 }
+
