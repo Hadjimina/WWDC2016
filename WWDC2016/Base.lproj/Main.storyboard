@@ -49,7 +49,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onButtonClick:" destination="S4R-Ja-viH" eventType="touchUpInside" id="6nb-0N-ZfV"/>
-                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" id="DGT-N2-ihh"/>
+                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWv-Lx-4DR">
@@ -110,23 +110,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="de1-dI-vAj">
-                                <rect key="frame" x="0.0" y="156" width="600" height="400"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="f3Z-gB-nGE"/>
-                                </constraints>
-                                <sections/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="520" width="400" height="236"/>
-                                </variation>
-                            </tableView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZG0-6U-Dqp">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="56" width="400" height="464"/>
-                                </variation>
-                            </mapView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1T-fy-gOR">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                 <constraints>
@@ -138,7 +121,7 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="backPressed:" destination="DVe-DZ-Gsx" id="s1M-RQ-skE"/>
-                                                <segue destination="jJX-6D-4GO" kind="unwind" unwindAction="unwindToThisViewController:" id="FnP-sw-43H"/>
+                                                <segue destination="jJX-6D-4GO" kind="unwind" customClass="customSegueUnwind" customModule="Philipp_Hadjimina" customModuleProvider="target" unwindAction="unwindToThisViewController:" id="FnP-sw-43H"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Track" id="ihs-wB-LbH">
@@ -150,41 +133,83 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZG0-6U-Dqp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="56" width="400" height="464"/>
+                                </variation>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZnC-bh-kWf">
+                                <rect key="frame" x="0.0" y="278" width="600" height="322"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yRC-1J-80w">
+                                        <rect key="frame" x="0.0" y="49" width="600" height="273"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHx-Jq-G76">
+                                        <rect key="frame" x="267" y="15" width="66" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="yRC-1J-80w" secondAttribute="bottom" id="GHv-U1-3e3"/>
+                                    <constraint firstItem="mHx-Jq-G76" firstAttribute="top" secondItem="ZnC-bh-kWf" secondAttribute="top" constant="15" id="J02-yg-Vv2"/>
+                                    <constraint firstItem="yRC-1J-80w" firstAttribute="top" secondItem="mHx-Jq-G76" secondAttribute="bottom" constant="13" id="a2E-ms-gyd"/>
+                                    <constraint firstItem="mHx-Jq-G76" firstAttribute="centerX" secondItem="ZnC-bh-kWf" secondAttribute="centerX" id="gSd-LP-gXf"/>
+                                    <constraint firstAttribute="height" priority="750" constant="322" id="gax-g3-3O9"/>
+                                    <constraint firstItem="yRC-1J-80w" firstAttribute="leading" secondItem="ZnC-bh-kWf" secondAttribute="leading" id="iOu-cL-Xqr"/>
+                                    <constraint firstAttribute="trailing" secondItem="yRC-1J-80w" secondAttribute="trailing" id="yTv-an-R4u"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="P9f-8k-v1J" appends="YES" id="GEa-xG-2xH"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZG0-6U-Dqp" firstAttribute="bottom" secondItem="tGI-jk-xMx" secondAttribute="bottomMargin" id="6Mc-de-nCb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i1T-fy-gOR" secondAttribute="trailing" constant="-20" id="Ch9-oS-7hv"/>
                             <constraint firstItem="i1T-fy-gOR" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="H0a-rT-tUd"/>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="MFz-jA-nq2"/>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="QjS-dp-fLI"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="de1-dI-vAj" secondAttribute="trailing" constant="-20" id="V2k-G6-Wlh"/>
                             <constraint firstItem="i1T-fy-gOR" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="a9j-bR-qox"/>
+                            <constraint firstItem="ZnC-bh-kWf" firstAttribute="bottom" secondItem="tGI-jk-xMx" secondAttribute="bottomMargin" id="cCq-KW-LD7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZG0-6U-Dqp" secondAttribute="trailing" constant="-20" id="f1P-43-e2B"/>
-                            <constraint firstItem="de1-dI-vAj" firstAttribute="top" secondItem="ZG0-6U-Dqp" secondAttribute="bottom" id="lSU-TO-Fb6"/>
-                            <constraint firstItem="de1-dI-vAj" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="lih-ru-n6j"/>
-                            <constraint firstItem="fwr-Ng-Pd0" firstAttribute="top" secondItem="de1-dI-vAj" secondAttribute="bottom" id="zIo-2Y-8rZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZnC-bh-kWf" secondAttribute="trailing" constant="-20" id="gHQ-cu-4we"/>
+                            <constraint firstItem="ZnC-bh-kWf" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="uWX-RW-3kT"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="PanGesturRecognizer" destination="P9f-8k-v1J" id="5SR-dQ-XZJ"/>
                         <outlet property="backgroundView" destination="tGI-jk-xMx" id="vaq-a4-Poo"/>
                         <outlet property="mapView" destination="ZG0-6U-Dqp" id="Ild-tb-WBg"/>
+                        <outlet property="mergerView" destination="ZnC-bh-kWf" id="HBo-Mz-nsp"/>
+                        <outlet property="mergerViewHeight" destination="gax-g3-3O9" id="e5T-kj-BwW"/>
                         <outlet property="navBar" destination="i1T-fy-gOR" id="dyQ-Rw-FSz"/>
                         <outlet property="navBarHeight" destination="2sk-vW-eNC" id="jmX-qH-e6M"/>
-                        <outlet property="tableView" destination="de1-dI-vAj" id="7s1-at-TYp"/>
-                        <outlet property="tableViewHeight" destination="f3Z-gB-nGE" id="Bmh-Ri-f8g"/>
+                        <outlet property="tableView" destination="yRC-1J-80w" id="5Kt-WF-wE1"/>
                         <outlet property="watchButton" destination="ihs-wB-LbH" id="eMq-SD-S3V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HfU-S9-iO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jJX-6D-4GO" userLabel="Exit" sceneMemberID="exit"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="P9f-8k-v1J">
+                    <connections>
+                        <action selector="dragTable:" destination="DVe-DZ-Gsx" id="CcF-Rj-Rly"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3205" y="-238"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DGT-N2-ihh"/>
+        <segue reference="SAR-Lo-UWR"/>
     </inferredMetricsTieBreakers>
 </document>

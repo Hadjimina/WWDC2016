@@ -11,12 +11,13 @@ import MapKit
 import CoreLocation
 import WatchConnectivity
 
-class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate {
+class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate {
     
     //Constraints
     @IBOutlet weak var navBarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
+    @IBOutlet var PanGesturRecognizer: UIPanGestureRecognizer!
     @IBOutlet weak var watchButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -28,6 +29,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     var mapFullscreen = false
     var currentLocation :CLLocationCoordinate2D!
     
+    @IBOutlet weak var mergerView: UIView!
+    @IBOutlet weak var mergerViewHeight: NSLayoutConstraint!
     var currentLocations:[CLLocation]!
     var currentEvents:[String]!
     var currentYears:[String]!
@@ -37,6 +40,10 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     let locationManager = CLLocationManager()
     var locationShouldUpdate = false
     var index = 0
+    var mergerHeightValue:CGFloat = 368.0
+    var bottomOffSet:CGFloat = 0.0
+    var topOffSet:CGFloat = 0.0
+    
     
     
     override func viewDidLoad() {
@@ -46,6 +53,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         
+        self.view.sendSubviewToBack(self.mapView)
         
         setNeedsStatusBarAppearanceUpdate()
         
@@ -68,6 +76,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
+
         
         
         //Setup for presentation with notification
@@ -111,10 +120,25 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         self.mapView.delegate = self
         
+        //Gesture recognizer
+        PanGesturRecognizer.delegate = self
+        UIView.animateWithDuration(0, animations: {
+            //self.tableViewHeight.constant = self.tableHeightValue
+            // self.mergerViewHeight.constant = self.tableHeightValue
+            self.view.layoutIfNeeded()
+        })
+        
+        
+        
         //Setup Orientation
         let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
         if orientation.isLandscape {
+            getOffsets("loadFromLandscape")
             changeMapView(true)
+            setTableBottom()
+        }else{
+            getOffsets("current")
+            setTableFull()
         }
         
         //Setup Annotations
@@ -151,7 +175,9 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         else{
             watchButton.title = "Track"
         }
+        
     }
+    
     
     func centerMapOnLocation(location: CLLocation, radius: CLLocationDistance) {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -255,14 +281,20 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         switch UIDevice.currentDevice().orientation{
         case .Portrait:
+            getOffsets("Portrait")
+            setTableFull()
             changeMapView(false)
         case .PortraitUpsideDown:
+            getOffsets("Portrait")
+            setTableFull()
             changeMapView(false)
         case .LandscapeLeft:
+            getOffsets("Landscape")
+            setTableBottom()
             changeMapView(true)
-            
         case .LandscapeRight:
-            
+            getOffsets("Landscape")
+            setTableBottom()
             changeMapView(true)
             
         default:
@@ -273,7 +305,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func changeMapView(fullscreen:Bool){
         
         var constantNav = 0
-        var constantTable = 0
+        var constantTable = 80
         
         self.navBar.hidden = fullscreen
         mapFullscreen = fullscreen
@@ -284,10 +316,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
         
         self.view.layoutIfNeeded()
-        UIView.animateWithDuration(0.25, animations: {
-            self.tableViewHeight.constant = CGFloat(constantTable)
-            self.view.layoutIfNeeded()
-        })
         UIView.animateWithDuration(0.5, animations: {
             self.navBarHeight.constant = CGFloat(constantNav)
             self.view.layoutIfNeeded()
@@ -640,7 +668,82 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     }
     
     
+    //Pan gesture
+    @IBAction func dragTable(sender: UIPanGestureRecognizer)
+    {
+        let translation = sender.translationInView(self.view)
+
+        self.mergerHeightValue = self.mergerView.frame.size.height - translation.y
+        
+        
+        print("height "+String(self.mergerView.frame.size.height))
+        print("bottom "+String(self.bottomOffSet))
+        print("top "+String(self.topOffSet))
+        
+        if self.mergerHeightValue > bottomOffSet && self.mergerHeightValue < topOffSet  {
+            
+            
+        sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
+        sender.setTranslation(CGPointZero, inView: self.view)
+        
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(0, animations: {
+           // self.tableViewHeight.constant = self.tableHeightValue
+            
+            self.mergerViewHeight.constant = self.mergerHeightValue
+            self.view.layoutIfNeeded()
+        })
+       }
+
+ }
+    func getOffsets(type: String) {
+        
+        let bounds = UIScreen.mainScreen().bounds
+        let height = bounds.size.height
+        let width = bounds.size.width
+        
+        if type == "Landscape" {
+            bottomOffSet = 50.0
+            topOffSet = width - 200.0
+        }
+        else if type == "Portrait"{
+            topOffSet = width - 350.0
+            bottomOffSet = 46.0
+        }else if type=="loadFromLandscape"{
+            topOffSet = height - 200.0
+            bottomOffSet = 50.0
+    }else{
+            let orientation = UIDevice.currentDevice().orientation
+            if orientation.isLandscape{
+                bottomOffSet = 50.0
+                topOffSet = width - 200.0
+            }else{
+                topOffSet = height - 350.0
+                bottomOffSet = 46.0
+            }
+        }
+    }
     
+    func setTableBottom()  {
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(0.5, animations: {
+        
+            self.mergerViewHeight.constant = self.bottomOffSet
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    
+    func setTableFull()  {
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(0.5, animations: {
+            
+            self.mergerViewHeight.constant = self.topOffSet
+            self.view.layoutIfNeeded()
+        })
+
+    }
+
 }
 
 

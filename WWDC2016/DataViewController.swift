@@ -88,9 +88,6 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
             self.backImgBottom.constant = -50
             self.view.layoutIfNeeded()
         })
-        
-
-
     }
 
 
