@@ -128,15 +128,12 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         var dudeNames = ["Einstein","Gandhi","King"]
         
         for i in 1..<3{
-            print("upper "+String(i))
             var tempYear = getYearsForPersonWithIndex(i)
             var tempShort = getAnnotationDescForPersonWithIndex(i)
             var tempLocs = getLocationForPersonWithIndex(i)
             var tempName = dudeNames[i]
             
             for a in 0..<tempLocs.count  {
-                print(tempName)
-                                print(i)
                 let artwork = Artwork(title: tempName+": "+tempYear[a],
                                       locationName: tempShort[a],
                                       location: tempLocs[a])
@@ -396,7 +393,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 
                 //Tint color workaround
                 let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
-                print("full "+String(fullNameArr))
                 if fullNameArr[0] == "Gandhi"{
                     view.pinTintColor = UIColor.blueColor()
                 }else if fullNameArr[0] == "King"{

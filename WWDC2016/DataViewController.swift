@@ -37,7 +37,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         else{
             nameLabel.font = UIFont(name: "Garamond", size: 50)
         }
-        
+                print("did load appeared")
         
         self.addParallaxToView(self.backgroundImage)
     }
@@ -54,41 +54,22 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: transparentBtn)
         }
+        
+        print("didappeared")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+                print("will appear")
         self.backgroundImage.hidden = false
         
         nameLabel.text = dataObject
         backgroundImage.image = UIImage(named: dataObject+".jpg")
-        
-        self.view.layoutIfNeeded()
-        UIView.animateWithDuration(1, animations: {
-            self.backImgTop.constant = -30
-            self.view.layoutIfNeeded()
-        })
-        
-        UIView.animateWithDuration(1, animations: {
-            self.backImgLeft.constant = -50
-            self.view.layoutIfNeeded()
-        })
-        
-        UIView.animateWithDuration(1, animations: {
-            self.backImgRight.constant = -50
-            self.view.layoutIfNeeded()
-        })
-        
-        UIView.animateWithDuration(1, animations: {
-            self.backImgBottom.constant = -50
-            self.view.layoutIfNeeded()
-        })
-
-        
 
     }
     
+
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -143,7 +124,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     
     @IBAction func onButtonClick(sender: AnyObject) {
  
-        self.performSegueWithIdentifier("gotolocation", sender: nil)
+        //self.performSegueWithIdentifier("notificationLoad", sender: nil)
     }
     
     func addParallaxToView(vw: UIView) {

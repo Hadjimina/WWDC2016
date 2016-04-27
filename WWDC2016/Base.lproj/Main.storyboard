@@ -49,7 +49,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onButtonClick:" destination="S4R-Ja-viH" eventType="touchUpInside" id="6nb-0N-ZfV"/>
-                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh"/>
+                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" id="DGT-N2-ihh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWv-Lx-4DR">
@@ -138,7 +138,7 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="backPressed:" destination="DVe-DZ-Gsx" id="s1M-RQ-skE"/>
-                                                <segue destination="703-4V-yAM" kind="show" identifier="goback" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="aTV-Lf-aod"/>
+                                                <segue destination="jJX-6D-4GO" kind="unwind" unwindAction="unwindToThisViewController:" id="FnP-sw-43H"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Track" id="ihs-wB-LbH">
@@ -179,6 +179,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HfU-S9-iO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jJX-6D-4GO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3205" y="-238"/>
         </scene>

@@ -51,7 +51,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         
     }
 
-
+    
     override func viewDidAppear(animated: Bool) {
     
     }
@@ -106,6 +106,15 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         return .Mid
     }
     
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
+    
+    /*override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
+//        let segue = customSegueUnwind.
+        
+    }*/
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
