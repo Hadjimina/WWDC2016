@@ -119,11 +119,11 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         //Setup Annotations
         /*for i in 0..<currentDescriptions.count {
-            let artwork = Artwork(title: (navBar.topItem?.title)!+": "+currentYears[i],
-                                  locationName: currentDescriptions[i],
-                                  location: currentLocations[i] )
-            mapView.addAnnotation(artwork)
-        }*/
+         let artwork = Artwork(title: (navBar.topItem?.title)!+": "+currentYears[i],
+         locationName: currentDescriptions[i],
+         location: currentLocations[i] )
+         mapView.addAnnotation(artwork)
+         }*/
         
         var dudeNames = ["Einstein","Gandhi","King"]
         
@@ -139,7 +139,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                                       location: tempLocs[a])
                 mapView.addAnnotation(artwork)
             }
-        
+            
         }
         
         
@@ -381,27 +381,27 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             
             var view: MKPinAnnotationView
             /*if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-                as? MKPinAnnotationView { // 2
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            } else {*/
-                // 3
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
-                
-                //Tint color workaround
-                let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
-                if fullNameArr[0] == "Gandhi"{
-                    view.pinTintColor = UIColor.blueColor()
-                }else if fullNameArr[0] == "King"{
-                    view.pinTintColor = UIColor.greenColor()
-                }
-                else{
-                    view.pinTintColor = UIColor.redColor()
-                }
-           // }
+             as? MKPinAnnotationView { // 2
+             dequeuedView.annotation = annotation
+             view = dequeuedView
+             } else {*/
+            // 3
+            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
+            
+            //Tint color workaround
+            let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
+            if fullNameArr[0] == "Gandhi"{
+                view.pinTintColor = UIColor.blueColor()
+            }else if fullNameArr[0] == "King"{
+                view.pinTintColor = UIColor.greenColor()
+            }
+            else{
+                view.pinTintColor = UIColor.redColor()
+            }
+            // }
             return view
         }
         return nil
@@ -603,10 +603,40 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     
     //preview Actions
     override func previewActionItems() -> [UIPreviewActionItem] {
-        let likeAction = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
-            self.trackerHandler()
+        
+        
+        if watchButton.title == "Untrack" {
+            //Actual Geofencing
+            let geo = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
+                self.trackerHandler()
+            }
+            return [geo]
         }
-        return [likeAction]
+        else{
+            //Actual Geofencing
+            let geo = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
+                self.trackerHandler()
+            }
+            
+            //Dummy notification
+            let dummy = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
+                self.defaults.setObject(self.data, forKey: "toBeWatched")
+                //Schedule dummy notification
+                let notification = UILocalNotification()
+                notification.fireDate = NSDate(timeIntervalSinceNow: 10)
+                notification.alertTitle = "Encounter"
+                notification.alertBody = notefromRegionIdentifier(self.defaults.stringForKey("toBeWatched")!)
+                notification.soundName = UILocalNotificationDefaultSoundName
+                UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                
+                self.defaults.setObject("true", forKey: "dummyNotification")
+                self.defaults.setObject(self.data, forKey: "toBeWatched")
+                
+                self.watchButton.title = "Untrack"
+                
+            }
+            return [geo,dummy]
+        }
     }
     
     

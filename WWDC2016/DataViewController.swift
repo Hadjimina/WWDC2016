@@ -60,15 +60,38 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-                print("will appear")
+
         self.backgroundImage.hidden = false
         
         nameLabel.text = dataObject
         backgroundImage.image = UIImage(named: dataObject+".jpg")
+        
+
+        
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(1, animations: {
+            self.backImgTop.constant = -30
+            self.view.layoutIfNeeded()
+        })
+        
+        UIView.animateWithDuration(1, animations: {
+            self.backImgLeft.constant = -50
+            self.view.layoutIfNeeded()
+        })
+        
+        UIView.animateWithDuration(1, animations: {
+            self.backImgRight.constant = -50
+            self.view.layoutIfNeeded()
+        })
+        
+        UIView.animateWithDuration(1, animations: {
+            self.backImgBottom.constant = -50
+            self.view.layoutIfNeeded()
+        })
+        
+
 
     }
-    
 
 
     
