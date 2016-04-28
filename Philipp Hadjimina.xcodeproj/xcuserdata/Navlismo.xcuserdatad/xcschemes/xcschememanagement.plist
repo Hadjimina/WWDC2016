@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Philipp Hadjimina WatchKit (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Philipp Hadjimina WatchKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Philipp Hadjimina.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>FC664AD11CCA98C7003AC3D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC664AE91CCA98C8003AC3D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC664AF41CCA98C8003AC3D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCD161F31CCD3B5400574793</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

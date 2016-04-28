@@ -23,10 +23,10 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.blackColor()
         transparentBtn.opaque = true
         transparentBtn.setTitle("", forState: UIControlState.Normal)
-        self.view.backgroundColor = UIColor.blackColor()
+        //self.view.backgroundColor = UIColor.blackColor()
         backgroundImage.clipsToBounds = true;
         
         if dataObject=="Martin Luther King" {
@@ -37,7 +37,6 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         else{
             nameLabel.font = UIFont(name: "Garamond", size: 50)
         }
-                print("did load appeared")
         
         self.addParallaxToView(self.backgroundImage)
     }
@@ -54,8 +53,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: transparentBtn)
         }
-        
-        print("didappeared")
+
     }
     
     override func viewWillAppear(animated: Bool) {

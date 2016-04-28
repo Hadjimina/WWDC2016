@@ -20,10 +20,6 @@
 		FC664B101CCAB478003AC3D5 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */; };
 		FC664B121CCABAAB003AC3D5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC664B111CCABAAA003AC3D5 /* MapKit.framework */; };
 		FC664B141CCAC344003AC3D5 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC664B131CCAC344003AC3D5 /* CustomCell.swift */; };
-		FC664B161CCAC506003AC3D5 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = FC664B151CCAC506003AC3D5 /* dot.png */; };
-		FCA02EE21CCBAD0200615DBE /* Martin Luther King.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */; };
-		FCA02EE41CCBAD0600615DBE /* Mahatma Gandhi.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */; };
-		FCA02EE61CCBAD0900615DBE /* Albert Einstein.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */; };
 		FCA02EEA1CCC1E9400615DBE /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EE91CCC1E9400615DBE /* Artwork.swift */; };
 		FCA02EEC1CCC399D00615DBE /* TestLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */; };
 		FCA02EEE1CCC3D7C00615DBE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA02EED1CCC3D7C00615DBE /* Helper.swift */; };
@@ -117,10 +113,6 @@
 		FC664B0F1CCAB478003AC3D5 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationViewController.swift; path = ../LocationViewController.swift; sourceTree = "<group>"; };
 		FC664B111CCABAAA003AC3D5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FC664B131CCAC344003AC3D5 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		FC664B151CCAC506003AC3D5 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot.png; path = ../../../dot.png; sourceTree = "<group>"; };
-		FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Martin Luther King.jpg"; path = "../../../../Desktop/Martin Luther King.jpg"; sourceTree = "<group>"; };
-		FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Mahatma Gandhi.jpg"; path = "../../../../Desktop/Mahatma Gandhi.jpg"; sourceTree = "<group>"; };
-		FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Albert Einstein.jpg"; path = "../../../../Desktop/Albert Einstein.jpg"; sourceTree = "<group>"; };
 		FCA02EE91CCC1E9400615DBE /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		FCA02EEB1CCC399D00615DBE /* TestLocations.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLocations.gpx; sourceTree = "<group>"; };
 		FCA02EED1CCC3D7C00615DBE /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -246,10 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				FCD161EF1CCD06D100574793 /* Garamond Light.ttf */,
-				FC664B151CCAC506003AC3D5 /* dot.png */,
-				FCA02EE11CCBAD0200615DBE /* Martin Luther King.jpg */,
-				FCA02EE31CCBAD0600615DBE /* Mahatma Gandhi.jpg */,
-				FCA02EE51CCBAD0900615DBE /* Albert Einstein.jpg */,
 			);
 			name = "Images&Fonts";
 			sourceTree = "<group>";
@@ -389,7 +377,7 @@
 				TargetAttributes = {
 					FC664AD11CCA98C7003AC3D5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6TGD9S6PZN;
+						DevelopmentTeam = 6ZVY6BF6M8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
@@ -406,7 +394,7 @@
 					};
 					FCD161F31CCD3B5400574793 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6TGD9S6PZN;
+						DevelopmentTeam = 6ZVY6BF6M8;
 					};
 					FCD161FF1CCD3B5500574793 = {
 						CreatedOnToolsVersion = 7.3;
@@ -442,12 +430,8 @@
 			files = (
 				FCD161F01CCD06D400574793 /* Garamond Light.ttf in Resources */,
 				FC664AE41CCA98C8003AC3D5 /* LaunchScreen.storyboard in Resources */,
-				FCA02EE61CCBAD0900615DBE /* Albert Einstein.jpg in Resources */,
 				FCA02EEC1CCC399D00615DBE /* TestLocations.gpx in Resources */,
 				FC664AE11CCA98C8003AC3D5 /* Assets.xcassets in Resources */,
-				FCA02EE21CCBAD0200615DBE /* Martin Luther King.jpg in Resources */,
-				FCA02EE41CCBAD0600615DBE /* Mahatma Gandhi.jpg in Resources */,
-				FC664B161CCAC506003AC3D5 /* dot.png in Resources */,
 				FC664ADF1CCA98C8003AC3D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

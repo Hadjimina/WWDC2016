@@ -4,7 +4,7 @@
 //
 //  Created by Philipp Hadjimina on 22/04/16.
 //  Copyright © 2016 Philipp Hadjimina. All rights reserved.
-//
+//  Master
 
 import UIKit
 import MapKit
@@ -17,6 +17,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     @IBOutlet weak var navBarHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet var PanGesturRecognizer: UIPanGestureRecognizer!
     @IBOutlet weak var watchButton: UIBarButtonItem!
     @IBOutlet var backgroundView: UIView!
@@ -29,6 +30,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     var mapFullscreen = false
     var currentLocation :CLLocationCoordinate2D!
     
+    @IBOutlet weak var arrowButton: UIButton!
+    
     @IBOutlet weak var mergerView: UIView!
     @IBOutlet weak var mergerViewHeight: NSLayoutConstraint!
     var currentLocations:[CLLocation]!
@@ -38,16 +41,18 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     let defaults = NSUserDefaults.standardUserDefaults()
     var screenWidth:CGFloat!
     let locationManager = CLLocationManager()
-    var locationShouldUpdate = false
     var index = 0
     var mergerHeightValue:CGFloat = 368.0
     var bottomOffSet:CGFloat = 0.0
     var topOffSet:CGFloat = 0.0
-    
-    
+    var tableState:String!
+    var allAnnotations:[Artwork]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView.showsCompass = false
+        registerNotification()
         
         //Geo
         locationManager.delegate = self
@@ -76,8 +81,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-
-        
         
         //Setup for presentation with notification
         if notifcationValueAlreadyExist() && defaults.objectForKey("fromNotification") as! String == "true" {
@@ -88,10 +91,10 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             defaults.setObject("false", forKey: "fromNotification")
             
             if defaults.objectForKey("dummyNotification") as! String == "true" {
-                let dummyEntry =  Int(arc4random_uniform(UInt32(currentLocations.count) + 1))
+                let dummyEntry =  Int(arc4random_uniform(UInt32(currentLocations.count)))
                 index = dummyEntry
                 centerMapOnLocation(currentLocations[dummyEntry], radius: 1000)
-                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:dummyEntry , inSection: 0), atScrollPosition: .Top, animated: true)
+                //tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:dummyEntry , inSection: 0), atScrollPosition: .Top, animated: true)
                 defaults.setObject("false", forKey: "dummyNotification")
             }
             else{
@@ -101,22 +104,27 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             
         }else{
             setupDataForCorrectPerson()
+            //Map setup
+            let regionRadius: CLLocationDistance = 1000
+            
+            if !fromNotification && defaults.objectForKey("dummyNotification") as! String != "true"{
+                index = 0
+                centerMapOnLocation(currentLocations[0],radius: regionRadius)
+            }else{
+                centerMapOnLocation(currentLocations[0],radius: regionRadius)
+                
+            }
+            
         }
         
-        
+        //Slider
+        slider.continuous = false
+        slider.minimumValue = 0.0
+        slider.maximumValue = 100.0
         
         //Set title
         navigationItem.title = data
         
-        //Map setup
-        let regionRadius: CLLocationDistance = 1000
-        
-        if !fromNotification && defaults.objectForKey("dummyNotification") as! String != "true"{
-            index = 0
-            centerMapOnLocation(currentLocations[0],radius: regionRadius)
-        }else{
-            locationShouldUpdate = true
-        }
         
         self.mapView.delegate = self
         
@@ -133,12 +141,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         //Setup Orientation
         let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
         if orientation.isLandscape {
+            slider.hidden = false
             getOffsets("loadFromLandscape")
             changeMapView(true)
-            setTableBottom()
+            setTableBottom(0.5)
         }else{
+            slider.hidden = true
             getOffsets("current")
-            setTableFull()
+            setTableFull(0.5)
         }
         
         //Setup Annotations
@@ -162,19 +172,13 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                                       locationName: tempShort[a],
                                       location: tempLocs[a])
                 mapView.addAnnotation(artwork)
+                //allAnnotations.append(artwork)
             }
             
         }
         
         
-        //Set Correct watchTitle
-        if userAlreadyExist() && defaults.stringForKey("toBeWatched") == data
-        {
-            watchButton.title = "Untrack"
-        }
-        else{
-            watchButton.title = "Track"
-        }
+        
         
     }
     
@@ -184,9 +188,19 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             // do some task
             dispatch_async(dispatch_get_main_queue()) {
-                let modifiedLocation = CLLocation(latitude: location.coordinate.latitude+0.001, longitude: location.coordinate.longitude).coordinate
+                
+                var modifiedLocation = CLLocation(latitude: location.coordinate.latitude-0.005, longitude: location.coordinate.longitude).coordinate
+                
+                if UIDevice.currentDevice().orientation.isLandscape.boolValue {
+                    modifiedLocation.latitude =  modifiedLocation.latitude + 0.002
+                }
+                
                 let coordinateRegion = MKCoordinateRegionMakeWithDistance(modifiedLocation,radius * 2.0, radius * 2.0)
                 self.mapView.setRegion(coordinateRegion, animated: true)
+                
+                let index = self.currentLocations.indexOf(location)
+                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:index! , inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+                
             }
             
         }
@@ -197,8 +211,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         var height = currentEvents[indexPath.row].heightWithConstrainedWidth(screenWidth-132, font: UIFont.systemFontOfSize(17, weight: UIFontWeightRegular))
-        if height < 175{
-            height = 175
+        if height < 125{
+            height = 125
         }
         height = height + 75
         return height
@@ -252,12 +266,19 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     }
     
     func centerTable() {
-        let center = CGPoint(x: CGRectGetMidX(self.tableView.bounds), y: CGRectGetMidY(self.tableView.bounds))
+        var center = CGPoint(x: CGRectGetMidX(self.tableView.bounds), y: CGRectGetMidY(self.tableView.bounds))
+        
+        if UIDevice.currentDevice().orientation.isLandscape{
+            center.y = center.y - 50
+        }
+        
+        
         let indexPath = tableView.indexPathForRowAtPoint(center)!
         
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+        //tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
         centerMapOnLocation(currentLocations[indexPath.row], radius: 1000)
         index = indexPath.row
+        setTableFull(0.5)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -279,22 +300,30 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     
     //Orientation Change
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        centerTable()
+        addAllAnnotaions()
+        
+        self.tableView.reloadData()
         switch UIDevice.currentDevice().orientation{
         case .Portrait:
+            slider.hidden = true
             getOffsets("Portrait")
-            setTableFull()
+            setTableFull(0.5)
             changeMapView(false)
         case .PortraitUpsideDown:
+            slider.hidden = true
             getOffsets("Portrait")
-            setTableFull()
+            setTableFull(0.5)
             changeMapView(false)
         case .LandscapeLeft:
+            slider.hidden = false
             getOffsets("Landscape")
-            setTableBottom()
+            setTableBottom(0.5)
             changeMapView(true)
         case .LandscapeRight:
+            slider.hidden = false
             getOffsets("Landscape")
-            setTableBottom()
+            setTableBottom(0.5)
             changeMapView(true)
             
         default:
@@ -343,7 +372,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 CLLocation(latitude: 28.7040592, longitude:77.1024902),
                 CLLocation(latitude: 18.5523254, longitude:73.9015002),
                 CLLocation(latitude: 20.593684, longitude:78.96288),
-                CLLocation(latitude: 33.778175, longitude:76.5761714),
+                CLLocation(latitude: 52.3555, longitude:1.1743),
                 CLLocation(latitude: 33.778175, longitude:76.5761714),
                 CLLocation(latitude: 28.7040592, longitude:77.1024902),
                 CLLocation(latitude: 28.60177, longitude:77.2143393)]
@@ -393,7 +422,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func getAnnotationDescForPersonWithIndex(index: Int) -> [String] {
         switch index {
         case 1:
-            return ["Gandhis Brithplace","Graduation from Inner Temple Law School","Thrown off of train due to discrimination","Natal Indian Congress is founded","Attack by angry mob","Mass meetings outside the Hamidia Mosque","Burning of registration cards as protest","Jallianwala Bagh massacre","Boycott of british goods","Gandhi arrested for producing salt","Gandhis Quit India speech","Beginning 21 day hunger strike in Delhi","Release of prisoners","First steps to Indian Indepen independence","War over Kashmir and Jammu","Start of another hunger strike (probably in Delhi) in order to achieve peace","Assassination at Birla House (now Gandhi Smriti)"]
+            return ["Gandhis Brithplace","Graduation from Inner Temple Law School","Thrown off of train due to discrimination","Natal Indian Congress is founded","Attack by angry mob","Mass meetings outside the Hamidia Mosque","Burning of registration cards as protest","Jallianwala Bagh massacre","Boycott of british goods","Gandhi arrested for producing salt","Gandhis Quit India speech","Beginning 21 day hunger strike in Delhi","Release of prisoners","UK Cabinet Mission","War over Kashmir and Jammu","Start of another hunger strike (probably in Delhi) in order to achieve peace","Assassination at Birla House (now Gandhi Smriti)"]
         case 2:
             return ["Martin Luther King is born","Beginning of Studies at Morehouse","HQ of The Atlanta Journal-Constitution","Becomes Pastor and receivs bechelors degree","Beginning of Studies in Boston","Marriage","Beginning of Pastorate","Becomes President of the MIA","Bombing of Kings home","Nationonal Office of the SCLC","Stride Toward Freedom","Visit to India","Co-pastor in Ebenzer","March on Washington","Receives Nobel Peace Prize","Voting-rights march","Opens chicago office","Planing of Poor People's Campaign","Assassination"]
         default:
@@ -414,10 +443,12 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
              view = dequeuedView
              } else {*/
             // 3
+            
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
+            view.animatesDrop = true
             
             //Tint color workaround
             let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
@@ -491,7 +522,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func alertLogic()  {
         let alertController = UIAlertController(title: "Location Trigger", message: "In order for you to be able to test the location service you can now choose if the app should simply trigger a  dummy notification (in 10 seconds) or if you want to enable the actual geofenceing", preferredStyle: .Alert)
         
-        alertController.view.tintColor = UIColor.blackColor()
+        // alertController.view.tintColor = UIColor.blackColor()
         // Create the actions
         let okAction = UIAlertAction(title: "Geofencing", style: UIAlertActionStyle.Default) {
             UIAlertAction in
@@ -506,10 +537,13 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             UIAlertAction in
             //Schedule dummy notification
             let notification = UILocalNotification()
-            notification.fireDate = NSDate(timeIntervalSinceNow: 10)
             notification.alertTitle = "Encounter"
             notification.alertBody = notefromRegionIdentifier(self.defaults.stringForKey("toBeWatched")!)
             notification.soundName = UILocalNotificationDefaultSoundName
+            notification.fireDate = NSDate(timeIntervalSinceNow: 10)
+            notification.category = "hi"
+            //notification.repeatInterval = NSCalendarUnit.Minute
+            
             UIApplication.sharedApplication().scheduleLocalNotification(notification)
             
             self.defaults.setObject("true", forKey: "dummyNotification")
@@ -530,8 +564,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         // Present the controller
         self.presentViewController(alertController, animated: true, completion: nil)
-        
-        
     }
     
     
@@ -564,22 +596,76 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         return false
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    @IBAction func SliderValueChanged(sender: UISlider) {
+        let currentValue = Int(sender.value)
         
-        if locationShouldUpdate {
-            currentLocation = locationManager.location!.coordinate
-            let row = getNearestLocationIndex()
+        //remove all annotations
+        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        mapView.removeAnnotations( annotationsToRemove )
+        
+        //add annotations
+        var dudeNames = ["Einstein","Gandhi","King"]
+        
+        for i in 1..<3{
             
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:row , inSection: 0), atScrollPosition: .Top, animated: true)
-            let regionRadius: CLLocationDistance = 1000
-            centerMapOnLocation(currentLocations[row],radius: regionRadius)
-            index = row
+            var tempYear = getYearsForPersonWithIndex(i)
+            var tempShort = getAnnotationDescForPersonWithIndex(i)
+            var tempLocs = getLocationForPersonWithIndex(i)
+            let tempName = dudeNames[i]
+            
+            for a in 0..<tempLocs.count  {
+                
+                if Int(tempYear[a])!-1869 <= currentValue+5 && Int(tempYear[a])!-1869 >= currentValue{
+                    
+                    
+                    let artwork = Artwork(title: tempName+": "+tempYear[a],
+                                          locationName: tempShort[a],
+                                          location: tempLocs[a])
+                    mapView.addAnnotation(artwork)
+                }
+            }
             
         }
+        
+        
+    }
+    
+    func addAllAnnotaions()  {
+        
+        //remove all annotations
+        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        
+        var dudeNames = ["Einstein","Gandhi","King"]
+        
+        for i in 1..<3{
+            var tempYear = getYearsForPersonWithIndex(i)
+            var tempShort = getAnnotationDescForPersonWithIndex(i)
+            var tempLocs = getLocationForPersonWithIndex(i)
+            var tempName = dudeNames[i]
+            
+            for a in 0..<tempLocs.count  {
+                let artwork = Artwork(title: tempName+": "+tempYear[a],
+                                      locationName: tempShort[a],
+                                      location: tempLocs[a])
+                mapView.addAnnotation(artwork)
+            }
+            
+        }
+
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        currentLocation = locationManager.location!.coordinate
+        let row = getNearestLocationIndex()
+        
+        //tableView.scrollToRowAtIndexPath(NSIndexPath(forRow:row , inSection: 0), atScrollPosition: .Middle, animated: true)
+        let regionRadius: CLLocationDistance = 1000
+        centerMapOnLocation(currentLocations[row],radius: regionRadius)
+        index = row
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        print("change")
         return UIStatusBarStyle.Default
     }
     
@@ -608,6 +694,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         return minDistanceIndex
     }
     
+    
     func setupDataForCorrectPerson()  {
         
         //Setup NavBar Text
@@ -624,6 +711,15 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         currentYears = getYearsForPersonWithIndex(currentIndex)
         currentEvents = getEventsForPersonWithIndex(currentIndex)
         currentDescriptions = getAnnotationDescForPersonWithIndex(currentIndex)
+        
+        //Set Correct watchTitle
+        if userAlreadyExist() && defaults.stringForKey("toBeWatched") == data
+        {
+            watchButton.title = "Untrack"
+        }
+        else{
+            watchButton.title = "Track"
+        }
     }
     
     
@@ -648,13 +744,15 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             
             //Dummy notification
             let dummy = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
-                self.defaults.setObject(self.data, forKey: "toBeWatched")
                 //Schedule dummy notification
                 let notification = UILocalNotification()
-                notification.fireDate = NSDate(timeIntervalSinceNow: 10)
                 notification.alertTitle = "Encounter"
                 notification.alertBody = notefromRegionIdentifier(self.defaults.stringForKey("toBeWatched")!)
                 notification.soundName = UILocalNotificationDefaultSoundName
+                notification.fireDate = NSDate(timeIntervalSinceNow: 10)
+                notification.category = "hi"
+                //notification.repeatInterval = NSCalendarUnit.Minute
+                
                 UIApplication.sharedApplication().scheduleLocalNotification(notification)
                 
                 self.defaults.setObject("true", forKey: "dummyNotification")
@@ -667,14 +765,12 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }
     }
     
-    
     //Pan gesture
     @IBAction func dragTable(sender: UIPanGestureRecognizer)
     {
         let translation = sender.translationInView(self.view)
-
-        self.mergerHeightValue = self.mergerView.frame.size.height - translation.y
         
+        self.mergerHeightValue = self.mergerView.frame.size.height - translation.y
         
         print("height "+String(self.mergerView.frame.size.height))
         print("bottom "+String(self.bottomOffSet))
@@ -682,20 +778,54 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         if self.mergerHeightValue > bottomOffSet && self.mergerHeightValue < topOffSet  {
             
-            
-        sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
-        sender.setTranslation(CGPointZero, inView: self.view)
-        
-        self.view.layoutIfNeeded()
-        UIView.animateWithDuration(0, animations: {
-           // self.tableViewHeight.constant = self.tableHeightValue
-            
-            self.mergerViewHeight.constant = self.mergerHeightValue
+            if sender.state == UIGestureRecognizerState.Ended {
+                // 1
+                let velocity = sender.velocityInView(self.view)
+                let magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
+                let slideMultiplier = magnitude / 200
+                // print("magnitude: \(magnitude), slideMultiplier: \(slideMultiplier)")
+                
+                // 2
+                let slideFactor = 0.1 * slideMultiplier     //Increase for more of a slide
+                // 3
+                /* var finalPoint = CGPoint(x:sender.view!.center.x + (velocity.x * slideFactor),
+                 y:sender.view!.center.y + (velocity.y * slideFactor))
+                 // 4
+                 finalPoint.x = min(max(finalPoint.x, 0), self.view.bounds.size.width)
+                 finalPoint.y = min(max(finalPoint.y, 0), self.view.bounds.size.height)
+                 
+                 // 5
+                 UIView.animateWithDuration(Double(slideFactor * 2),
+                 delay: 0,
+                 // 6
+                 options: UIViewAnimationOptions.CurveEaseOut,
+                 animations: {sender.view!.center = finalPoint },
+                 completion: nil)*/
+                if sender.view!.center.y + (velocity.y * slideFactor) > bottomOffSet && sender.view!.center.y + (velocity.y * slideFactor) < topOffSet {
+                    print("magnitude: \(magnitude), slideMultiplier: \(slideMultiplier)")
+                    sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + (velocity.y * slideFactor))
+                    sender.setTranslation(CGPointZero, inView: self.view)
+                }
+                
+            }
+            else{
+                sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
+                sender.setTranslation(CGPointZero, inView: self.view)
+                
+                
+            }
             self.view.layoutIfNeeded()
-        })
-       }
-
- }
+            UIView.animateWithDuration(0, animations: {
+                self.mergerViewHeight.constant = self.mergerHeightValue
+                self.view.layoutIfNeeded()
+            })
+        }else if self.mergerHeightValue > bottomOffSet{
+            setTableFull(0.0)
+        }else if self.mergerHeightValue < topOffSet{
+            setTableBottom(0.0)
+        }
+    }
+    
     func getOffsets(type: String) {
         
         let bounds = UIScreen.mainScreen().bounds
@@ -712,38 +842,71 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         }else if type=="loadFromLandscape"{
             topOffSet = height - 200.0
             bottomOffSet = 50.0
-    }else{
+        }else{
             let orientation = UIDevice.currentDevice().orientation
             if orientation.isLandscape{
                 bottomOffSet = 50.0
                 topOffSet = width - 200.0
             }else{
-                topOffSet = height - 350.0
+                topOffSet = height - 300.0
                 bottomOffSet = 46.0
             }
         }
     }
     
-    func setTableBottom()  {
-        self.view.layoutIfNeeded()
-        UIView.animateWithDuration(0.5, animations: {
+    func setTableBottom(duration: Double)  {
         
+        let image = UIImage(named:"collapse_arrow")
+        self.arrowButton.tintColor = UIColor.blackColor()
+        self.arrowButton.setImage(image, forState: .Normal)
+        self.arrowButton.addTarget(self, action: #selector(LocationViewController.btnTouched), forControlEvents:.TouchUpInside)
+        self.view.layoutIfNeeded()
+        UIView.animateWithDuration(duration, animations: {
+            
             self.mergerViewHeight.constant = self.bottomOffSet
             self.view.layoutIfNeeded()
         })
+        
+        tableState="bottom"
     }
-
     
-    func setTableFull()  {
+    func btnTouched() {
+        if tableState == "full" {
+            setTableBottom(0.5)
+            self.arrowButton.setImage(UIImage(named:"collapse_arrow") , forState: .Normal)
+        }else{
+            setTableFull(0.5)
+            self.arrowButton.setImage(UIImage(named:"expand_arrow") , forState: .Normal)
+        }
+    }
+    
+    func setTableFull(duration: Double)  {
+        let image = UIImage(named:"expand_arrow")
+        self.arrowButton.tintColor = UIColor.blackColor()
+        self.arrowButton.setImage(image, forState: .Normal)
+        self.arrowButton.addTarget(self, action: #selector(LocationViewController.btnTouched), forControlEvents:.TouchUpInside)
         self.view.layoutIfNeeded()
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(duration, animations: {
             
             self.mergerViewHeight.constant = self.topOffSet
             self.view.layoutIfNeeded()
         })
-
+        tableState="full"
     }
-
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let annotation = view.annotation as! Artwork
+        let person = annotation.person
+        let year = annotation.year
+        
+        data = person
+        setupDataForCorrectPerson()
+        let yearIndex = currentYears.indexOf(year)
+        centerMapOnLocation(currentLocations[yearIndex!], radius: 1000)
+        
+        
+    }
+    
 }
 
 

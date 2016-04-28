@@ -17,12 +17,14 @@
                     <view key="view" contentMode="scaleToFill" id="502-Ir-ELC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jSY-2e-H9l"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <segue destination="DVe-DZ-Gsx" kind="show" identifier="notificationLoad" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="SAR-Lo-UWR"/>
+                        <segue destination="DVe-DZ-Gsx" kind="show" identifier="notificationLoad" id="SAR-Lo-UWR"/>
+                        <segue destination="S4R-Ja-viH" kind="show" identifier="toData" id="s1a-Mv-xQb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
@@ -49,7 +51,7 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="onButtonClick:" destination="S4R-Ja-viH" eventType="touchUpInside" id="6nb-0N-ZfV"/>
-                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" customClass="customSegue" customModule="Philipp_Hadjimina" customModuleProvider="target" id="DGT-N2-ihh"/>
+                                    <segue destination="DVe-DZ-Gsx" kind="show" identifier="gotolocation" id="DGT-N2-ihh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWv-Lx-4DR">
@@ -121,7 +123,7 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="backPressed:" destination="DVe-DZ-Gsx" id="s1M-RQ-skE"/>
-                                                <segue destination="jJX-6D-4GO" kind="unwind" customClass="customSegueUnwind" customModule="Philipp_Hadjimina" customModuleProvider="target" unwindAction="unwindToThisViewController:" id="FnP-sw-43H"/>
+                                                <segue destination="jJX-6D-4GO" kind="unwind" unwindAction="unwindToThisViewController:" id="FnP-sw-43H"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Track" id="ihs-wB-LbH">
@@ -142,44 +144,65 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZnC-bh-kWf">
                                 <rect key="frame" x="0.0" y="278" width="600" height="322"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yRC-1J-80w">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yRC-1J-80w">
                                         <rect key="frame" x="0.0" y="49" width="600" height="273"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHx-Jq-G76">
-                                        <rect key="frame" x="267" y="15" width="66" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHx-Jq-G76">
+                                        <rect key="frame" x="268" y="15" width="65" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igs-vG-k4a">
+                                        <rect key="frame" x="562" y="11" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="O0b-NZ-dEg"/>
+                                            <constraint firstAttribute="width" constant="30" id="ZuT-MR-yFc"/>
+                                        </constraints>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="igs-vG-k4a" firstAttribute="top" secondItem="ZnC-bh-kWf" secondAttribute="top" constant="11" id="A5f-GJ-QKD"/>
                                     <constraint firstAttribute="bottom" secondItem="yRC-1J-80w" secondAttribute="bottom" id="GHv-U1-3e3"/>
                                     <constraint firstItem="mHx-Jq-G76" firstAttribute="top" secondItem="ZnC-bh-kWf" secondAttribute="top" constant="15" id="J02-yg-Vv2"/>
+                                    <constraint firstItem="yRC-1J-80w" firstAttribute="top" secondItem="igs-vG-k4a" secondAttribute="bottom" constant="8" id="Nik-sw-bqn"/>
                                     <constraint firstItem="yRC-1J-80w" firstAttribute="top" secondItem="mHx-Jq-G76" secondAttribute="bottom" constant="13" id="a2E-ms-gyd"/>
                                     <constraint firstItem="mHx-Jq-G76" firstAttribute="centerX" secondItem="ZnC-bh-kWf" secondAttribute="centerX" id="gSd-LP-gXf"/>
                                     <constraint firstAttribute="height" priority="750" constant="322" id="gax-g3-3O9"/>
                                     <constraint firstItem="yRC-1J-80w" firstAttribute="leading" secondItem="ZnC-bh-kWf" secondAttribute="leading" id="iOu-cL-Xqr"/>
+                                    <constraint firstAttribute="trailing" secondItem="igs-vG-k4a" secondAttribute="trailing" constant="16" id="o3h-QQ-kSm"/>
                                     <constraint firstAttribute="trailing" secondItem="yRC-1J-80w" secondAttribute="trailing" id="yTv-an-R4u"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="P9f-8k-v1J" appends="YES" id="GEa-xG-2xH"/>
                                 </connections>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="T5S-Fy-aeT">
+                                <rect key="frame" x="98" y="240" width="404" height="31"/>
+                                <connections>
+                                    <action selector="SliderValueChanged:" destination="DVe-DZ-Gsx" eventType="valueChanged" id="kiw-lq-vNa"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="bottom" secondItem="tGI-jk-xMx" secondAttribute="bottomMargin" id="6Mc-de-nCb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i1T-fy-gOR" secondAttribute="trailing" constant="-20" id="Ch9-oS-7hv"/>
                             <constraint firstItem="i1T-fy-gOR" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="H0a-rT-tUd"/>
+                            <constraint firstItem="T5S-Fy-aeT" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="80" id="LNb-LT-KvX"/>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="MFz-jA-nq2"/>
                             <constraint firstItem="ZG0-6U-Dqp" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="QjS-dp-fLI"/>
                             <constraint firstItem="i1T-fy-gOR" firstAttribute="top" secondItem="tGI-jk-xMx" secondAttribute="topMargin" id="a9j-bR-qox"/>
                             <constraint firstItem="ZnC-bh-kWf" firstAttribute="bottom" secondItem="tGI-jk-xMx" secondAttribute="bottomMargin" id="cCq-KW-LD7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZG0-6U-Dqp" secondAttribute="trailing" constant="-20" id="f1P-43-e2B"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZnC-bh-kWf" secondAttribute="trailing" constant="-20" id="gHQ-cu-4we"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="T5S-Fy-aeT" secondAttribute="trailing" constant="80" id="hnC-ng-QGt"/>
                             <constraint firstItem="ZnC-bh-kWf" firstAttribute="leading" secondItem="tGI-jk-xMx" secondAttribute="leadingMargin" constant="-20" id="uWX-RW-3kT"/>
                         </constraints>
                     </view>
@@ -188,12 +211,14 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="PanGesturRecognizer" destination="P9f-8k-v1J" id="5SR-dQ-XZJ"/>
+                        <outlet property="arrowButton" destination="igs-vG-k4a" id="h4P-EL-RlI"/>
                         <outlet property="backgroundView" destination="tGI-jk-xMx" id="vaq-a4-Poo"/>
                         <outlet property="mapView" destination="ZG0-6U-Dqp" id="Ild-tb-WBg"/>
                         <outlet property="mergerView" destination="ZnC-bh-kWf" id="HBo-Mz-nsp"/>
                         <outlet property="mergerViewHeight" destination="gax-g3-3O9" id="e5T-kj-BwW"/>
                         <outlet property="navBar" destination="i1T-fy-gOR" id="dyQ-Rw-FSz"/>
                         <outlet property="navBarHeight" destination="2sk-vW-eNC" id="jmX-qH-e6M"/>
+                        <outlet property="slider" destination="T5S-Fy-aeT" id="Wgj-Ur-Bo9"/>
                         <outlet property="tableView" destination="yRC-1J-80w" id="5Kt-WF-wE1"/>
                         <outlet property="watchButton" destination="ihs-wB-LbH" id="eMq-SD-S3V"/>
                     </connections>
@@ -210,6 +235,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SAR-Lo-UWR"/>
+        <segue reference="DGT-N2-ihh"/>
     </inferredMetricsTieBreakers>
 </document>

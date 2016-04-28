@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+		
+		registerNotification()
+		
         //Geo
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
@@ -52,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             let vc = storyboard.instantiateViewControllerWithIdentifier(identifier)
             window?.rootViewController = vc
         }
+		
+		
         return true
     }
     
@@ -97,9 +101,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             alertHandler(application)
         } else {
             // Otherwise present a local notification
+            
             let notification = UILocalNotification()
+            notification.alertTitle = "Encounter"
             notification.alertBody = notefromRegionIdentifier(region.identifier)
-            notification.soundName = "Default";
+            notification.soundName = UILocalNotificationDefaultSoundName
+            //.fireDate = NSDate(timeIntervalSinceNow: 10)
+            notification.category = "hi"
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
     }
@@ -156,31 +164,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let defaults = NSUserDefaults.standardUserDefaults()
-
         var topController : UIViewController = (app.keyWindow?.rootViewController)!
-        
         while ((topController.presentedViewController) != nil) {
-            
             topController = topController.presentedViewController!
         }
         
+        
         if !alertShown {
-            
+		
             let alert = UIAlertController(title: "Encounter", message: notefromRegionIdentifier(defaults.stringForKey("toBeWatched")!), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.view.tintColor = UIColor.blackColor()
+            //alert.view.tintColor = UIColor.blackColor()
             
             let okAction = UIAlertAction(title: "Show Location", style: UIAlertActionStyle.Default) {
                 UIAlertAction in
                 
-                let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+                /*let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
+                let asdf = topViewControllerWithRootViewController(rootVC) as! LocationViewController
+                asdf.data = "Martin Luther King"
+                asdf.setupDataForCorrectPerson()
+/*                let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
                 defaults.setObject("true", forKey: "fromNotification")
                 self.alertShown = false
-                vc.performSegueWithIdentifier("gotolocation", sender: nil)
+                vc.performSegueWithIdentifier("gotolocation", sender: nil)*/
+                */
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
                 UIAlertAction in
                 self.alertShown = false
-                NSLog("Cancel")
             }
             
             alert.addAction(okAction)
@@ -190,6 +200,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             alertShown = true
         }
     }
+	
+	func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+		registerNotification()
+	}
+	
+	
+	func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+		switch identifier {
+		case "2"?:
+			print("2")
+            let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
+           // let page = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+            
+            //let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+            defaults.setObject("true", forKey: "fromNotification")
+            self.alertShown = false
+            rootVC.performSegueWithIdentifier("toData", sender: nil)
+            
+            /*
+			let storyboard = UIStoryboard(name: "Main", bundle: nil)
+			let defaults = NSUserDefaults.standardUserDefaults()
+			let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+			defaults.setObject("true", forKey: "fromNotification")
+			self.alertShown = false
+			vc.performSegueWithIdentifier("gotolocation", sender: nil)*/
+
+		default:
+			break
+		}
+		print("YAY")
+		
+		completionHandler()
+	}
     
 }
 

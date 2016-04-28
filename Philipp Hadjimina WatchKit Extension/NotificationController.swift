@@ -53,5 +53,9 @@ class NotificationController: WKUserNotificationInterfaceController {
         // After populating your dynamic notification interface call the completion block.
         completionHandler(.Custom)
     }
+	
+	override func handleActionWithIdentifier(identifier: String?, forRemoteNotification remoteNotification: [NSObject : AnyObject]) {
+		print("HCORCHEU")
+	}
     
 }

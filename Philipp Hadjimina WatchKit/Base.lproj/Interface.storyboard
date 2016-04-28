@@ -8,56 +8,38 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Philipp_Hadjimina_WatchKit" customModuleProvider="target">
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Philipp_Hadjimina_WatchKit_Extension">
                     <items>
-                        <map height="100" alignment="left" id="XKd-XO-K0b"/>
-                        <table alignment="left" id="vgX-Ye-mpk"/>
-                        <group width="1" alignment="left" id="X6t-q8-O8z">
-                            <items>
-                                <label alignment="left" text="Label" numberOfLines="0" id="bMZ-oJ-7Re">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                    <variation key="device=watch42mm" text="Loading"/>
-                                </label>
-                            </items>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="bMZ-oJ-7Re"/>
-                                </mask>
-                            </variation>
-                            <variation key="device=watch42mm">
-                                <mask key="items">
-                                    <include reference="bMZ-oJ-7Re"/>
-                                </mask>
-                            </variation>
-                        </group>
-                        <label alignment="left" text="..." numberOfLines="0" id="fMo-tG-u0A">
-                            <variation key="device=watch42mm" text="Current location is being loaded. "/>
+                        <map height="100" alignment="left" id="X11-Fc-Q1V"/>
+                        <label alignment="left" text="Label" numberOfLines="0" id="Src-j9-BcM">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label width="100" height="100" alignment="left" text="Label" numberOfLines="0" id="YWU-5F-d3W">
+                            <variation key="device=watch42mm" height="75.5" width="156"/>
                         </label>
                     </items>
                     <variation key="default">
                         <mask key="items">
-                            <exclude reference="XKd-XO-K0b"/>
-                            <exclude reference="vgX-Ye-mpk"/>
-                            <exclude reference="X6t-q8-O8z"/>
-                            <exclude reference="fMo-tG-u0A"/>
+                            <exclude reference="X11-Fc-Q1V"/>
+                            <exclude reference="Src-j9-BcM"/>
+                            <exclude reference="YWU-5F-d3W"/>
                         </mask>
                     </variation>
                     <variation key="device=watch42mm">
                         <mask key="items">
-                            <include reference="XKd-XO-K0b"/>
-                            <include reference="vgX-Ye-mpk"/>
-                            <include reference="X6t-q8-O8z"/>
-                            <include reference="fMo-tG-u0A"/>
+                            <include reference="X11-Fc-Q1V"/>
+                            <include reference="Src-j9-BcM"/>
+                            <include reference="YWU-5F-d3W"/>
                         </mask>
                     </variation>
                     <connections>
-                        <outlet property="descLabel" destination="fMo-tG-u0A" id="rDu-NU-DsA"/>
-                        <outlet property="heading" destination="bMZ-oJ-7Re" id="zA4-yy-nCX"/>
-                        <outlet property="mapView" destination="XKd-XO-K0b" id="Bfj-JI-zfH"/>
+                        <outlet property="descLabel" destination="YWU-5F-d3W" id="VYC-9P-YZv"/>
+                        <outlet property="heading" destination="Src-j9-BcM" id="P7P-8j-iPt"/>
+                        <outlet property="mapView" destination="X11-Fc-Q1V" id="bLW-d1-iXV"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="219.69230769230771" y="357.87179487179492"/>
+            <point key="canvasLocation" x="219.69230769230771" y="370.51282051282055"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -77,10 +59,10 @@
             </objects>
             <point key="canvasLocation" x="219.69230769230771" y="642.94871794871801"/>
         </scene>
-        <!--Notification Controller-->
+        <!--Dynamic Notification Interface Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Philipp_Hadjimina_WatchKit" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art"/>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
         </scene>

@@ -20,10 +20,61 @@ func showSimpleAlertWithTitle(title: String!, message: String, viewController: U
 }
 
 
+func registerNotification() {
+	
+	// 1. Create the actions **************************************************
+	
+	// increment Action
+	let incrementAction = UIMutableUserNotificationAction()
+	incrementAction.identifier = "2"
+	incrementAction.title = "Show Event"
+	incrementAction.activationMode = UIUserNotificationActivationMode.Foreground
+	incrementAction.authenticationRequired = true
+	incrementAction.destructive = false
+	
+	// decrement Action
+	let decrementAction = UIMutableUserNotificationAction()
+	decrementAction.identifier = "1"
+	decrementAction.title = "Dismiss"
+	decrementAction.activationMode = UIUserNotificationActivationMode.Background
+	decrementAction.authenticationRequired = true
+	decrementAction.destructive = false
+	
+	// reset Action
+	let resetAction = UIMutableUserNotificationAction()
+	resetAction.identifier = "0"
+	resetAction.title = "RESET"
+	resetAction.activationMode = UIUserNotificationActivationMode.Foreground
+	// NOT USED resetAction.authenticationRequired = true
+	resetAction.destructive = true
+	
+	
+	// 2. Create the category ***********************************************
+	
+	// Category
+	let counterCategory = UIMutableUserNotificationCategory()
+	counterCategory.identifier = "hi"
+	
+	// A. Set actions for the default context
+	counterCategory.setActions([incrementAction, decrementAction, resetAction],
+	                           forContext: UIUserNotificationActionContext.Default)
+	
+	// B. Set actions for the minimal context
+	counterCategory.setActions([incrementAction],
+	                           forContext: UIUserNotificationActionContext.Minimal)
+	
+	
+	// 3. Notification Registration *****************************************
+	
+	let types: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+	let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: counterCategory) as! Set<UIUserNotificationCategory>)
+	UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+}
+
 
 // Returns the most recently presented UIViewController (visible)
  func getCurrentViewController() -> UIViewController? {
-    
+	
     // Otherwise, we must get the root UIViewController and iterate through presented views
     if let rootController = UIApplication.sharedApplication().keyWindow?.rootViewController {
         
@@ -66,3 +117,20 @@ func stopMonitoringLocations(locationManager:CLLocationManager, defaults:NSUserD
     defaults.setObject("NoOne", forKey: "toBeWatched")
 }
 
+func getTopViewController()->UIViewController{
+    return topViewControllerWithRootViewController(UIApplication.sharedApplication().keyWindow!.rootViewController!)
+}
+func topViewControllerWithRootViewController(rootViewController:UIViewController)->UIViewController{
+    if rootViewController is UITabBarController{
+        let tabBarController = rootViewController as! UITabBarController
+        return topViewControllerWithRootViewController(tabBarController.selectedViewController!)
+    }
+    if rootViewController is UINavigationController{
+        let navBarController = rootViewController as! UINavigationController
+        return topViewControllerWithRootViewController(navBarController.visibleViewController!)
+    }
+    if let presentedViewController = rootViewController.presentedViewController {
+        return topViewControllerWithRootViewController(presentedViewController)
+    }
+    return rootViewController
+}

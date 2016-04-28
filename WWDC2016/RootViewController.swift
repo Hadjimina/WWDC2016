@@ -16,7 +16,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setNeedsStatusBarAppearanceUpdate()
         //UIApplication.sharedApplication().statusBarStyle = .LightContent
         
@@ -53,11 +52,12 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     
     override func viewDidAppear(animated: Bool) {
-    
+        
     }
     
     override func viewWillAppear(animated: Bool) {
-            setNeedsStatusBarAppearanceUpdate()
+        self.view.backgroundColor = UIColor.blackColor()
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     override func didReceiveMemoryWarning() {
