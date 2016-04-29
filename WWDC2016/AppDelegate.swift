@@ -173,20 +173,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
         if !alertShown {
 		
             let alert = UIAlertController(title: "Encounter", message: notefromRegionIdentifier(defaults.stringForKey("toBeWatched")!), preferredStyle: UIAlertControllerStyle.Alert)
-            //alert.view.tintColor = UIColor.blackColor()
             
             let okAction = UIAlertAction(title: "Show Location", style: UIAlertActionStyle.Default) {
                 UIAlertAction in
-                
-                /*let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
-                let asdf = topViewControllerWithRootViewController(rootVC) as! LocationViewController
-                asdf.data = "Martin Luther King"
-                asdf.setupDataForCorrectPerson()
-/*                let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
-                defaults.setObject("true", forKey: "fromNotification")
-                self.alertShown = false
-                vc.performSegueWithIdentifier("gotolocation", sender: nil)*/
-                */
+                self.performSegueToCorrectVC()
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
                 UIAlertAction in
@@ -207,36 +197,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
 	
 	
 	func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let defaults = NSUserDefaults.standardUserDefaults()
+        
         
 		switch identifier {
-		case "2"?:
-			print("2")
-            let rootVC = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
-           // let page = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
-            
-            //let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
-            defaults.setObject("true", forKey: "fromNotification")
-            self.alertShown = false
-            rootVC.performSegueWithIdentifier("toData", sender: nil)
-            
-            /*
-			let storyboard = UIStoryboard(name: "Main", bundle: nil)
-			let defaults = NSUserDefaults.standardUserDefaults()
-			let vc = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
-			defaults.setObject("true", forKey: "fromNotification")
-			self.alertShown = false
-			vc.performSegueWithIdentifier("gotolocation", sender: nil)*/
-
-		default:
+		case "2"?:            
+            performSegueToCorrectVC()
+        default:
 			break
 		}
-		print("YAY")
-		
+
 		completionHandler()
 	}
     
+    func performSegueToCorrectVC()  {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject("true", forKey: "fromNotification")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController: RootViewController = storyboard.instantiateViewControllerWithIdentifier("page") as! RootViewController
+        
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
+    }
 }
 
 

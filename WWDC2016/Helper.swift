@@ -56,7 +56,7 @@ func registerNotification() {
 	counterCategory.identifier = "hi"
 	
 	// A. Set actions for the default context
-	counterCategory.setActions([incrementAction, decrementAction, resetAction],
+	counterCategory.setActions([incrementAction],
 	                           forContext: UIUserNotificationActionContext.Default)
 	
 	// B. Set actions for the minimal context
@@ -117,20 +117,19 @@ func stopMonitoringLocations(locationManager:CLLocationManager, defaults:NSUserD
     defaults.setObject("NoOne", forKey: "toBeWatched")
 }
 
-func getTopViewController()->UIViewController{
-    return topViewControllerWithRootViewController(UIApplication.sharedApplication().keyWindow!.rootViewController!)
+func userAlreadyExist() -> Bool {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if (defaults.stringForKey("toBeWatched") != nil) {
+        return true
+    }
+    return false
 }
-func topViewControllerWithRootViewController(rootViewController:UIViewController)->UIViewController{
-    if rootViewController is UITabBarController{
-        let tabBarController = rootViewController as! UITabBarController
-        return topViewControllerWithRootViewController(tabBarController.selectedViewController!)
+
+
+func notifcationValueAlreadyExist() -> Bool {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if (defaults.stringForKey("fromNotification") != nil) {
+        return true
     }
-    if rootViewController is UINavigationController{
-        let navBarController = rootViewController as! UINavigationController
-        return topViewControllerWithRootViewController(navBarController.visibleViewController!)
-    }
-    if let presentedViewController = rootViewController.presentedViewController {
-        return topViewControllerWithRootViewController(presentedViewController)
-    }
-    return rootViewController
+    return false
 }

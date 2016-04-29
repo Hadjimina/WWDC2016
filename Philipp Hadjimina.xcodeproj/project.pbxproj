@@ -377,7 +377,7 @@
 				TargetAttributes = {
 					FC664AD11CCA98C7003AC3D5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6ZVY6BF6M8;
+						DevelopmentTeam = 6TGD9S6PZN;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
@@ -394,7 +394,7 @@
 					};
 					FCD161F31CCD3B5400574793 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6ZVY6BF6M8;
+						DevelopmentTeam = 6TGD9S6PZN;
 					};
 					FCD161FF1CCD3B5500574793 = {
 						CreatedOnToolsVersion = 7.3;
@@ -763,11 +763,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Philipp_Hadjimina_WatchKit_Extension;
 				INFOPLIST_FILE = "Philipp Hadjimina WatchKit/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -781,11 +783,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Philipp_Hadjimina_WatchKit_Extension;
 				INFOPLIST_FILE = "Philipp Hadjimina WatchKit/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hadjiminap.WWDC2016.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;

@@ -12,12 +12,12 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     var pageViewController: PHPageViewController?
     var currentIndex:Int!
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        //UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         
         // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
@@ -30,9 +30,28 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         if (currentIndex == nil) {
             currentIndex = 0
         }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if notifcationValueAlreadyExist() && defaults.objectForKey("fromNotification") as! String == "true" && userAlreadyExist(){
+            
+            let person = defaults.objectForKey("toBeWatched") as! String
+            
+            switch person {
+            case "Martin Luther King":
+                currentIndex = 2
+            case "Albert Einstein":
+                currentIndex = 0
+            case "Mahatma Gandhi":
+                currentIndex = 1
+            default:
+                break
+            }
+       }
         let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(currentIndex, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
+        
+        
 
         self.pageViewController!.dataSource = self.modelController
 
@@ -50,9 +69,23 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if notifcationValueAlreadyExist() && defaults.objectForKey("fromNotification") as! String == "true" {
+            let destinationVC = segue.destinationViewController as! LocationViewController
+            let data = defaults.objectForKey("toBeWatched") as! String
+            destinationVC.data = data
+        }
+    }
     
     override func viewDidAppear(animated: Bool) {
-        
+        //Check if from notification
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if notifcationValueAlreadyExist() && defaults.objectForKey("fromNotification") as! String == "true" {
+            
+            performSegueWithIdentifier("notificationLoad", sender: nil)
+            
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,15 +139,14 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         return .Mid
     }
     
-    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {        
         
+        //Set correct index
+        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(currentIndex, storyboard: self.storyboard!)!
+        let viewControllers = [startingViewController]
+        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
     }
     
-    
-    /*override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue? {
-//        let segue = customSegueUnwind.
-        
-    }*/
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }

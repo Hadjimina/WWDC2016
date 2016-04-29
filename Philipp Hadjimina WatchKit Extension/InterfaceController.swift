@@ -17,7 +17,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 	@IBOutlet var descLabel: WKInterfaceLabel!
 	var locationManager: CLLocationManager = CLLocationManager()
 	let defaults = NSUserDefaults.standardUserDefaults()
-	
+    var noneFound = false
 	var person:NSString!
 	
 	var currentLocations:[CLLocation]!
@@ -32,13 +32,12 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 		mapView.setHidden(true)
 		heading.setText("Loading")
 		descLabel.setText("Please be patient while your location is being loaded")
-		
-		if  userAlreadyExist(){
-			//let newItems = defaults.objectForKey("toBeWatched")![0]
-			//person = newItems.objectForKey("toBeWatched") as! String
-			person =  "Martin Luther King"
+		//print("Defaults "+defaults.stringForKey("toBeWatched")!)
+		if  userAlreadyExist() &&  defaults.stringForKey("toBeWatched") != "NoOne"{
+			let newItems = defaults.objectForKey("toBeWatched")![0]
+			person = newItems.objectForKey("toBeWatched") as! String
+            print(person)
 			setupDataForCorrectPerson()
-			
 			print(CLLocationManager.locationServicesEnabled())
 			
 			if CLLocationManager.locationServicesEnabled() {
@@ -62,6 +61,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 			mapView.setHidden(true)
 			heading.setText("No tracker found")
 			descLabel.setText("Please add someone to your watchlist in the App")
+            noneFound = true
 		}
 	}
 	
@@ -104,6 +104,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 		
 		print(error.description)
+        dummyLocationSetup()
 	}
 	
 	func setupViewForIndex(index : Int)   {
@@ -125,8 +126,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 	
 	
 	func dummyLocationSetup()  {
-		let dummyIndex = Int(arc4random())
-		setupViewForIndex(dummyIndex)
+        if !noneFound {
+            let dummyIndex = Int(arc4random_uniform(UInt32(currentLocations.count)) + 1)
+            setupViewForIndex(dummyIndex)
+        }
+        
 		
 	}
 	//Data Setup
@@ -140,9 +144,12 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 		}else if person == "Martin Luther King"{
 			personIndex = 2
 		}
-		
 		if personIndex == 50 {
 			print("Error")
+            mapView.setHidden(true)
+            heading.setText("No tracker found")
+            descLabel.setText("Please add someone to your watchlist in the App")
+
 		}else{
 			currentYears =  getYearsForPersonWithIndex(personIndex)
 			currentEvents = getEventsForPersonWithIndex(personIndex)

@@ -37,72 +37,76 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         else{
             nameLabel.font = UIFont(name: "Garamond", size: 50)
         }
-        
         self.addParallaxToView(self.backgroundImage)
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    
     override func viewDidAppear(animated: Bool) {
         setNeedsStatusBarAppearanceUpdate()
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: transparentBtn)
         }
-
+        
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         self.backgroundImage.hidden = false
         
         nameLabel.text = dataObject
         backgroundImage.image = UIImage(named: dataObject+".jpg")
         
-
+        
         
         self.view.layoutIfNeeded()
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(0.75, animations: {
             self.backImgTop.constant = -30
             self.view.layoutIfNeeded()
         })
         
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(0.75, animations: {
             self.backImgLeft.constant = -50
             self.view.layoutIfNeeded()
         })
         
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(0.75, animations: {
             self.backImgRight.constant = -50
             self.view.layoutIfNeeded()
         })
         
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(0.75, animations: {
             self.backImgBottom.constant = -50
             self.view.layoutIfNeeded()
         })
+        
+        
     }
-
-
+    
+    
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         if (segue.identifier == "gotolocation") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
-
-            //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
-        
+            
         }
+            
         else if (segue.identifier == "gotolocationpeek") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
-            //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+            
         }
     }
     
@@ -110,6 +114,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBarHidden = false
+        
         
         UIView.animateWithDuration(0.75, animations: {
             self.backImgTop.constant = -20
@@ -122,7 +127,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         })
         
         UIView.animateWithDuration(0.75, animations: {
-            self.backImgRight.constant = -40
+            self.backImgRight.constant = -5
             self.view.layoutIfNeeded()
         })
         
@@ -130,9 +135,9 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
             self.backImgBottom.constant = -20
             self.view.layoutIfNeeded()
         })
- 
         
-
+        
+        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -141,7 +146,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     }
     
     @IBAction func onButtonClick(sender: AnyObject) {
- 
+        
         //self.performSegueWithIdentifier("notificationLoad", sender: nil)
     }
     
@@ -159,8 +164,6 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         let group = UIMotionEffectGroup()
         group.motionEffects = [horizontal, vertical]
         vw.addMotionEffect(group)
-        
-
     }
     
     //Preview Actions
@@ -180,7 +183,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
         
     }
     
-
+    
     
 }
 

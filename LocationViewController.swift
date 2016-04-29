@@ -15,7 +15,11 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     
     //Constraints
     @IBOutlet weak var navBarHeight: NSLayoutConstraint!
-    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var timelineLabel: UILabel!
+    
+    @IBOutlet weak var timeLineLeftConst: NSLayoutConstraint!
     
     @IBOutlet weak var slider: UISlider!
     @IBOutlet var PanGesturRecognizer: UIPanGestureRecognizer!
@@ -24,7 +28,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var backBtn: UIBarButtonItem!
     var data:String!
     var currentIndex = 0
     var mapFullscreen = false
@@ -141,45 +144,21 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         //Setup Orientation
         let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
         if orientation.isLandscape {
+            yearLabel.hidden = false
             slider.hidden = false
             getOffsets("loadFromLandscape")
             changeMapView(true)
             setTableBottom(0.5)
+            PanGesturRecognizer.enabled = false
         }else{
+            PanGesturRecognizer.enabled = true
+            yearLabel.hidden = true
             slider.hidden = true
             getOffsets("current")
             setTableFull(0.5)
         }
         
-        //Setup Annotations
-        /*for i in 0..<currentDescriptions.count {
-         let artwork = Artwork(title: (navBar.topItem?.title)!+": "+currentYears[i],
-         locationName: currentDescriptions[i],
-         location: currentLocations[i] )
-         mapView.addAnnotation(artwork)
-         }*/
-        
-        var dudeNames = ["Einstein","Gandhi","King"]
-        
-        for i in 1..<3{
-            var tempYear = getYearsForPersonWithIndex(i)
-            var tempShort = getAnnotationDescForPersonWithIndex(i)
-            var tempLocs = getLocationForPersonWithIndex(i)
-            var tempName = dudeNames[i]
-            
-            for a in 0..<tempLocs.count  {
-                let artwork = Artwork(title: tempName+": "+tempYear[a],
-                                      locationName: tempShort[a],
-                                      location: tempLocs[a])
-                mapView.addAnnotation(artwork)
-                //allAnnotations.append(artwork)
-            }
-            
-        }
-        
-        
-        
-        
+        addAllAnnotaions()
     }
     
     
@@ -211,8 +190,16 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         var height = currentEvents[indexPath.row].heightWithConstrainedWidth(screenWidth-132, font: UIFont.systemFontOfSize(17, weight: UIFontWeightRegular))
-        if height < 125{
-            height = 125
+        
+        if UIDevice.currentDevice().orientation.isLandscape{
+            if height < 60{
+                height = 60
+            }
+        
+        }else{
+            if height < 125{
+                height = 125
+            }
         }
         height = height + 75
         return height
@@ -272,9 +259,12 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             center.y = center.y - 50
         }
         
-        
-        let indexPath = tableView.indexPathForRowAtPoint(center)!
-        
+        var indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        if tableView.indexPathForRowAtPoint(center) == nil {
+            setTableBottom(0.25)
+        }else{
+            indexPath = tableView.indexPathForRowAtPoint(center)!
+        }
         //tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
         centerMapOnLocation(currentLocations[indexPath.row], radius: 1000)
         index = indexPath.row
@@ -284,18 +274,17 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let destinationVC = segue.destinationViewController as! RootViewController
         
-        if (segue.identifier == "goback") {
+
+        if (segue.identifier == "unwind") {
             var indexToSet = 0
-            
             if data == "Mahatma Gandhi"{
                 indexToSet = 1
             }else if data=="Martin Luther King" {
                 indexToSet = 2
             }
             destinationVC.currentIndex = indexToSet
-            
-            
         }
+
     }
     
     //Orientation Change
@@ -306,21 +295,36 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         self.tableView.reloadData()
         switch UIDevice.currentDevice().orientation{
         case .Portrait:
+            PanGesturRecognizer.enabled = true
+            timelineLabel.text = "Timeline"
             slider.hidden = true
+            yearLabel.hidden = true
             getOffsets("Portrait")
             setTableFull(0.5)
             changeMapView(false)
         case .PortraitUpsideDown:
+            PanGesturRecognizer.enabled = true
+            timelineLabel.text = "Timeline"
+            yearLabel.hidden = true
             slider.hidden = true
             getOffsets("Portrait")
             setTableFull(0.5)
             changeMapView(false)
+            
+            
         case .LandscapeLeft:
+            PanGesturRecognizer.enabled = false
+            timelineLabel.text = "Timeline:"
+            yearLabel.hidden = false
             slider.hidden = false
             getOffsets("Landscape")
             setTableBottom(0.5)
             changeMapView(true)
+            
         case .LandscapeRight:
+            PanGesturRecognizer.enabled = false
+            timelineLabel.text = "Timeline"
+            yearLabel.hidden = false
             slider.hidden = false
             getOffsets("Landscape")
             setTableBottom(0.5)
@@ -437,18 +441,18 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             let identifier = "pin"
             
             var view: MKPinAnnotationView
-            /*if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-             as? MKPinAnnotationView { // 2
-             dequeuedView.annotation = annotation
-             view = dequeuedView
-             } else {*/
-            // 3
-            
-            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
-            view.animatesDrop = true
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
+                view.animatesDrop = true
+                
+            }
             
             //Tint color workaround
             let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
@@ -460,7 +464,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             else{
                 view.pinTintColor = UIColor.redColor()
             }
-            // }
             return view
         }
         return nil
@@ -500,6 +503,9 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     }
     
     func trackerHandler()  {
+        //Cancel scheduled notifcations
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+
         if defaults.stringForKey("toBeWatched") == data {
             watchButton.title = "Track"
             stopMonitoringLocations(locationManager,defaults: defaults)
@@ -507,15 +513,13 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             defaults.setObject("NoOne", forKey: "toBeWatched")
         }
         else{
-            startMonitoringLocation()
-            
+            //startMonitoringLocation()
+            let dummy = ["toBeWatched" : defaults.objectForKey("toBeWatched") as AnyObject!]
+            WCSession.defaultSession().transferUserInfo(dummy)
             defaults.setObject(data, forKey: "toBeWatched")
             alertLogic()
-            
         }
-        let dummy = ["toBeWatched" : defaults.objectForKey("toBeWatched") as AnyObject!]
-        
-        WCSession.defaultSession().transferUserInfo(dummy)
+
     }
     
     //Show alert
@@ -527,14 +531,16 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let okAction = UIAlertAction(title: "Geofencing", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             
+            let dummy = ["toBeWatched" : self.defaults.objectForKey("toBeWatched") as AnyObject!]
+            WCSession.defaultSession().transferUserInfo(dummy)
             self.startMonitoringLocation()
             self.watchButton.title = "Untrack"
             self.defaults.setObject(self.data, forKey: "toBeWatched")
         }
         
         let dummy = UIAlertAction(title: "Dummy", style: UIAlertActionStyle.Default) {
-            
             UIAlertAction in
+            
             //Schedule dummy notification
             let notification = UILocalNotification()
             notification.alertTitle = "Encounter"
@@ -550,11 +556,13 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             self.defaults.setObject(self.data, forKey: "toBeWatched")
             
             self.watchButton.title = "Untrack"
+            
         }
         
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
+            self.defaults.setObject("NoOne", forKey: "toBeWatched")
         }
         
         // Add the actions
@@ -575,20 +583,6 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         print("Location Manager failed with the following error: \(error)")
     }
     
-    func userAlreadyExist() -> Bool {
-        if (defaults.stringForKey("toBeWatched") != nil) {
-            return true
-        }
-        return false
-    }
-    
-    func notifcationValueAlreadyExist() -> Bool {
-        if (defaults.stringForKey("fromNotification") != nil) {
-            return true
-        }
-        return false
-    }
-    
     func dummynotifcationValueAlreadyExist() -> Bool {
         if (defaults.stringForKey("dummyNotification") != nil) {
             return true
@@ -599,32 +593,42 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     @IBAction func SliderValueChanged(sender: UISlider) {
         let currentValue = Int(sender.value)
         
-        //remove all annotations
-        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
-        mapView.removeAnnotations( annotationsToRemove )
-        
-        //add annotations
-        var dudeNames = ["Einstein","Gandhi","King"]
-        
-        for i in 1..<3{
+        if currentValue != 0 {
+            let lowerYear = String(currentValue+1869)
+            let upperYear = String(currentValue+1869+10)
+            yearLabel.text = lowerYear+" - "+upperYear
             
-            var tempYear = getYearsForPersonWithIndex(i)
-            var tempShort = getAnnotationDescForPersonWithIndex(i)
-            var tempLocs = getLocationForPersonWithIndex(i)
-            let tempName = dudeNames[i]
+            //remove all annotations
+            let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+            mapView.removeAnnotations( annotationsToRemove )
             
-            for a in 0..<tempLocs.count  {
+            //add annotations
+            var dudeNames = ["Einstein","Gandhi","King"]
+            
+            for i in 1..<3{
                 
-                if Int(tempYear[a])!-1869 <= currentValue+5 && Int(tempYear[a])!-1869 >= currentValue{
+                var tempYear = getYearsForPersonWithIndex(i)
+                var tempShort = getAnnotationDescForPersonWithIndex(i)
+                var tempLocs = getLocationForPersonWithIndex(i)
+                let tempName = dudeNames[i]
+                
+                for a in 0..<tempLocs.count  {
                     
-                    
-                    let artwork = Artwork(title: tempName+": "+tempYear[a],
-                                          locationName: tempShort[a],
-                                          location: tempLocs[a])
-                    mapView.addAnnotation(artwork)
+                    if Int(tempYear[a])!-1869 <= currentValue+10 && Int(tempYear[a])!-1869 >= currentValue{
+                        
+                        
+                        let artwork = Artwork(title: tempName+": "+tempYear[a],
+                                              locationName: tempShort[a],
+                                              location: tempLocs[a])
+                        mapView.addAnnotation(artwork)
+                    }
                 }
+                
             }
             
+        }else{
+            addAllAnnotaions()
+            yearLabel.text = "Show All"
         }
         
         
@@ -634,6 +638,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         //remove all annotations
         let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        mapView.removeAnnotations( annotationsToRemove )
         
         var dudeNames = ["Einstein","Gandhi","King"]
         
@@ -641,7 +646,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             var tempYear = getYearsForPersonWithIndex(i)
             var tempShort = getAnnotationDescForPersonWithIndex(i)
             var tempLocs = getLocationForPersonWithIndex(i)
-            var tempName = dudeNames[i]
+            let tempName = dudeNames[i]
             
             for a in 0..<tempLocs.count  {
                 let artwork = Artwork(title: tempName+": "+tempYear[a],
@@ -651,7 +656,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             }
             
         }
-
+        
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -737,13 +742,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             return [geo]
         }
         else{
-            //Actual Geofencing
-            let geo = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
-                self.trackerHandler()
-            }
-            
             //Dummy notification
-            let dummy = UIPreviewAction(title: watchButton.title!, style: .Default) { (action, viewController) -> Void in
+            let dummy = UIPreviewAction(title: "Dummy Notification", style: .Default) { (action, viewController) -> Void in
                 //Schedule dummy notification
                 let notification = UILocalNotification()
                 notification.alertTitle = "Encounter"
@@ -761,7 +761,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 self.watchButton.title = "Untrack"
                 
             }
-            return [geo,dummy]
+
+            
+            //Actual Geofencing
+            let geo = UIPreviewAction(title: "Geofencing", style: .Default) { (action, viewController) -> Void in
+                self.trackerHandler()
+            }
+            
+                        return [dummy,geo]
         }
     }
     
@@ -771,49 +778,12 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let translation = sender.translationInView(self.view)
         
         self.mergerHeightValue = self.mergerView.frame.size.height - translation.y
-        
-        print("height "+String(self.mergerView.frame.size.height))
-        print("bottom "+String(self.bottomOffSet))
-        print("top "+String(self.topOffSet))
-        
+
         if self.mergerHeightValue > bottomOffSet && self.mergerHeightValue < topOffSet  {
             
-            if sender.state == UIGestureRecognizerState.Ended {
-                // 1
-                let velocity = sender.velocityInView(self.view)
-                let magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
-                let slideMultiplier = magnitude / 200
-                // print("magnitude: \(magnitude), slideMultiplier: \(slideMultiplier)")
-                
-                // 2
-                let slideFactor = 0.1 * slideMultiplier     //Increase for more of a slide
-                // 3
-                /* var finalPoint = CGPoint(x:sender.view!.center.x + (velocity.x * slideFactor),
-                 y:sender.view!.center.y + (velocity.y * slideFactor))
-                 // 4
-                 finalPoint.x = min(max(finalPoint.x, 0), self.view.bounds.size.width)
-                 finalPoint.y = min(max(finalPoint.y, 0), self.view.bounds.size.height)
-                 
-                 // 5
-                 UIView.animateWithDuration(Double(slideFactor * 2),
-                 delay: 0,
-                 // 6
-                 options: UIViewAnimationOptions.CurveEaseOut,
-                 animations: {sender.view!.center = finalPoint },
-                 completion: nil)*/
-                if sender.view!.center.y + (velocity.y * slideFactor) > bottomOffSet && sender.view!.center.y + (velocity.y * slideFactor) < topOffSet {
-                    print("magnitude: \(magnitude), slideMultiplier: \(slideMultiplier)")
-                    sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + (velocity.y * slideFactor))
-                    sender.setTranslation(CGPointZero, inView: self.view)
-                }
-                
-            }
-            else{
-                sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
-                sender.setTranslation(CGPointZero, inView: self.view)
-                
-                
-            }
+            sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
+            sender.setTranslation(CGPointZero, inView: self.view)
+            
             self.view.layoutIfNeeded()
             UIView.animateWithDuration(0, animations: {
                 self.mergerViewHeight.constant = self.mergerHeightValue
@@ -866,10 +836,36 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             self.mergerViewHeight.constant = self.bottomOffSet
             self.view.layoutIfNeeded()
         })
-        
         tableState="bottom"
+        
+        if  UIDevice.currentDevice().orientation.isPortrait{
+            //Setup timeline
+            yearLabel.hidden = true
+            timelineLabel.text = "Timeline"
+            self.view.layoutIfNeeded()
+            UIView.animateWithDuration(duration, animations: {
+                self.timeLineLeftConst.constant = 168
+                self.view.layoutIfNeeded()
+            })
+        }
+        else if UIDevice.currentDevice().orientation.isLandscape{
+            yearLabel.hidden = false
+            timelineLabel.text = "Timeline: "
+            
+            //Setup timeline
+            self.view.layoutIfNeeded()
+            UIView.animateWithDuration(duration, animations: {
+                self.timeLineLeftConst.constant = 16
+                self.view.layoutIfNeeded()
+            })
+            
+            
+        }
+        
+        
     }
     
+    //Expand/minimize button clicked
     func btnTouched() {
         if tableState == "full" {
             setTableBottom(0.5)
@@ -881,6 +877,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     }
     
     func setTableFull(duration: Double)  {
+        
         let image = UIImage(named:"expand_arrow")
         self.arrowButton.tintColor = UIColor.blackColor()
         self.arrowButton.setImage(image, forState: .Normal)
@@ -892,19 +889,46 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             self.view.layoutIfNeeded()
         })
         tableState="full"
+        
+        if  UIDevice.currentDevice().orientation.isPortrait{
+            self.view.layoutIfNeeded()
+            UIView.animateWithDuration(duration, animations: {
+                self.timeLineLeftConst.constant = 168
+                self.view.layoutIfNeeded()
+            })
+        }
+        
     }
     
+    
+    //Annotation clicked
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let annotation = view.annotation as! Artwork
         let person = annotation.person
         let year = annotation.year
         
-        data = person
+        print(person)
+        
+        switch person {
+        case "King":
+            data = "Martin Luther King"
+        case "Einstein":
+            data = "Albert Einstein"
+        case "Gandhi":
+            data = "Mahatma Gandhi"
+        default:
+            break
+        }
+        
         setupDataForCorrectPerson()
+        tableView.reloadData()
         let yearIndex = currentYears.indexOf(year)
-        centerMapOnLocation(currentLocations[yearIndex!], radius: 1000)
-        
-        
+        addAllAnnotaions()
+        centerMapOnLocation(currentLocations[yearIndex!], radius: 1000)        
+        setTableFull(0.5)
+        slider.value = 0.0
+        yearLabel.text = "Show All"
+
     }
     
 }

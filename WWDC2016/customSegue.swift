@@ -9,7 +9,7 @@ import UIKit
 
 class customSegue: UIStoryboardSegue {
     
-    override func perform() {
+   /* override func perform() {
         // Assign the source and destination views to local variables.
         let firstVCView = self.sourceViewController.view as UIView!
         let secondVCView = self.destinationViewController.view as UIView!
@@ -36,6 +36,34 @@ class customSegue: UIStoryboardSegue {
                                                             animated: false,
                                                             completion: nil)
         }
+    }*/
+    
+    override func perform() {
+        let firstVCView = sourceViewController.view as UIView!
+        let thirdVCView = destinationViewController.view as UIView!
+        
+        let window = UIApplication.sharedApplication().keyWindow
+        window?.insertSubview(thirdVCView, belowSubview: firstVCView)
+        
+        thirdVCView.transform = CGAffineTransformScale(thirdVCView.transform, 0.001, 0.001)
+        
+        
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            firstVCView.transform = CGAffineTransformScale(thirdVCView.transform, 0.001, 0.001)
+            
+        }) { (Finished) -> Void in
+            
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                thirdVCView.transform = CGAffineTransformIdentity
+                
+                }, completion: { (Finished) -> Void in
+                    
+                    firstVCView.transform = CGAffineTransformIdentity
+                    self.sourceViewController.presentViewController(self.destinationViewController as UIViewController, animated: false, completion: nil)
+            })
+        }
+        
     }
+
     
 }
