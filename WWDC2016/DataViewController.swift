@@ -101,9 +101,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
             
-        }
-            
-        else if (segue.identifier == "gotolocationpeek") {
+        }else if (segue.identifier == "gotolocationpeek") {
             let destinationVC = segue.destinationViewController as! LocationViewController
             destinationVC.data = dataObject
             
@@ -151,7 +149,7 @@ class DataViewController: UIViewController,UIViewControllerPreviewingDelegate {
     }
     
     func addParallaxToView(vw: UIView) {
-        let amount = 15
+        let amount = 25
         
         let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
         horizontal.minimumRelativeValue = -amount

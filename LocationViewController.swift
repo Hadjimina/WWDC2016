@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import WatchConnectivity
 
+
 class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate {
     
     //Constraints
@@ -55,7 +56,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         super.viewDidLoad()
         
         mapView.showsCompass = false
-        registerNotification()
+        registerNotification()        
         
         //Geo
         locationManager.delegate = self
@@ -123,7 +124,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         //Slider
         slider.continuous = false
         slider.minimumValue = 0.0
-        slider.maximumValue = 100.0
+        slider.maximumValue = 89.0
         
         //Set title
         navigationItem.title = data
@@ -282,6 +283,9 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             }else if data=="Martin Luther King" {
                 indexToSet = 2
             }
+            else if data == "Albert Einstein"{
+                indexToSet = 0
+            }
             destinationVC.currentIndex = indexToSet
         }
 
@@ -360,17 +364,18 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func getLocationForPersonWithIndex(index: Int) -> [CLLocation] {
         
         switch index {
-            //        case 0:
+        case 0:
+            return [CLLocation(latitude: 48.401082, longitude: 9.987608),CLLocation(latitude: 51.227741, longitude: 6.773456),CLLocation(latitude: 45.465422, longitude: 9.185924),CLLocation(latitude: 47.390434, longitude: 8.045701),CLLocation(latitude: 47.376536, longitude: 8.548093),CLLocation(latitude: 51.165691, longitude: 10.451526),CLLocation(latitude: 47.376278, longitude: 8.547374),CLLocation(latitude: 47.498820, longitude: 8.723689),CLLocation(latitude: 46.966327, longitude: 7.455565),CLLocation(latitude: 46.947248, longitude: 7.451586),CLLocation(latitude: 46.947974, longitude: 7.447447),CLLocation(latitude: 47.358830, longitude: 8.559589),CLLocation(latitude: 46.950408, longitude: 7.438146),CLLocation(latitude: 50.075538, longitude: 14.437800),CLLocation(latitude: 47.369779, longitude: 8.557668),CLLocation(latitude: 49.412635, longitude: 8.675332),CLLocation(latitude: 52.349894, longitude: 13.014204),CLLocation(latitude: 51.165025, longitude: 10.452901),CLLocation(latitude: 59.329323, longitude: 18.068581),CLLocation(latitude: 40.006054, longitude: -101.436768),CLLocation(latitude: 40.343121, longitude: -74.666744),CLLocation(latitude: 38.897676, longitude: -77.036530),CLLocation(latitude: 40.357298, longitude: -74.667223),CLLocation(latitude: 40.339819, longitude: -74.624008)]
             
         case 1:
             return [CLLocation(latitude: 21.6417069, longitude: 69.6292654),
                     CLLocation(latitude: 51.512681, longitude: -0.109903),
                     CLLocation(latitude: -29.61083, longitude: 30.36972),
-                    CLLocation(latitude: 0, longitude:0),
+                    CLLocation(latitude: 28.607798, longitude:77.219832),
                     CLLocation(latitude: -29.8753504, longitude: 31.0045807),
                     CLLocation(latitude: -26.2031134, longitude: 28.0270712),
                     CLLocation(latitude: 31.6206437, longitude: 74.8801088),
-                    CLLocation(latitude: 37.5334698, longitude:-121.9984011),
+                    CLLocation(latitude: 31.64286, longitude:74.85808),
                     CLLocation(latitude: 19.0759837, longitude:72.8776559),//switch 2
                 CLLocation(latitude: 21.33111458, longitude:72.62580872),//1
                 CLLocation(latitude: 28.7040592, longitude:77.1024902),
@@ -382,7 +387,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 CLLocation(latitude: 28.60177, longitude:77.2143393)]
             
         case 2:
-            return [CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 38.664512, longitude: -90.333027),CLLocation(latitude: 33.9462125, longitude: -84.3346473),CLLocation(latitude: 39.849557, longitude: -75.355746),CLLocation(latitude: 42.360082, longitude: -71.058880),CLLocation(latitude: 32.634580, longitude: -87.319511),CLLocation(latitude: 36.016829, longitude: -78.901486),CLLocation(latitude: 36.057757, longitude: -78.905451),CLLocation(latitude: 33.756318, longitude: -84.373451),CLLocation(latitude: 33.7556795, longitude: -84.3771254),CLLocation(latitude: 40.712784, longitude: -74.005941),CLLocation(latitude: 20.593684, longitude: 79.1),CLLocation(latitude: 33.7563179, longitude: -84.3734515),CLLocation(latitude: 38.907192, longitude: -77.036871),CLLocation(latitude: 31.870242, longitude: -116.638977),CLLocation(latitude: 32.407359, longitude: -87.021101),CLLocation(latitude: 41.878114, longitude: -87.629798),CLLocation(latitude: 38.907191, longitude: -77.036870),CLLocation(latitude: 35.149534, longitude: -90.048980)]
+            return [CLLocation(latitude: 33.748995, longitude: -84.387982),CLLocation(latitude: 38.664512, longitude: -90.333027),CLLocation(latitude: 33.9462125, longitude: -84.3346473),CLLocation(latitude: 39.849557, longitude: -75.355746),CLLocation(latitude: 42.360082, longitude: -71.058880),CLLocation(latitude: 32.634580, longitude: -87.319511),CLLocation(latitude: 36.016829, longitude: -78.901486),CLLocation(latitude: 36.057757, longitude: -78.905451),CLLocation(latitude: 33.756318, longitude: -84.373451),CLLocation(latitude: 33.7556795, longitude: -84.3771254),CLLocation(latitude: 40.712784, longitude: -74.005941),CLLocation(latitude: 20.593684, longitude: 79.1),CLLocation(latitude: 33.7563179, longitude: -84.3734515),CLLocation(latitude: 38.907193, longitude: -77.036872),CLLocation(latitude: 31.870242, longitude: -116.638977),CLLocation(latitude: 32.407359, longitude: -87.021101),CLLocation(latitude: 41.878114, longitude: -87.629798),CLLocation(latitude: 38.907191, longitude: -77.036870),CLLocation(latitude: 35.149534, longitude: -90.048980)]
             
         default:
             return []
@@ -393,8 +398,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         
         switch index {
-            /*case 0:
-             */
+        case 0:
+            return ["Albert Einstein is born in Ulm, Germany, the son of Hermann Einstein, a German-Jewish featherbed salesman, and his wife Pauline.","Einstein enrolls in the second grade of a Catholic elementary school called the Petersschule. He receives Jewish religious instruction at home and also begins taking violin lessons.","Struggling financially, the Einstein family moves from Germany to Italy in search of better work. Albert, aged fifteen, stays behind in Munich to finish his schooling, but soon either quits or is kicked out of his high school and follows his parents to Italy.","Albert Einstein attempts to get out of his last year of high school by taking an entrance exam to ETH, the Swiss Polytechnic University in Zurich. He fails the test, forcing him to attend one final year of high school in the small town of Aarau, Switzerland, instead.","Albert Einstein graduates from high school and begins attending ETH, the prestigious Swiss Polytechnic University in Zurich.","At the age of 17, Albert Einstein renounces his German citizenship to avoid mandatory military service in the German army. For the next four years, he will not be a legal citizen of any nation.","Albert Einstein graduates from ETH with a degree in physics. He tries to find a teaching job, but is unable to obtain work.","Albert Einstein obtains Swiss citizenship and works as a temporary teacher at the Technical College in Winterthur, Switzerland.","Milena Maric gives birth to Leiserl Einstein, Albert's first child. The unwed couple, unable to care for the girl and perhaps ashamed of her illegitimate status, put her up for adoption. Unable to find any work as a teacher or academic, Albert Einstein takes a job as a clerk at the Swiss Patent Office.","Albert Einstein marries his longtime girlfriend, Milena Maric in Bern.","A year after marrying Albert, his wife Milena gives birth to the Einsteins' first son, Hans Albert.","Einstein completes his paper on quantum theory and his paper on Brownian motion is accepted by the Annalen der Physik. His paper on the special theory of relativity is also published in the Annalen der Physik.","Einstein becomes a privatdozentat Bern University.","The Einsteins move to Prague, where Albert assumes his first full professorship after many years working at the Swiss Patent Office or teaching in part-time positions in Switzerland.","After just a year in Prague, the Einsteins move back to Switzerland, to where Albert takes professorship at his alma mater, the Swiss Federal Institute of Technology in Zurich.","Albert Einstein moves from Zurich to Berlin to become the director of the prestigious Kaiser Wilhelm Institute. His marriage to Milena begins to unravel, and his wife and children decide to stay behind in Zurich. They will never live together as a family again.","Einstein completes his General Theory of Relativity.","After several years of estrangement, Albert divorces his first wife Milena Maric and immediately remarries. Einstein's second wife, Elsa Lowenthal, is a cousin with whom he fell in love when she nursed him back to health following a serious illness in 1917. At the close of World War I, Albert Einstein regains his German citizenship in a gesture of solidarity with liberal new government of the Weimar Republic. On May 29th a solar eclipse provides dramatic observable evidence that Einstein's General Theory of Relativity is correct. Einstein suddenly becomes a worldwide celebrity.","Albert Einstein wins the Nobel Prize in Physics for his work on the photoelectric effect, first published in 1905. Being to remote he could however not attend the ceremony.","Albert Einstein and his family, fearing anti-Semitic persecution, flee from Nazi Germany to resettle in the United States. Einstein takes a post at Institute of Advanced Study at Princeton, where he will remain until his death in 1955.","Albert Einstein's second wife Elsa dies of sudden illness.","Fearing that Nazi scientists might win the race to develop the world's first atomic bombs, Albert Einstein writes a letter to President Franklin D. Roosevelt, urging him to launch an American program of nuclear research.","For the third time in his life, Albert Einstein changes his nationality, becoming a United States citizen while also retaining his Swiss citizenship.","Albert Einstein dies of heart failure at the age of 76."]
         case 1:
             return ["Mohandas Karamchand Gandhi was born in Porbandar in West Bengal, India","After attending Inner Temple Law School in the United Kingdom, Gandhi passes the bar exam and becomes a lawyer. Unknown to him at the time, his mother has passed away while he is at school.","Gandhi is thrown off of a train in South Africa for refusing to move from his First Class seat to Third Class (even though he held a valid First Class ticket). Such discrimination against Indians was common practice and this personal experience gives Gandhi resolve to fight racial discrimination.","Gandhi founds the Natal Indian Congress to oppose a bill denying Indians the right to vote in South Africa. Although the bill passes, Gandhi successfully focuses a broad range of public attention on injustices against Indians even as far away as India and the UK.","Landing in Durban Harbor, South Africa, Gandhi is beaten up by a mob of white settlers. His life is saved when the wife of the Durban Police Chief stands between Gandhi and his attackers. Because of media attention to the event, the colonial government is forced to arrest members of the mob but Gandhi refuses to press charges. Gandhi gains increased public admiration and support. His attackers offer a public apology.","The South African colonial government enacts the “Asian Population Registration Act” where all residents of Asian countries, including India, had to register their name, age, address, job, and other personal information and carry a card with their finger prints. Gandhi develops his principals of non-violent protest “satyagraha” (devotion to the truth or “soul force”).","Gandhi and 2,000 fellow Indians in Johannesburg burn their registration cards in protest. Even as Gandhi and other leaders are repeatedly arrested over 6 years of protest, non-violent rallies continue to grow in size.","The British Government passes the Rowlatt Act which gives authority and power to arrest people and keep them in prisons without any trial if they are suspected with the charge of terrorism. It was also the time of the Jallianwala Bagh massacre where a crowd of nonviolent protesters, was fired upon by British troops. The Bagh-space had only five entrances. British troops fired on the crowd for ten minutes, directing their bullets towards the few open gates through which people were trying to flee 379 were killed and 1200 wounded.","Gandhi gets people to more intently boycott British products and encourages people to start making their own clothes rather than buying British clothing. Similar to Gandhi the All-India Congress held a special session at Calcutta on September 4 and agreed to the non-cooperation campaign for independence.","The British retaliate by passing the Salt Act which makes it illegal for Indians to make their own salt, punishable by at least three years in jail. On March 12th, Gandhi (now 61 years old) travels 320 km (200 miles) on foot for 24 days to Dandi to make his own salt. Others follow. Gandhi is again imprisoned.","Gandhi launches the Quit India campaign declaring India’s independence from British rule. Gandhi is imprisoned.","Still in prison the 73 year old Gandhi starts a hunger strike that lasts for 21 days.","Fearful that Gandhi would die in prison due to failing health and become a martyr, he and other leaders are released.","The United Kingdom Cabinet Mission of 1946 to India is created. Its goal was to discuss and plan the transfer of power from the British government to Indian leadership to provide India with independence.","Tensions between Hindu and Muslim factions resurface and escalate into violence. India is divided into Pakistan and India. The lasting effects of the Indo-Pakistani War of 1947 still affects the geopolitics of this region.","Attempting to promote peace and asking that homes be restored to Muslims, payment to Pakistan be made (per an agreement made before the Indo-Pakistani War of 1947), and fighting cease, Gandhi (now 77 years old) starts another fast. Five days into the fast, India makes payment to Pakistan and Hindu, Muslim and Sikh community leaders agree to renounce violence and call for peace.","Mohandas Karamchand Gandhi is killed by a member of a Hindu organization angered by Gandhi’s peacemaking efforts. Gandhi was shot on his way to evening prayers. His memory and teachings live  on in the non-violent peace movements of today."]
             
@@ -410,8 +415,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func getYearsForPersonWithIndex(index: Int) -> [String]{
         
         switch index {
-            /*case 0:
-             */
+        case 0:
+            return ["1879","1884","1894","1895","1896","1896","1900","1901","1902","1903","1904","1905","1908","1911","1912","1914","1915","1919","1921","1933","1936","1939","1940","1955"]
         case 1:
             return ["1869","1891","1893","1894","1897","1906","1908","1919","1920","1930","1942","1943","1944","1946","1947","1948","1948"]
             
@@ -425,6 +430,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     
     func getAnnotationDescForPersonWithIndex(index: Int) -> [String] {
         switch index {
+        case 0:
+            return ["Albert Einstein is born","Petersschule","Move to Italy","Boarding School in Aarau","Einstein at ETH","Einstein Renounces German Citizenship","College Graduation","Swiss Citizenship","Daughter Born, Put Up for Adoption and Unemployment","Marries Milena Maric","Birth of Hans Albert Einstein","Annus Mirabilis and the University of Zurich","Privatdozent at Bern University","Move to Prague","Move Back to Zurich","Director of Kaiser Wilhelm Institute","General Theory of Relativity","Divorce,Restoration of German Citizenship Proof of Theory of Relativity","Nobel Banquet at Grand Hôtel, Stockholm","Escape from Nazi Germany","Death of Elsa Einstein in their home","Letter to President Roosevelt","US Citizenship","Death of Albert Einstein"]
         case 1:
             return ["Gandhis Brithplace","Graduation from Inner Temple Law School","Thrown off of train due to discrimination","Natal Indian Congress is founded","Attack by angry mob","Mass meetings outside the Hamidia Mosque","Burning of registration cards as protest","Jallianwala Bagh massacre","Boycott of british goods","Gandhi arrested for producing salt","Gandhis Quit India speech","Beginning 21 day hunger strike in Delhi","Release of prisoners","UK Cabinet Mission","War over Kashmir and Jammu","Start of another hunger strike (probably in Delhi) in order to achieve peace","Assassination at Birla House (now Gandhi Smriti)"]
         case 2:
@@ -450,6 +457,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type:.InfoLight) as UIView
+                view.rightCalloutAccessoryView?.tintColor = UIColor.blackColor()
+                
                 view.animatesDrop = true
                 
             }
@@ -457,7 +466,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             //Tint color workaround
             let fullNameArr = annotation.title!.characters.split{$0 == ":"}.map(String.init)
             if fullNameArr[0] == "Gandhi"{
-                view.pinTintColor = UIColor.blueColor()
+                view.pinTintColor = UIColor.purpleColor()
             }else if fullNameArr[0] == "King"{
                 view.pinTintColor = UIColor.greenColor()
             }
@@ -510,15 +519,17 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             watchButton.title = "Track"
             stopMonitoringLocations(locationManager,defaults: defaults)
             
+            if WCSession.isSupported() {
+                WCSession.defaultSession().transferUserInfo(["toBeWatched": "NoOne","dummy":"false"])
+            }
             defaults.setObject("NoOne", forKey: "toBeWatched")
         }
         else{
             //startMonitoringLocation()
-            let dummy = ["toBeWatched" : defaults.objectForKey("toBeWatched") as AnyObject!]
-            WCSession.defaultSession().transferUserInfo(dummy)
             defaults.setObject(data, forKey: "toBeWatched")
             alertLogic()
         }
+
 
     }
     
@@ -531,11 +542,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let okAction = UIAlertAction(title: "Geofencing", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             
-            let dummy = ["toBeWatched" : self.defaults.objectForKey("toBeWatched") as AnyObject!]
-            WCSession.defaultSession().transferUserInfo(dummy)
             self.startMonitoringLocation()
             self.watchButton.title = "Untrack"
             self.defaults.setObject(self.data, forKey: "toBeWatched")
+            
+            if WCSession.isSupported() {
+                WCSession.defaultSession().transferUserInfo(["toBeWatched": self.data,"dummy":"false"])
+            }
+            
         }
         
         let dummy = UIAlertAction(title: "Dummy", style: UIAlertActionStyle.Default) {
@@ -554,8 +568,11 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             
             self.defaults.setObject("true", forKey: "dummyNotification")
             self.defaults.setObject(self.data, forKey: "toBeWatched")
-            
             self.watchButton.title = "Untrack"
+            
+            if WCSession.isSupported() {
+                WCSession.defaultSession().transferUserInfo(["toBeWatched": self.data,"dummy":"true"])
+            }
             
         }
         
@@ -563,6 +580,10 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
             self.defaults.setObject("NoOne", forKey: "toBeWatched")
+          
+            if WCSession.isSupported() {
+                WCSession.defaultSession().transferUserInfo(["toBeWatched": "NoOne","dummy":"false"])
+            }
         }
         
         // Add the actions
@@ -595,7 +616,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         if currentValue != 0 {
             let lowerYear = String(currentValue+1869)
-            let upperYear = String(currentValue+1869+10)
+            let upperYear = String(currentValue+1869+5)
             yearLabel.text = lowerYear+" - "+upperYear
             
             //remove all annotations
@@ -605,7 +626,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             //add annotations
             var dudeNames = ["Einstein","Gandhi","King"]
             
-            for i in 1..<3{
+            for i in 0..<3{
                 
                 var tempYear = getYearsForPersonWithIndex(i)
                 var tempShort = getAnnotationDescForPersonWithIndex(i)
@@ -614,7 +635,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 
                 for a in 0..<tempLocs.count  {
                     
-                    if Int(tempYear[a])!-1869 <= currentValue+10 && Int(tempYear[a])!-1869 >= currentValue{
+                    if Int(tempYear[a])!-1869 <= currentValue+5 && Int(tempYear[a])!-1869 >= currentValue{
                         
                         
                         let artwork = Artwork(title: tempName+": "+tempYear[a],
@@ -642,7 +663,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         
         var dudeNames = ["Einstein","Gandhi","King"]
         
-        for i in 1..<3{
+        for i in 0..<3{
             var tempYear = getYearsForPersonWithIndex(i)
             var tempShort = getAnnotationDescForPersonWithIndex(i)
             var tempLocs = getLocationForPersonWithIndex(i)
@@ -703,12 +724,15 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func setupDataForCorrectPerson()  {
         
         //Setup NavBar Text
+        
         let fullNameArr = data.characters.split{$0 == " "}.map(String.init)
         navBar.topItem?.title = fullNameArr[fullNameArr.count-1]+"'s Journey"
         if fullNameArr[fullNameArr.count-1] == "Gandhi"{
             currentIndex = 1
         }else if fullNameArr[fullNameArr.count-1] == "King"{
             currentIndex = 2
+        }else{
+            currentIndex = 0
         }
         
         //get Data
@@ -944,3 +968,4 @@ extension String {
         return boundingBox.height
     }
 }
+

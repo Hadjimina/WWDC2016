@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             session.activateSession()
         }
         
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("page")
         window?.rootViewController = vc
@@ -112,20 +111,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
         }
     }
     
-    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: ([NSObject : AnyObject]?) -> Void) {
-        // retrieved parameters from Apple Watch
-        print(userInfo!["value1"])
-        print(userInfo!["value2"])
-        
-        // pass back values to Apple Watch
-        var retValues = Dictionary<String,String>()
-        
-        retValues["retVal1"] = "return Test 1"
-        retValues["retVal2"] = "return Test 2"
-        
-        reply(retValues)
-        
-    }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
@@ -145,9 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             defaults.setObject("true", forKey: "fromNotification")
             rootVC.performSegueWithIdentifier("notificationLoad", sender: nil)
         } else {
-            
-            UIApplication.sharedApplication().cancelAllLocalNotifications()
             alertHandler(application)
+           //UIApplication.sharedApplication().cancelAllLocalNotifications()
         }
     }
     
@@ -176,6 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
             
             let okAction = UIAlertAction(title: "Show Location", style: UIAlertActionStyle.Default) {
                 UIAlertAction in
+                self.alertShown = false
                 self.performSegueToCorrectVC()
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {

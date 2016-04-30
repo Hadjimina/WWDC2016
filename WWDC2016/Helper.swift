@@ -95,12 +95,13 @@ func notefromRegionIdentifier(identifier: String) -> String? {
     var message1 = "You are near an important location in "
     let message2 = "s life"
     
-    if identifier.rangeOfString("Alber Einstein") != nil{
-        message1 = message1 + "Alber Einstein"
+    print("idetn :"+identifier)
+    if identifier == "Albert Einstein" {
+        message1 = message1 + "Albert Einstein"
     }
-    else if identifier.rangeOfString("Mahatma Gandhi") != nil{
+    else if identifier == "Mahatma Gandhi" {
         message1 = message1 + "Mahatma Gandhi"
-    }else{
+    }else if identifier == "Martin Luther King"{
         message1 = message1 + "Martin Luther King"
     }
     
