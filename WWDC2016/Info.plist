@@ -5,7 +5,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Philipp Hadjiminas app requires access to your phone’s location to notify you when you are near a historical event.</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>en_US</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Garamond Light.ttf</string>

@@ -29,19 +29,20 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 	
 	override func awakeWithContext(context: AnyObject?) {
 		super.awakeWithContext(context)
-        
+        //entireSetup()
 		}
 	
 	override func willActivate() {
 		super.willActivate()
         entireSetup()
+        
 	}
 	
     func entireSetup()  {
         
-        if initialExist() && userAlreadyExist(){
-            print(NSUserDefaults.standardUserDefaults().objectForKey("toBeWatched")![0]["toBeWatched"])
-            person = NSUserDefaults.standardUserDefaults().objectForKey("toBeWatched")![0]["toBeWatched"] as? String
+        if userAlreadyExist() {
+            print(NSUserDefaults.standardUserDefaults().objectForKey("toBeWatched"))
+            person = NSUserDefaults.standardUserDefaults().objectForKey("toBeWatched") as? String
             print(person)
         }
         else{
@@ -49,8 +50,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
            // defaults.setObject(["toBeWatched":"NoOne","dummy":"false"], forKey: "toBeWatched")
         }
         
-        if initialExist()&&dummyAlreadyExist(){
-            dummy = NSUserDefaults.standardUserDefaults().objectForKey("toBeWatched")![0]["dummy"] as? String
+        if  dummyAlreadyExist(){
+            dummy = NSUserDefaults.standardUserDefaults().objectForKey("dummy") as? String
         }else{
             dummy = "false"
         }
@@ -101,12 +102,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 			self.mapView.setHidden(true)
 			self.descLabel.setText("You're currently not watching anyone. Add someone to your watchlist in the App on your phone.")
 		}
-		
-		
-		
-		
 	}
 	
+    override func didAppear() {
+        entireSetup()
+    }
 	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 		
 		print(error.description)
@@ -258,10 +258,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
         }
     }
     
-	
+
 	override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
         
          let adsf = localNotification.alertBody
+        print("alert body "+adsf!)
         if adsf!.rangeOfString("Gandhi") != nil{
             person = "Mahatma Gandhi"
             setupDataForCorrectPerson()
@@ -285,21 +286,22 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
 	}
 	
 	func userAlreadyExist() -> Bool {
-        if (defaults.objectForKey("toBeWatched")![0]["toBeWatched"] != nil) {
+        if (defaults.objectForKey("toBeWatched") != nil) {
 		return true
 		}
 		return false
 	}
     
-    func initialExist() -> Bool {
-        print(defaults)
+   /* func initialExist() -> Bool {
+        print(defaults.dictionaryRepresentation())
         if (defaults.objectForKey("toBeWatched") != nil) {
             return true
         }
         return false
-    }
+    }*/
     func dummyAlreadyExist() -> Bool {
-        if (defaults.objectForKey("toBeWatched")![0]["dummy"] != nil) {
+        print(defaults.objectForKey("dummy"))
+        if (defaults.objectForKey("dummy") != nil) {
             return true
         }
         return false

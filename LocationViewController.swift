@@ -56,7 +56,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         super.viewDidLoad()
         
         mapView.showsCompass = false
-        registerNotification()        
+        //registerNotification()
         
         //Geo
         locationManager.delegate = self
@@ -196,7 +196,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             if height < 60{
                 height = 60
             }
-        
+            
         }else{
             if height < 125{
                 height = 125
@@ -275,7 +275,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let destinationVC = segue.destinationViewController as! RootViewController
         
-
+        
         if (segue.identifier == "unwind") {
             var indexToSet = 0
             if data == "Mahatma Gandhi"{
@@ -288,7 +288,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             }
             destinationVC.currentIndex = indexToSet
         }
-
+        
     }
     
     //Orientation Change
@@ -514,7 +514,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
     func trackerHandler()  {
         //Cancel scheduled notifcations
         UIApplication.sharedApplication().cancelAllLocalNotifications()
-
+        
         if defaults.stringForKey("toBeWatched") == data {
             watchButton.title = "Track"
             stopMonitoringLocations(locationManager,defaults: defaults)
@@ -522,6 +522,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             if WCSession.isSupported() {
                 WCSession.defaultSession().transferUserInfo(["toBeWatched": "NoOne","dummy":"false"])
             }
+            
             defaults.setObject("NoOne", forKey: "toBeWatched")
         }
         else{
@@ -529,8 +530,8 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             defaults.setObject(data, forKey: "toBeWatched")
             alertLogic()
         }
-
-
+        
+        
     }
     
     //Show alert
@@ -562,8 +563,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
             notification.soundName = UILocalNotificationDefaultSoundName
             notification.fireDate = NSDate(timeIntervalSinceNow: 10)
             notification.category = "hi"
-            //notification.repeatInterval = NSCalendarUnit.Minute
-            
+
             UIApplication.sharedApplication().scheduleLocalNotification(notification)
             
             self.defaults.setObject("true", forKey: "dummyNotification")
@@ -580,7 +580,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
             self.defaults.setObject("NoOne", forKey: "toBeWatched")
-          
+            
             if WCSession.isSupported() {
                 WCSession.defaultSession().transferUserInfo(["toBeWatched": "NoOne","dummy":"false"])
             }
@@ -785,14 +785,14 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
                 self.watchButton.title = "Untrack"
                 
             }
-
+            
             
             //Actual Geofencing
             let geo = UIPreviewAction(title: "Geofencing", style: .Default) { (action, viewController) -> Void in
                 self.trackerHandler()
             }
             
-                        return [dummy,geo]
+            return [dummy,geo]
         }
     }
     
@@ -802,7 +802,7 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         let translation = sender.translationInView(self.view)
         
         self.mergerHeightValue = self.mergerView.frame.size.height - translation.y
-
+        
         if self.mergerHeightValue > bottomOffSet && self.mergerHeightValue < topOffSet  {
             
             sender.view!.center = CGPoint(x: sender.view!.center.x, y: sender.view!.center.y + translation.y)
@@ -948,11 +948,11 @@ class LocationViewController: UIViewController,MKMapViewDelegate,UITableViewData
         tableView.reloadData()
         let yearIndex = currentYears.indexOf(year)
         addAllAnnotaions()
-        centerMapOnLocation(currentLocations[yearIndex!], radius: 1000)        
+        centerMapOnLocation(currentLocations[yearIndex!], radius: 1000)
         setTableFull(0.5)
         slider.value = 0.0
         yearLabel.text = "Show All"
-
+        
     }
     
 }
