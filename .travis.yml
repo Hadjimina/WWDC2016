@@ -1,0 +1,4 @@
+language: objective-c
+xcode_project: "Philipp Hadjimina.xcodeproj" # path to your xcodeproj folder
+xcode_scheme: WWDC2016Tests
+osx_image: xcode7.3
