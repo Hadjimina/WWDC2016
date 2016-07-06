@@ -1,4 +1,4 @@
-#H1 WWDC 2016 Scholarship Essay
+# WWDC 2016 Scholarship Essay
 The idea behind my app was to view historic figures from a different angle. Not to learn about them through a dusty old school book but rather to get information about them in a bite-sized fashion and be presented with a location for each event. A second  aim was to view their lifes journey in relation to other people who had a significant impact on the world. That is why I ultimately centered the app around Apple Maps to visualize said data.
 
 A further idea was to bring the joy of stumbling upon an unknown landmark to the 21st century.  Personally I would never walk through Zurich simply to see where Einstein had studied. However, were I to happen to walk past Zurich University, I would like to know Einstein had studied there, and then have the possibility to learn more about him and his connection with the place. Location tracking has enabled me to set virtual fences around landmarks; once a user then crosses one of these fences, he is notified about his encounter with a historic person and can learn about the relationship between the location and the person.
